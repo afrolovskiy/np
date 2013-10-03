@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.11.25)  24 SEP 2013 20:57
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.9.13)  4 OCT 2013 01:22
 entering extended mode
  %&-line parsing enabled.
 **report.tex
@@ -700,13 +700,13 @@ File: t2acmtt.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2 <./includes/network_gv.
 pdf>] [3] [4]
 [5] [6] [7] [8]
-Underfull \hbox (badness 6445) in paragraph at lines 440--443
+Underfull \hbox (badness 6445) in paragraph at lines 453--456
 []\T2A/cmr/m/n/12 ”далим марш-рут сле-до-ва-ни€ па-ке-тов из се-ти 192.168.11.0
 /24 в сеть
  []
 
 
-Underfull \hbox (badness 4805) in paragraph at lines 448--451
+Underfull \hbox (badness 4805) in paragraph at lines 461--464
 []\T2A/cmr/m/n/12 ƒобавим марш-рут сле-до-ва-ни€ па-ке-тов из се-ти 192.168.11.
 0/24 в сеть
  []
@@ -714,8 +714,8 @@ Underfull \hbox (badness 4805) in paragraph at lines 448--451
 [9] [10] [11] (./report.aux) ) 
 Here is how much of TeX's memory you used:
  18645 strings out of 493848
- 347219 string characters out of 1152822
- 425918 words of memory out of 3000000
+ 347219 string characters out of 1152823
+ 424917 words of memory out of 3000000
  21511 multiletter control sequences out of 15000+50000
  12516 words of font info for 34 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
@@ -727,7 +727,7 @@ ts/type1/public/cm-super/sfbx1728.pfb></usr/share/texmf/fonts/type1/public/cm-s
 uper/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1440.pfb></
 usr/share/texmf/fonts/type1/public/cm-super/sfrm2074.pfb></usr/share/texmf/font
 s/type1/public/cm-super/sftt1095.pfb>
-Output written on report.pdf (11 pages, 184121 bytes).
+Output written on report.pdf (11 pages, 184305 bytes).
 PDF statistics:
  142 PDF objects out of 1000 (max. 8388607)
  23 named destinations out of 1000 (max. 500000)

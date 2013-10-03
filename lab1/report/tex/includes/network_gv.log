@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.11.25)  24 SEP 2013 11:24
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.9.13)  4 OCT 2013 00:49
 entering extended mode
  %&-line parsing enabled.
 **tex/includes/network_gv.tex
@@ -735,8 +735,8 @@ Preview: Tightpage 0 0 0 0
 (tex/includes/network_gv.aux) ) 
 Here is how much of TeX's memory you used:
  13078 strings out of 493848
- 270696 string characters out of 1152822
- 349720 words of memory out of 3000000
+ 270696 string characters out of 1152823
+ 349718 words of memory out of 3000000
  16102 multiletter control sequences out of 15000+50000
  3640 words of font info for 14 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191

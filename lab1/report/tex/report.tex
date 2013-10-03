@@ -35,6 +35,8 @@ auto eth0
 iface eth0 inet static
 address 192.168.11.1
 netmask 255.255.255.0
+up ip r add 192.168.12.0/24 via 192.168.11.2 dev eth0
+down ip r del 192.168.12.0/24
 
 auto eth1
 iface eth1 inet static
@@ -52,6 +54,8 @@ auto eth0
 iface eth0 inet static
 address 192.168.12.1
 netmask 255.255.255.0
+up ip r add 192.168.13.0/24 via 192.168.12.2 dev eth0
+down ip r del 192.168.13.0/24
 
 auto eth1
 iface eth1 inet static
@@ -69,6 +73,8 @@ auto eth0
 iface eth0 inet static
 address 192.168.13.1
 netmask 255.255.255.0
+up ip r add 192.168.11.0/24 via 192.168.13.2 dev eth0
+down ip r del 192.168.11.0/24
 
 auto eth1
 iface eth1 inet static
@@ -127,12 +133,14 @@ gateway 192.168.13.1
 
 \begin{Verbatim}
 192.168.13.0/24 dev eth1  proto kernel  scope link  src 192.168.13.2 
-192.168.11.0/24 dev eth0  proto kernel  scope link  src 192.168.11.1 
+192.168.12.0/24 via 192.168.11.2 dev eth0 
+192.168.11.0/24 dev eth0  proto kernel  scope link  src 192.168.11.1
 \end{Verbatim}
 
 Ниже показана таблица маршрутизации для маршрутизатора \textbf{r2}:
 
 \begin{Verbatim}
+192.168.13.0/24 via 192.168.12.2 dev eth0 
 192.168.12.0/24 dev eth0  proto kernel  scope link  src 192.168.12.1 
 192.168.11.0/24 dev eth1  proto kernel  scope link  src 192.168.11.2
 \end{Verbatim}
@@ -141,7 +149,8 @@ gateway 192.168.13.1
 
 \begin{Verbatim}
 192.168.13.0/24 dev eth0  proto kernel  scope link  src 192.168.13.1 
-192.168.12.0/24 dev eth1  proto kernel  scope link  src 192.168.12.2
+192.168.12.0/24 dev eth1  proto kernel  scope link  src 192.168.12.2 
+192.168.11.0/24 via 192.168.13.2 dev eth0
 \end{Verbatim}
 
 Ниже показана таблица маршрутизации для рабочей станции \textbf{ws1}:
@@ -178,6 +187,14 @@ traceroute to 192.168.12.3 (192.168.12.3), 64 hops max, 40 byte packets
  2  192.168.12.3  13 ms  1 ms  1 ms
 \end{Verbatim}
 
+Вывод \textbf{traceroute} от маршрутизатора \textbf{r1} до узла \textbf{ws2} при нормальной работе сети:
+
+\begin{Verbatim}
+traceroute to 192.168.12.3 (192.168.12.3), 64 hops max, 40 byte packets
+ 1  192.168.11.2  7 ms  0 ms  0 ms
+ 2  192.168.12.3  11 ms  1 ms  0 ms
+\end{Verbatim}
+
 Вывод \textbf{traceroute} от узла \textbf{ws1} до узла \textbf{ws3} при нормальной работе сети:
 
 \begin{Verbatim}
@@ -202,12 +219,28 @@ traceroute to 192.168.13.3 (192.168.13.3), 64 hops max, 40 byte packets
  2  192.168.13.3  13 ms  1 ms  1 ms
 \end{Verbatim}
 
+Вывод \textbf{traceroute} от маршрутизатора \textbf{r2} до узла \textbf{ws3} при нормальной работе сети:
+
+\begin{Verbatim}
+traceroute to 192.168.13.3 (192.168.13.3), 64 hops max, 40 byte packets
+ 1  192.168.12.2  3 ms  0 ms  0 ms
+ 2  192.168.13.3  11 ms  0 ms  0 ms
+\end{Verbatim}
+
 Вывод \textbf{traceroute} от узла \textbf{ws3} до узла \textbf{ws1} при нормальной работе сети:
 
 \begin{Verbatim}
 traceroute to 192.168.11.3 (192.168.11.3), 64 hops max, 40 byte packets
  1  192.168.13.2  1 ms  1 ms  1 ms
  2  192.168.11.3  2 ms  2 ms  1 ms
+\end{Verbatim}
+
+Вывод \textbf{traceroute} от маршрутизатора \textbf{r3} до узла \textbf{ws1} при нормальной работе сети:
+
+\begin{Verbatim}
+traceroute to 192.168.11.3 (192.168.11.3), 64 hops max, 40 byte packets
+ 1  192.168.13.2  1 ms  1 ms  0 ms
+ 2  192.168.11.3  1 ms  1 ms  1 ms
 \end{Verbatim}
 
 Вывод \textbf{traceroute} от узла \textbf{ws3} до узла \textbf{ws2} при нормальной работе сети:
@@ -246,6 +279,7 @@ traceroute to 192.168.12.3 (192.168.12.3), 64 hops max, 40 byte packets
 
 \begin{Verbatim}
 192.168.13.0/24 dev eth1  proto kernel  scope link  src 192.168.13.2 
+192.168.12.0/24 via 192.168.11.2 dev eth0 
 192.168.11.0/24 dev eth0  proto kernel  scope link  src 192.168.11.1
 \end{Verbatim}
 
@@ -274,6 +308,7 @@ traceroute to 192.168.12.3 (192.168.12.3), 64 hops max, 40 byte packets
 Таблица маршрутизации для \textbf{r2} имеет следующий вид:
 
 \begin{Verbatim}
+192.168.13.0/24 via 192.168.12.2 dev eth0 
 192.168.12.0/24 dev eth0  proto kernel  scope link  src 192.168.12.1 
 192.168.11.0/24 dev eth1  proto kernel  scope link  src 192.168.11.2
 \end{Verbatim}
@@ -327,10 +362,10 @@ default via 192.168.11.1 dev eth0
 ping 192.168.12.3 -c 1
 \end{Verbatim}
 
-На первом шаге рабочая станция \textbf{ws1} определяет по своей маршрутной таблице, что
-пакет нужно отправить на адрес 192.168.11.2. Затем рабочая станция \textbf{ws1} пытается
-узнать MAC-адрес с помощью протокола ARP и отправляет сам пакет на маршрутизатор
-\textbf{r2}:
+На первом шаге рабочая станция \textbf{ws1} определяет по своей маршрутной таблице,
+что пакет нужно отправить на адрес 192.168.11.2. Затем рабочая станция \textbf{ws1} 
+пытается узнать MAC-адрес с помощью протокола ARP и отправляет сам пакет на
+маршрутизатор \textbf{r2}:
 
 \begin{Verbatim}
 a6:f9:52:b6:1e:69 > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 42:
@@ -362,7 +397,7 @@ da:53:12:09:ea:4e > 3a:40:ee:31:9e:cd, ethertype ARP (0x0806), length 42:
 
 \begin{Verbatim}
 ip link set eth0 down
-ip route add 192.168.12.0/24 via 192.168.11.1 dev eth0
+ip route add 192.168.12.0/24 via 192.168.11.1 dev eth1
 \end{Verbatim}
 
 После чего таблица маршрутизации для маршрутизатора \textbf{r2} будет иметь следующий вид:
@@ -370,20 +405,6 @@ ip route add 192.168.12.0/24 via 192.168.11.1 dev eth0
 \begin{Verbatim}
 192.168.12.0/24 via 192.168.11.1 dev eth1 
 192.168.11.0/24 dev eth1  proto kernel  scope link  src 192.168.11.2
-\end{Verbatim}
-
-Также добавим на маршрутизаторе \textbf{r1} неверный маршрут до сети 192.168.12.0:
-
-\begin{Verbatim}
-ip route add 192.168.12.0/24 via 192.168.11.2 dev eth0
-\end{Verbatim}
-
-После чего таблица маршрутизации для маршрутизатора \textbf{r1} будет иметь следующий вид:
-
-\begin{Verbatim}
-192.168.13.0/24 dev eth1  proto kernel  scope link  src 192.168.13.2 
-192.168.12.0/24 via 192.168.11.2 dev eth0 
-192.168.11.0/24 dev eth0  proto kernel  scope link  src 192.168.11.1
 \end{Verbatim}
 
 С рабочей станции \textbf{ws1} пошлeм эхо-запрос на рабочую станцию \textbf{ws2}:
@@ -400,24 +421,16 @@ ping 192.168.12.3 -c 1
 a6:f9:52:b6:1e:69 > 12:3e:e2:7d:e3:87, ethertype IPv4 (0x0800), length 98:
     (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto ICMP (1), length 84) 
     192.168.11.3 > 192.168.12.3: ICMP echo request, id 8450, seq 1, length 64
-...
 12:3e:e2:7d:e3:87 > 0e:ab:f8:0c:10:4b, ethertype IPv4 (0x0800), length 98:
     (tos 0x0, ttl 63, id 0, offset 0, flags [DF], proto ICMP (1), length 84)
     192.168.11.3 > 192.168.12.3: ICMP echo request, id 8450, seq 1, length 64
-0e:ab:f8:0c:10:4b > 12:3e:e2:7d:e3:87, ethertype IPv4 (0x0800), length 98:
-    (tos 0x0, ttl 62, id 0, offset 0, flags [DF], proto ICMP (1), length 84)
-    192.168.11.3 > 192.168.12.3: ICMP echo request, id 8450, seq 1, length 64
-12:3e:e2:7d:e3:87 > 0e:ab:f8:0c:10:4b, ethertype IPv4 (0x0800), length 98:
-    (tos 0x0, ttl 61, id 0, offset 0, flags [DF], proto ICMP (1), length 84)
-    192.168.11.3 > 192.168.12.3: ICMP echo request, id 8450, seq 1, length 64
-...
+\vdots
 0e:ab:f8:0c:10:4b > 12:3e:e2:7d:e3:87, ethertype IPv4 (0x0800), length 98:
     (tos 0x0, ttl 2, id 0, offset 0, flags [DF], proto ICMP (1), length 84)
     192.168.11.3 > 192.168.12.3: ICMP echo request, id 8450, seq 1, length 64
 12:3e:e2:7d:e3:87 > 0e:ab:f8:0c:10:4b, ethertype IPv4 (0x0800), length 98:
     (tos 0x0, ttl 1, id 0, offset 0, flags [DF], proto ICMP (1), length 84)
     192.168.11.3 > 192.168.12.3: ICMP echo request, id 8450, seq 1, length 64
-...
 0e:ab:f8:0c:10:4b > a6:f9:52:b6:1e:69, ethertype IPv4 (0x0800), length 126:
     (tos 0xc0, ttl 64, id 15633, offset 0, flags [none], proto ICMP (1), length 112)
     192.168.11.1 > 192.168.11.3: ICMP time exceeded in-transit, length 92
@@ -432,14 +445,14 @@ a6:f9:52:b6:1e:69 > 12:3e:e2:7d:e3:87, ethertype IPv4 (0x0800), length 98:
 \begin{itemize}
 
 \item Изменим маршрут следования пакетов между узлами \textbf{ws1} и \textbf{ws2} сети 
-       таким образом, чтобы пакеты, между этими сетями проходили через маршртизаторы \textbf{r1}
-       и \textbf{r3}. Для этого выполним следуюшие дествия:
+       таким образом, чтобы пакеты, между этими сетями проходили через маршртизаторы 
+       \textbf{r1} и \textbf{r3}. Для этого выполним следуюшие дествия:
 
 \begin{itemize}
 
 \item Удалим маршрут следования пакетов из сети 192.168.11.0/24 в сеть
        192.168.12.0/24 через маршрутизатор \textbf{r2} из маршрутной таблицы
-       рабочей станции \textbf{ws1}:
+       рабочей станции \textbf{ws1} и маршрутизатора \textbf{r1}:
 
 \begin{Verbatim}
 ip route del 192.168.12.0/24 via 192.168.11.2 dev eth0
@@ -467,13 +480,8 @@ ip route add 192.168.12.0/24 via 192.168.13.1 dev eth1
 ip link set dev eth1 mtu 576
 \end{Verbatim}
 
-\item Уменьшим величину MTU на интерфейсе eth0 маршрутизатора \textbf{r3}:
-
-\begin{Verbatim}
-ip link set dev eth0 mtu 576
-\end{Verbatim}
-
-\item Уменьшим величину MTU на интерфейсе eth0 рабочей станции \textbf{ws3}:
+\item Уменьшим величину MTU на интерфейсе eth0 маршрутизатора \textbf{r3} и рабочей 
+         станции \textbf{ws3}:
 
 \begin{Verbatim}
 ip link set dev eth0 mtu 576
