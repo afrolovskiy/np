@@ -1,0 +1,2 @@
+service quagga defaults
+service networking restart
