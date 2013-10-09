@@ -33,30 +33,219 @@
 Ниже приведён файл сетевой настройки  маршрутизатора \textbf{r1}:
 
 \begin{Verbatim}
-Сюда нужно поместить характерный /etc/network/interfaces маршрутизатора
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet static
+address 10.103.0.1
+netmask 255.255.0.0
+
+auto eth1
+iface eth1 inet static
+address 10.104.0.1
+netmask 255.255.0.0
 \end{Verbatim}
 
-Ниже приведён файл сетевой настройки рабочей станции (указать, какой).
+Ниже приведён файл сетевой настройки  маршрутизатора \textbf{r2}:
 
 \begin{Verbatim}
-Сюда нужно поместить характерный /etc/network/interfaces рабочей станции
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet static
+address 10.102.0.1
+netmask 255.255.0.0
+
+auto eth1
+iface eth1 inet static
+address 10.103.0.2
+netmask 255.255.0.0
 \end{Verbatim}
 
+Ниже приведён файл сетевой настройки  маршрутизатора \textbf{r3}:
+
+\begin{Verbatim}
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet static
+address 10.101.0.1
+netmask 255.255.0.0
+
+auto eth1
+iface eth1 inet static
+address 10.102.0.2
+netmask 255.255.0.0
+
+auto eth2
+iface eth2 inet static
+address 10.106.0.1
+netmask 255.255.0.0
+\end{Verbatim}
+
+Ниже приведён файл сетевой настройки  маршрутизатора \textbf{r4}:
+
+\begin{Verbatim}
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet static
+address 10.103.0.3
+netmask 255.255.0.0
+
+auto eth1
+iface eth1 inet static
+address 10.105.0.1
+netmask 255.255.0.0
+
+auto eth2
+iface eth2 inet static
+address 10.106.0.2
+netmask 255.255.0.0
+\end{Verbatim}
+
+Ниже приведён файл сетевой настройки  маршрутизатора \textbf{r5}:
+
+\begin{Verbatim}
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet static
+address 10.104.0.2
+netmask 255.255.0.0
+
+auto eth1
+iface eth1 inet static
+address 10.105.0.2
+netmask 255.255.0.0
+\end{Verbatim}
+
+Ниже приведён файл сетевой настройки рабочей станции \textbf{ws1}:
+
+\begin{Verbatim}
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet static
+address 10.101.0.2
+netmask 255.255.0.0
+\end{Verbatim}
+
+Ниже приведён файл сетевой настройки рабочей станции \textbf{wsp1}:
+
+\begin{Verbatim}
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet static
+address 10.103.0.4
+netmask 255.255.0.0
+\end{Verbatim}
 
 
 \subsection{Настройка протокола RIP}
 
-Ниже приведен файл \Code{/etc/quagga/ripd.conf} маршрутизатора (указать, какого).
+Ниже приведен файл \Code{/etc/quagga/ripd.conf} маршрутизатора \textbf{r1}:
 
 \begin{Verbatim}
-Сюда нужно поместить конфигурацию ripd
+router rip
+
+network eth0
+network eth1
+
+timers basic 10 60 120
+
+redistribute kernel
+redistribute connected
+
+log file /var/log/quagga/ripd.log
 \end{Verbatim}
 
-
-Ниже приведен файл \Code{/etc/quagga/ripd.conf} рабочий станции, связанной с несколькими маршрутизаторами (указать, какой).
+Ниже приведен файл \Code{/etc/quagga/ripd.conf} маршрутизатора \textbf{r2}:
 
 \begin{Verbatim}
-Сюда нужно поместить конфигурацию ripd
+router rip
+
+network eth0
+network eth1
+
+timers basic 10 60 120
+
+redistribute kernel
+redistribute connected
+
+log file /var/log/quagga/ripd.log
+\end{Verbatim}
+
+Ниже приведен файл \Code{/etc/quagga/ripd.conf} маршрутизатора \textbf{r3}:
+
+\begin{Verbatim}
+router rip
+
+network eth1
+network eth2
+
+timers basic 10 60 120
+
+redistribute kernel
+redistribute connected
+
+log file /var/log/quagga/ripd.log
+\end{Verbatim}
+
+Ниже приведен файл \Code{/etc/quagga/ripd.conf} маршрутизатора \textbf{r4}:
+
+\begin{Verbatim}
+router rip
+
+network eth0
+network eth1
+netmask eth2
+
+timers basic 10 60 120
+
+redistribute kernel
+redistribute connected
+
+log file /var/log/quagga/ripd.log
+\end{Verbatim}
+
+Ниже приведен файл \Code{/etc/quagga/ripd.conf} маршрутизатора \textbf{r5}:
+
+\begin{Verbatim}
+router rip
+
+network eth0
+network eth1
+
+timers basic 10 60 120
+
+redistribute kernel
+redistribute connected
+
+log file /var/log/quagga/ripd.log
+\end{Verbatim}
+
+Ниже приведен файл \Code{/etc/quagga/ripd.conf} рабочий станции, связанной с несколькими маршрутизаторами \textbf{wsp1}.
+
+\begin{Verbatim}
+router rip
+
+network eth0
+
+timers basic 10 60 120
+
+redistribute kernel
+redistribute connected
+
+log file /var/log/quagga/ripd.log
 \end{Verbatim}
 
 
