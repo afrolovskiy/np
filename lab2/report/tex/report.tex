@@ -3,7 +3,7 @@
 \input{header.tex}
 
 \title{Отчёт по лабораторной работе \\ <<Динамическая IP-маршрутизация>>}
-\author{(Здесь писать Ф.~И.~О)}
+\author{(Фроловский Алексей Вадимович)}
 
 \begin{document}
 
@@ -24,14 +24,15 @@
 \label{fig:network}
 \end{figure}
 
-Перечень узлов, на которых используется динамическая IP-маршрутизация: 
+На следующих узлах используется динамическая IP-маршрутизация: 
 \textbf{r1}, \textbf{r2}, \textbf{r3}, \textbf{r4}, \textbf{r5}, \textbf{wsp1}
-
 
 \subsection{Назначение IP-адресов}
 
-Ниже приведён файл сетевой настройки  маршрутизатора \textbf{r1}:
+Ниже приведёны файлы сетевой настройки узлов:
+\begin{itemize}
 
+\item маршрутизатор \textbf{r1}
 \begin{Verbatim}
 auto lo
 iface lo inet loopback
@@ -47,8 +48,7 @@ address 10.104.0.1
 netmask 255.255.0.0
 \end{Verbatim}
 
-Ниже приведён файл сетевой настройки  маршрутизатора \textbf{r2}:
-
+\item маршрутизатор \textbf{r2}:
 \begin{Verbatim}
 auto lo
 iface lo inet loopback
@@ -64,8 +64,7 @@ address 10.103.0.2
 netmask 255.255.0.0
 \end{Verbatim}
 
-Ниже приведён файл сетевой настройки  маршрутизатора \textbf{r3}:
-
+\item маршрутизатор \textbf{r3}:
 \begin{Verbatim}
 auto lo
 iface lo inet loopback
@@ -86,8 +85,7 @@ address 10.106.0.1
 netmask 255.255.0.0
 \end{Verbatim}
 
-Ниже приведён файл сетевой настройки  маршрутизатора \textbf{r4}:
-
+\item маршрутизатор \textbf{r4}:
 \begin{Verbatim}
 auto lo
 iface lo inet loopback
@@ -108,8 +106,7 @@ address 10.106.0.2
 netmask 255.255.0.0
 \end{Verbatim}
 
-Ниже приведён файл сетевой настройки  маршрутизатора \textbf{r5}:
-
+\item маршрутизатор \textbf{r5}:
 \begin{Verbatim}
 auto lo
 iface lo inet loopback
@@ -125,8 +122,7 @@ address 10.105.0.2
 netmask 255.255.0.0
 \end{Verbatim}
 
-Ниже приведён файл сетевой настройки рабочей станции \textbf{ws1}:
-
+\item рабочая станция \textbf{ws1}:
 \begin{Verbatim}
 auto lo
 iface lo inet loopback
@@ -135,10 +131,10 @@ auto eth0
 iface eth0 inet static
 address 10.101.0.2
 netmask 255.255.0.0
+gateway 10.101.0.1
 \end{Verbatim}
 
-Ниже приведён файл сетевой настройки рабочей станции \textbf{wsp1}:
-
+\item рабочая станция \textbf{wsp1}:
 \begin{Verbatim}
 auto lo
 iface lo inet loopback
@@ -149,6 +145,7 @@ address 10.103.0.4
 netmask 255.255.0.0
 \end{Verbatim}
 
+\end{itemize}
 
 \subsection{Настройка протокола RIP}
 
@@ -251,71 +248,261 @@ log file /var/log/quagga/ripd.log
 
 \section{Проверка настройки протокола RIP}
 
-Вывод \textbf{traceroute} от узла такого-то до такого-то при нормальной работе сети.
+Вывод \textbf{traceroute} от узла \textbf{wsp2} до узла \textbf{ws1} при
+нормальной работе сети.
 
 \begin{Verbatim}
-Сюда нужно поместить вывод traceroute.
+traceroute to 10.101.0.2 (10.101.0.2), 64 hops max, 40 byte packets
+ 1  10.103.0.2  0 ms  0 ms  0 ms
+ 2  10.102.0.2  0 ms  0 ms  0 ms
+ 3  10.101.0.2  11 ms  0 ms  0 ms
 \end{Verbatim}
 
-Вывод \textbf{traceroute} от узла такого-то до внешнего IP (195.19.38.2 сгодится).
+Вывод \textbf{traceroute} от \textbf{ws1} такого-то до внешнего IP 195.19.38.2.
 
 \begin{Verbatim}
-Сюда нужно поместить вывод traceroute.
+traceroute to 195.19.38.2 (195.19.38.2), 64 hops max, 40 byte packets
+ 1  10.101.0.1 (10.101.0.1)  2 ms  1 ms  1 ms
+ 2  10.102.0.1 (10.102.0.1)  1 ms  1 ms  1 ms
+ 3  10.103.0.1 (10.103.0.1)  2 ms  2 ms  1 ms
+ 4  172.16.0.1 (172.16.0.1)  2 ms  1 ms  1 ms
+ 5  192.168.1.1 (192.168.1.1)  2 ms  4 ms  1 ms
+ 6  10.176.192.1 (10.176.192.1)  4 ms  3 ms  4 ms
+ 7  213.85.210.37 (213.85.210.37)  8 ms  3 ms  2 ms
+ 8  213.85.208.250 (213.85.208.250)  2 ms  6 ms  4 ms
+ 9  213.85.208.246 (213.85.208.246)  6 ms  15 ms  5 ms
+10  193.232.244.44 (193.232.244.44)  5 ms  6 ms  4 ms
+11  194.85.40.214 (194.85.40.214)  4 ms  5 ms  7 ms
+12  194.190.254.82 (194.190.254.82)  8 ms  60 ms  6 ms
+13  195.19.32.146 (195.19.32.146)  19 ms  7 ms  10 ms
+14  195.19.38.2 (195.19.38.2)  7 ms  8 ms  11 ms
 \end{Verbatim}
 
-Вывод сообщения RIP.
+Перехваченное сообщение RIP от маршрутизатора \textbf{r4}:
 
 \begin{Verbatim}
 Перехваченное сообщение RIP от любого маршрутизатора
+IP (tos 0x0, ttl 1, id 0, offset 0, flags [DF], proto UDP (17), length 92) 10.103.0.3.520 > 224.0.0.9.520: 
+	RIPv2, Response, length: 64, routes: 3
+	  AFI: IPv4:      10.101.0.0/16, tag 0x0000, metric: 2, next-hop: self
+	  AFI: IPv4:      10.105.0.0/16, tag 0x0000, metric: 1, next-hop: self[|rip]
 \end{Verbatim}
 
 Вывод таблицы RIP.
 
 \begin{Verbatim}
-Таблица RIP
+Codes: R - RIP, C - connected, S - Static, O - OSPF, B - BGP
+Sub-codes:
+      (n) - normal, (s) - static, (d) - default, (r) - redistribute,
+      (i) - interface
+
+     Network            Next Hop         Metric From            Tag Time
+R(n) 0.0.0.0/0          10.103.0.1            2 10.103.0.1        0 00:54
+R(n) 10.101.0.0/16      10.106.0.1            2 10.106.0.1        0 00:57
+R(n) 10.102.0.0/16      10.103.0.2            2 10.103.0.2        0 00:54
+C(i) 10.103.0.0/16      0.0.0.0               1 self              0
+R(n) 10.104.0.0/16      10.103.0.1            2 10.103.0.1        0 00:54
+C(i) 10.105.0.0/16      0.0.0.0               1 self              0
+C(i) 10.106.0.0/16      0.0.0.0               1 self              0
+R(n) 172.16.0.0/16      10.103.0.1            2 10.103.0.1        0 00:54
 \end{Verbatim}
 
 Вывод таблицы маршрутизации.
 
 \begin{Verbatim}
-Таблица маршрутизации
+10.101.0.0/16 via 10.106.0.1 dev eth2  proto zebra  metric 2 
+10.103.0.0/16 dev eth0  proto kernel  scope link  src 10.103.0.3 
+10.102.0.0/16 via 10.103.0.2 dev eth0  proto zebra  metric 2 
+10.105.0.0/16 dev eth1  proto kernel  scope link  src 10.105.0.1 
+10.104.0.0/16 via 10.103.0.1 dev eth0  proto zebra  metric 2 
+172.16.0.0/16 via 10.103.0.1 dev eth0  proto zebra  metric 2 
+10.106.0.0/16 dev eth2  proto kernel  scope link  src 10.106.0.2 
+default via 10.103.0.1 dev eth0  proto zebra  metric 2
 \end{Verbatim}
 
 \section{Расщепленный горизонт и испорченные обратные обновления}
 
-Поместить сюда вывод сообщения одного и того же маршрутизатор с включенным расщ. горизонтом, с включенными испорченными обновлениями, с отключённым расщ. гор.
+Для выполнения данного пункта лабораторной работы будем слушать интерфейс
+\textbf{eth0} на маршрутизаторе \textbf{r2}.
 
-Объяснить разницу.
+С включенным <<расщепленным горизонтом>>:
+\begin{Verbatim}
+IP (tos 0x0, ttl 1, id 0, offset 0, flags [DF], proto UDP (17), length 132) 10.102.0.1.520 > 224.0.0.9.520: 
+	RIPv2, Response, length: 104, routes: 5
+	  AFI: IPv4:         0.0.0.0/0 , tag 0x0000, metric: 2, next-hop: self
+	  AFI: IPv4:      10.103.0.0/16, tag 0x0000, metric: 1, next-hop: self
+	  AFI: IPv4:      10.104.0.0/16, tag 0x0000, metric: 2, next-hop: self
+	  AFI: IPv4:      10.105.0.0/16, tag 0x0000, metric: 2, next-hop: self
+	  AFI: IPv4:      172.16.0.0/16, tag 0x0000, metric: 2, next-hop: self
+IP (tos 0x0, ttl 1, id 0, offset 0, flags [DF], proto UDP (17), length 92) 10.102.0.2.520 > 224.0.0.9.520: 
+	RIPv2, Response, length: 64, routes: 3
+	  AFI: IPv4:      10.101.0.0/16, tag 0x0000, metric: 1, next-hop: self
+	  AFI: IPv4:      10.105.0.0/16, tag 0x0000, metric: 2, next-hop: self
+	  AFI: IPv4:      10.106.0.0/16, tag 0x0000, metric: 1, next-hop: self
+\end{Verbatim}
 
-Вернуть настройки в исходное состояние (включенный без испорченных).
+С включенными <<испорченными обновлениями>>:
+\begin{Verbatim}
+IP (tos 0x0, ttl 1, id 0, offset 0, flags [DF], proto UDP (17), length 192) 10.102.0.1.520 > 224.0.0.9.520: 
+	RIPv2, Response, length: 164, routes: 8
+	  AFI: IPv4:         0.0.0.0/0 , tag 0x0000, metric: 2, next-hop: self
+	  AFI: IPv4:      10.101.0.0/16, tag 0x0000, metric: 16, next-hop: 10.102.0.2
+	  AFI: IPv4:      10.102.0.0/16, tag 0x0000, metric: 16, next-hop: self
+	  AFI: IPv4:      10.103.0.0/16, tag 0x0000, metric: 1, next-hop: self
+	  AFI: IPv4:      10.104.0.0/16, tag 0x0000, metric: 2, next-hop: self
+	  AFI: IPv4:      10.105.0.0/16, tag 0x0000, metric: 2, next-hop: self
+	  AFI: IPv4:      10.106.0.0/16, tag 0x0000, metric: 16, next-hop: 10.102.0.2
+	  AFI: IPv4:      172.16.0.0/16, tag 0x0000, metric: 2, next-hop: self
+IP (tos 0x0, ttl 1, id 0, offset 0, flags [DF], proto UDP (17), length 92) 10.102.0.2.520 > 224.0.0.9.520: 
+	RIPv2, Response, length: 64, routes: 3
+	  AFI: IPv4:      10.101.0.0/16, tag 0x0000, metric: 1, next-hop: self
+	  AFI: IPv4:      10.105.0.0/16, tag 0x0000, metric: 2, next-hop: self
+	  AFI: IPv4:      10.106.0.0/16, tag 0x0000, metric: 1, next-hop: self
+\end{Verbatim}
+
+С отключенным <<расщепленным горизонтом>>:
+\begin{Verbatim}
+IP (tos 0x0, ttl 1, id 0, offset 0, flags [DF], proto UDP (17), length 192) 10.102.0.1.520 > 224.0.0.9.520: 
+	RIPv2, Response, length: 164, routes: 8
+	  AFI: IPv4:         0.0.0.0/0 , tag 0x0000, metric: 2, next-hop: self
+	  AFI: IPv4:      10.101.0.0/16, tag 0x0000, metric: 2, next-hop: 10.102.0.2
+	  AFI: IPv4:      10.102.0.0/16, tag 0x0000, metric: 1, next-hop: self
+	  AFI: IPv4:      10.103.0.0/16, tag 0x0000, metric: 1, next-hop: self
+	  AFI: IPv4:      10.104.0.0/16, tag 0x0000, metric: 2, next-hop: self
+	  AFI: IPv4:      10.105.0.0/16, tag 0x0000, metric: 2, next-hop: self
+	  AFI: IPv4:      10.106.0.0/16, tag 0x0000, metric: 2, next-hop: 10.102.0.2
+	  AFI: IPv4:      172.16.0.0/16, tag 0x0000, metric: 2, next-hop: self
+IP (tos 0x0, ttl 1, id 0, offset 0, flags [DF], proto UDP (17), length 92) 10.102.0.2.520 > 224.0.0.9.520: 
+	RIPv2, Response, length: 64, routes: 3
+	  AFI: IPv4:      10.101.0.0/16, tag 0x0000, metric: 1, next-hop: self
+	  AFI: IPv4:      10.105.0.0/16, tag 0x0000, metric: 2, next-hop: self
+	  AFI: IPv4:      10.106.0.0/16, tag 0x0000, metric: 1, next-hop: self
+\end{Verbatim}
+
+Как видно при отключенном <<испорченном обратном обновлении>> маршрут
+включается в сообщение, но его метрика в сообщении равна <<бесконечности>>.
+А при отключенном <<расщепленном горизонте>>, то посылаются сообщения с
+информацией о всех известных маршрутах.
 
 \section{Имитация устранимой поломки в сети}
 
-Какой маршрутизатор выключили?
+Для того, чтобы выполнить данный пункт лабораторной работы выключим
+маршрутизатор \textbf{r4}
 
-Вывод таблицы RIP непосредственно перед истечением таймера устаревания (на маршрутизаторе-соседе отключенного).
-
+Вывод таблицы RIP непосредственно перед истечением таймера устаревания на маршрутизаторе \textbf{r2}:
 \begin{Verbatim}
-Таблица RIP
+Codes: R - RIP, C - connected, S - Static, O - OSPF, B - BGP
+Sub-codes:
+      (n) - normal, (s) - static, (d) - default, (r) - redistribute,
+      (i) - interface
+
+     Network            Next Hop         Metric From            Tag Time
+R(n) 0.0.0.0/0          10.103.0.1            2 10.103.0.1        0 00:56
+R(n) 10.101.0.0/16      10.102.0.2            2 10.102.0.2        0 00:48
+C(i) 10.102.0.0/16      0.0.0.0               1 self              0
+C(i) 10.103.0.0/16      0.0.0.0               1 self              0
+R(n) 10.104.0.0/16      10.103.0.1            2 10.103.0.1        0 00:56
+R(n) 10.105.0.0/16      10.103.0.3            2 10.103.0.3        0 00:44
+R(n) 10.106.0.0/16      10.102.0.2            2 10.102.0.2        0 00:48
+R(n) 172.16.0.0/16      10.103.0.1            2 10.103.0.1        0 00:56
 \end{Verbatim}
 
 Перестроенная таблица на этом же маршрутизаторе
-
 \begin{Verbatim}
-Таблица RIP
+Codes: R - RIP, C - connected, S - Static, O - OSPF, B - BGP
+Sub-codes:
+      (n) - normal, (s) - static, (d) - default, (r) - redistribute,
+      (i) - interface
+
+     Network            Next Hop         Metric From            Tag Time
+R(n) 0.0.0.0/0          10.103.0.1            2 10.103.0.1        0 01:00
+R(n) 10.101.0.0/16      10.102.0.2            2 10.102.0.2        0 00:55
+C(i) 10.102.0.0/16      0.0.0.0               1 self              0
+C(i) 10.103.0.0/16      0.0.0.0               1 self              0
+R(n) 10.104.0.0/16      10.103.0.1            2 10.103.0.1        0 01:00
+R(n) 10.105.0.0/16      10.103.0.1            3 10.103.0.1        0 01:00
+R(n) 10.106.0.0/16      10.102.0.2            2 10.102.0.2        0 00:55
+R(n) 172.16.0.0/16      10.103.0.1            2 10.103.0.1        0 01:00
 \end{Verbatim}
 
-
-Вывод \textbf{traceroute} от узла такого-то до такого-то после того, как служба RIP перестроила таблицы маршрутизации.
-
+Вывод \textbf{traceroute} от узла r2 такого-то до r5 такого-то после того, как служба RIP перестроила таблицы маршрутизации.
 \begin{Verbatim}
-Сюда нужно поместить вывод traceroute после "поломки".
+traceroute to 10.105.0.2 (10.105.0.2), 64 hops max, 40 byte packets
+ 1  10.103.0.1 (10.103.0.1)  9 ms  0 ms  0 ms
+ 2  10.105.0.2 (10.105.0.2)  16 ms  1 ms  1 ms
 \end{Verbatim}
 
 \section{Имитация неустранимой поломки в сети}
 
-Какой маршрутизатор выключили? (Теперь у нас нет связанной сети)
+Для того, чтобы выполнить данный пункт лабораторной работы выключим
+маршрутизатор \textbf{r3}.
 
-Далее поместить таблицы протокола RIP, где видна 16-ая метрика, и сообщения протокола RIP с 16-ой метрикой.
+После чего сеть 10.101.0.0/16 станет недоступной. Рассмотрим таблицы
+маршрутизации и некоторые сообщения, из которых видно, что сеть 10.101.0.0/24
+помечена метрикой 16, т.к. она является недоступной.
+
+Таблица маршрутизации у маршрутизатора \textbf{r2} примет следующий вид:
+
+\begin{Verbatim}
+Codes: R - RIP, C - connected, S - Static, O - OSPF, B - BGP
+Sub-codes:
+      (n) - normal, (s) - static, (d) - default, (r) - redistribute,
+      (i) - interface
+
+     Network            Next Hop         Metric From            Tag Time
+R(n) 0.0.0.0/0          10.103.0.1            2 10.103.0.1        0 00:58
+R(n) 10.101.0.0/16      10.102.0.2           16 10.102.0.2        0 01:41
+C(i) 10.102.0.0/16      0.0.0.0               1 self              0
+C(i) 10.103.0.0/16      0.0.0.0               1 self              0
+R(n) 10.104.0.0/16      10.103.0.1            2 10.103.0.1        0 00:58
+R(n) 10.105.0.0/16      10.103.0.3            2 10.103.0.3        0 00:57
+R(n) 10.106.0.0/16      10.103.0.3            2 10.103.0.3        0 00:57
+R(n) 172.16.0.0/16      10.103.0.1            2 10.103.0.1        0 00:58
+\end{Verbatim}
+
+\begin{Verbatim}
+IP (tos 0x0, ttl 1, id 0, offset 0, flags [DF], proto UDP (17), length 112) 10.103.0.1.520 > 224.0.0.9.520: 
+	RIPv2, Response, length: 84, routes: 4
+	  AFI: IPv4:         0.0.0.0/0 , tag 0x0000, metric: 1, next-hop: self
+	  AFI: IPv4:      10.104.0.0/16, tag 0x0000, metric: 1, next-hop: self[|rip]
+IP (tos 0x0, ttl 1, id 0, offset 0, flags [DF], proto UDP (17), length 92) 10.103.0.3.520 > 224.0.0.9.520: 
+	RIPv2, Response, length: 64, routes: 3
+	  AFI: IPv4:      10.101.0.0/16, tag 0x0000, metric: 16, next-hop: self
+	  AFI: IPv4:      10.105.0.0/16, tag 0x0000, metric: 1, next-hop: self[|rip]
+\end{Verbatim}
+
+Таблица маршрутизации у маршрутизатора \textbf{r4} примет следующий вид:
+
+\begin{Verbatim}
+Codes: R - RIP, C - connected, S - Static, O - OSPF, B - BGP
+Sub-codes:
+      (n) - normal, (s) - static, (d) - default, (r) - redistribute,
+      (i) - interface
+
+     Network            Next Hop         Metric From            Tag Time
+R(n) 0.0.0.0/0          10.103.0.1            2 10.103.0.1        0 00:55
+R(n) 10.101.0.0/16      10.106.0.1           16 10.106.0.1        0 01:19
+R(n) 10.102.0.0/16      10.103.0.2            2 10.103.0.2        0 00:52
+C(i) 10.103.0.0/16      0.0.0.0               1 self              0
+R(n) 10.104.0.0/16      10.103.0.1            2 10.103.0.1        0 00:55
+C(i) 10.105.0.0/16      0.0.0.0               1 self              0
+C(i) 10.106.0.0/16      0.0.0.0               1 self              0
+R(n) 172.16.0.0/16      10.103.0.1            2 10.103.0.1        0 00:55
+\end{Verbatim}
+
+\begin{Verbatim}
+IP (tos 0x0, ttl 1, id 0, offset 0, flags [DF], proto UDP (17), length 92) 10.103.0.3.520 > 224.0.0.9.520: 
+	RIPv2, Response, length: 64, routes: 3
+	  AFI: IPv4:      10.101.0.0/16, tag 0x0000, metric: 16, next-hop: self
+	  AFI: IPv4:      10.105.0.0/16, tag 0x0000, metric: 1, next-hop: self[|rip]
+IP (tos 0x0, ttl 1, id 0, offset 0, flags [DF], proto UDP (17), length 72) 10.103.0.2.520 > 224.0.0.9.520: 
+	RIPv2, Response, length: 44, routes: 2
+	  AFI: IPv4:      10.101.0.0/16, tag 0x0000, metric: 16, next-hop: self
+	  AFI: IPv4:      10.102.0.0/16, tag 0x0000, metric: 1, next-hop: self
+IP (tos 0x0, ttl 1, id 0, offset 0, flags [DF], proto UDP (17), length 112) 10.103.0.1.520 > 224.0.0.9.520: 
+	RIPv2, Response, length: 84, routes: 4
+	  AFI: IPv4:         0.0.0.0/0 , tag 0x0000, metric: 1, next-hop: self
+	  AFI: IPv4:      10.104.0.0/16, tag 0x0000, metric: 1, next-hop: self[|rip]
+\end{Verbatim}
 
 \end{document}
