@@ -3,7 +3,7 @@
 \input{header.tex}
 
 \title{Отчёт по лабораторной работе \\ <<Локальные сети>>}
-\author{Здесь Ф.~И.~О}
+\author{Фроловский Алексей Вадимлвич}
 
 \begin{document}
 
@@ -15,10 +15,72 @@
 
 \section{Получение адреса по DHCP}
 
+Получение "случайного" адреса можно продемонстрировать на примере
+сети \textbf{lan2} с адресом \textbf{10.102.0.0/16}. Для этого
+необходимо настроить службу DHCP на маршрутизаторе \textbf{r2}:
+в файле \textbf{/etc/dhcp3/dhcpd.conf} следует указать следующие
+настройки:
+\begin{Verbatim}
+subnet 172.16.0.0 netmask 255.255.0.0 \{\}
+
+subnet 10.102.0.0 netmask 255.255.0.0
+\{
+  range 10.102.0.2 10.102.0.200;
+  option routers 10.102.0.1;
+  option domain-name-servers 192.168.0.1;
+\}
+\end{Verbatim}
+
+Отметим, что в настройке \textbf{range} указывается диапазон,
+в котором будут динамически выдаваться ip-адреса, в
+\textbf{option routers} - ip-адреса маршрутизаторов сети,
+\textbf{option domain-name-servers} - ip-адреса DNS-серверов.
+
 Где что дампим.
 
 \begin{Verbatim}
 получение "случайного" адреса
+\end{Verbatim}
+
+Получение "фиксированных" адресов можно продемонстрировать на
+примере сети \textbf{lan1} с адресом \textbf{10.0.0.0/16}. Для
+этого необходимо настроить службу DHCP на маршрутизаторе
+\textbf{r1}: в файле \textbf{/etc/dhcp3/dhcpd.conf} следует
+указать следующие настройки:
+\begin{Verbatim}
+subnet 172.16.0.0 netmask 255.255.0.0 \{\}
+
+subnet 10.0.0.0 netmask 255.255.0.0
+\{
+  range 10.0.0.2 10.0.10.200;
+  option routers 10.0.0.1;
+  option domain-name-servers 192.168.0.1;
+\}
+
+host ws11 \{
+    hardware ethernet 10:10:10:10:10:BA;
+    fixed-address 10.0.1.1;
+\}
+
+host ws12 \{
+    hardware ethernet 10:10:10:10:10:BB;
+    fixed-address 10.0.2.1;
+\}
+
+host ws13 \{
+    hardware ethernet 10:10:10:10:10:BC;
+    fixed-address 10.0.3.1;
+\}
+
+host s11 \{
+    hardware ethernet 10:10:10:10:20:AA;
+    fixed-address 10.0.4.10;
+\}
+
+host s12 \{
+    hardware ethernet 10:10:10:10:20:BB;
+    fixed-address 10.0.4.20;
+\}
 \end{Verbatim}
 
 Где что дампим.
