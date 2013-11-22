@@ -44,31 +44,37 @@ tcpdump -tnv -i eth0 udp
 Получим следующий вывод:
 \begin{Verbatim}
 IP (tos 0x10, ttl 128, id 0, offset 0, flags [none], proto UDP (17), length 328) 
-	0.0.0.0.68 > 255.255.255.255.67: BOOTP/DHCP, Request from 10:10:10:10:10:ee, length 300, xid 0x82701421, Flags [none]
+	0.0.0.0.68 > 255.255.255.255.67: BOOTP/DHCP, Request from 10:10:10:10:10:ee, 
+		length 300, xid 0x82701421, Flags [none]
           Client-Ethernet-Address 10:10:10:10:10:ee [|bootp]
 IP (tos 0x10, ttl 128, id 0, offset 0, flags [none], proto UDP (17), length 328) 
 	10.102.0.1.67 > 10.102.0.2.68: BOOTP/DHCP, Reply, length 300, xid 0x82701421, Flags [none]
           Your-IP 10.102.0.2
           Client-Ethernet-Address 10:10:10:10:10:ee [|bootp]
 IP (tos 0x10, ttl 128, id 0, offset 0, flags [none], proto UDP (17), length 328) 
-	0.0.0.0.68 > 255.255.255.255.67: BOOTP/DHCP, Request from 10:10:10:10:10:ee, length 300, xid 0x82701421, Flags [none]
+	0.0.0.0.68 > 255.255.255.255.67: BOOTP/DHCP, Request from 10:10:10:10:10:ee, 
+		length 300, xid 0x82701421, Flags [none]
           Client-Ethernet-Address 10:10:10:10:10:ee [|bootp]
 IP (tos 0x10, ttl 128, id 0, offset 0, flags [none], proto UDP (17), length 328) 
 	10.102.0.1.67 > 10.102.0.2.68: BOOTP/DHCP, Reply, length 300, xid 0x82701421, Flags [none]
           Your-IP 10.102.0.2
           Client-Ethernet-Address 10:10:10:10:10:ee [|bootp]
 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 328) 
-	10.102.0.2.68 > 10.102.0.1.67: BOOTP/DHCP, Request from 10:10:10:10:10:ee, length 300, xid 0x7185b80d, Flags [none]
+	10.102.0.2.68 > 10.102.0.1.67: BOOTP/DHCP, Request from 10:10:10:10:10:ee, 
+		length 300, xid 0x7185b80d, Flags [none]
           Client-IP 10.102.0.2
           Client-Ethernet-Address 10:10:10:10:10:ee [|bootp]
 IP (tos 0x10, ttl 128, id 0, offset 0, flags [none], proto UDP (17), length 328) 
-	0.0.0.0.68 > 255.255.255.255.67: BOOTP/DHCP, Request from 10:10:10:10:10:ee, length 300, xid 0xe433c82b, Flags [none]
+	0.0.0.0.68 > 255.255.255.255.67: BOOTP/DHCP, Request from 10:10:10:10:10:ee, 
+		length 300, xid 0xe433c82b, Flags [none]
           Client-Ethernet-Address 10:10:10:10:10:ee [|bootp]
-IP (tos 0x10, ttl 128, id 0, offset 0, flags [none], proto UDP (17), length 328) 10.102.0.1.67 > 10.102.0.2.68: BOOTP/DHCP, Reply, length 300, xid 0xe433c82b, Flags [none]
+IP (tos 0x10, ttl 128, id 0, offset 0, flags [none], proto UDP (17), length 328) 
+	10.102.0.1.67 > 10.102.0.2.68: BOOTP/DHCP, Reply, length 300, xid 0xe433c82b, Flags [none]
           Your-IP 10.102.0.2
           Client-Ethernet-Address 10:10:10:10:10:ee [|bootp]
 IP (tos 0x10, ttl 128, id 0, offset 0, flags [none], proto UDP (17), length 328) 
-	0.0.0.0.68 > 255.255.255.255.67: BOOTP/DHCP, Request from 10:10:10:10:10:ee, length 300, xid 0xe433c82b, Flags [none]
+	0.0.0.0.68 > 255.255.255.255.67: BOOTP/DHCP, Request from 10:10:10:10:10:ee, 
+		length 300, xid 0xe433c82b, Flags [none]
           Client-Ethernet-Address 10:10:10:10:10:ee [|bootp]
 IP (tos 0x10, ttl 128, id 0, offset 0, flags [none], proto UDP (17), length 328) 
 	10.102.0.1.67 > 10.102.0.2.68: BOOTP/DHCP, Reply, length 300, xid 0xe433c82b, Flags [none]
