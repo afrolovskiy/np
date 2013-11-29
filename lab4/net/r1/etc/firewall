@@ -1,8 +1,66 @@
 #!/bin/sh
-
 LAN=eth0
 INET=eth1
 VPN=tun0
 
+# Удаление всех правил в таблице "filter" (по-умолчанию).
 iptables -F
-iptables -X
+
+# Удаление правил в таблице "nat" (её надо указать явно).
+iptables -F -t nat
+
+# По-умолчанию все маршрутизируемые пакеты выбрасываются.
+iptables --policy FORWARD DROP
+
+# разрешим DNS (для ресолвинга доменны имен)
+iptables -A FORWARD -p udp --dport 53 -o $INET -j ACCEPT
+
+# Для s11 разрешаем входящие соединения по smtp (порт 25)
+iptables -t nat -A PREROUTING -p tcp --dport 25 -i $INET -j DNAT --to 10.0.4.10:25
+
+# Для s12 разрешаем входящие соелинения по http (порт 80)
+iptables -t nat -A PREROUTING -p tcp --dport 80 -i $INET -j DNAT --to 10.0.4.20:80
+
+# Разрешаем любую маршрутизацию для интерфейса VPN
+iptables -A FORWARD -i $VPN -j ACCEPT
+iptables -A FORWARD -o $VPN -j ACCEPT
+
+# Для ws11
+# разрешаем сеть МГТУ
+iptables -A FORWARD -i $LAN -s 10.0.1.1 -d 172.168.0.0/16 -p tcp --dport 80 -j ACCEPT
+# запрещаем vkontakte.ru
+iptables -A FORWARD -i $LAN -s 10.0.1.1 -d 87.240.156.164/30 -p tcp --dport 80 -j DROP
+# запрещаем vk.com
+iptables -A FORWARD -i $LAN -s 10.0.1.1 -d 87.240.131.96/27 -p tcp --dport 80 -j DROP
+# разрешаем все остальные http запросы
+iptables -A FORWARD -i $LAN -s 10.0.1.1 -p tcp --dport 80 -j ACCEPT
+
+# Для ws12
+# разрешаем rambler.ru
+iptables -A FORWARD -i $LAN -s 10.0.2.1 -d 81.19.70.3 -p tcp --dport 80 -j ACCEPT
+iptables -A FORWARD -i $LAN -s 10.0.2.1 -d 81.19.70.3 -p tcp --dport 443 -j ACCEPT
+# разрешаем mail.ru
+iptables -A FORWARD -i $LAN -s 10.0.2.1 -d 217.69.139.192/28 -p tcp --dport 80 -j ACCEPT
+iptables -A FORWARD -i $LAN -s 10.0.2.1 -d 94.100.180.192/28 -p tcp --dport 80 -j ACCEPT
+iptables -A FORWARD -i $LAN -s 10.0.2.1 -d 217.69.139.192/28 -p tcp --dport 443 -j ACCEPT
+iptables -A FORWARD -i $LAN -s 10.0.2.1 -d 94.100.180.192/28 -p tcp --dport 443 -j ACCEPT
+
+# Для ws13
+# разрешаем сеть МГТУ
+iptables -A FORWARD -i $LAN -s 10.0.3.1 -d 172.168.0.0/16 -p tcp -j ACCEPT
+# разрешаем порты 80, 110, 443
+iptables -A FORWARD -i $LAN -s 10.0.3.1 -p tcp --dport 80 -j ACCEPT
+iptables -A FORWARD -i $LAN -s 10.0.3.1 -p tcp --dport 110 -j ACCEPT
+iptables -A FORWARD -i $LAN -s 10.0.3.1 -p tcp --dport 443 -j ACCEPT
+
+# Включение SNAT для маршрутизируемых пакетов, выходящих
+# через eth1. Это правило выполняется после самой маршрутизации
+# (POSTROUTING) и помещается в таблицу правил "nat".
+iptables -t nat -A POSTROUTING -o $INET -j MASQUERADE
+# Разрешение пакетов-ответов (они отслеживаются как
+# -- state ESTABLISHED)
+iptables -A FORWARD -m state --state ESTABLISHED -i $INET -j ACCEPT
+# Осталось разрешить исходящие пакеты в соответствии с заданием.
+
+# ICMP разрешим
+iptables -A FORWARD -p icmp -j ACCEPT
