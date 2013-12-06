@@ -721,7 +721,7 @@ Trying 87.240.156.161...
 
 Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
 \begin{Verbatim}
-IP (tos 0x10, ttl 64, id 7648, offset 0, flags [DF], proto TCP (6), length 60) 10.0.1.1.52593 > 87.240.156.161.80: S, cksum 0x049e (correct), 19178907:19178907(0) win 5840 <mss 1460,sackOK,timestamp 440443 0,nop,wscale 4>
+09:10:24.196385 IP 10.0.1.1.48642 > srv161-131.vkontakte.ru.www: S 2476894689:2476894689(0) win 5840 <mss 1460,sackOK,timestamp 538377 0,nop,wscale 4>
 \end{Verbatim}
 
 Выполним с хоста \textbf{ws11} \textbf{telnet 213.180.193.3 80},  чтобы проверить, что
@@ -735,18 +735,18 @@ Escape character is '^]'.
 
 Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
 \begin{Verbatim}
-IP (tos 0x10, ttl 64, id 49528, offset 0, flags [DF], proto TCP (6), length 60) 10.0.1.1.58316 > 213.180.193.3.80: S, cksum 0xc5aa (correct), 472909138:472909138(0) win 5840 <mss 1460,sackOK,timestamp 443434 0,nop,wscale 4>
-IP (tos 0x10, ttl 63, id 49528, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.3.58316 > 213.180.193.3.80: S, cksum 0x2398 (correct), 472909138:472909138(0) win 5840 <mss 1460,sackOK,timestamp 443434 0,nop,wscale 4>
-IP (tos 0x0, ttl 52, id 0, offset 0, flags [DF], proto TCP (6), length 52) 213.180.193.3.80 > 172.16.1.3.58316: S, cksum 0x81de (correct), 669402349:669402349(0) ack 472909139 win 14100 <mss 1410,nop,nop,sackOK,nop,wscale 9>
-IP (tos 0x0, ttl 51, id 0, offset 0, flags [DF], proto TCP (6), length 52) 213.180.193.3.80 > 10.0.1.1.58316: S, cksum 0x23f1 (correct), 669402349:669402349(0) ack 472909139 win 14100 <mss 1410,nop,nop,sackOK,nop,wscale 9>
-IP (tos 0x10, ttl 64, id 49529, offset 0, flags [DF], proto TCP (6), length 40) 10.0.1.1.58316 > 213.180.193.3.80: ., cksum 0x9a3a (correct), ack 1 win 365
-IP (tos 0x10, ttl 63, id 49529, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.3.58316 > 213.180.193.3.80: ., cksum 0xf827 (correct), ack 1 win 365
-IP (tos 0x10, ttl 64, id 49530, offset 0, flags [DF], proto TCP (6), length 40) 10.0.1.1.58316 > 213.180.193.3.80: F, cksum 0x9a39 (correct), 1:1(0) ack 1 win 365
-IP (tos 0x10, ttl 63, id 49530, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.3.58316 > 213.180.193.3.80: F, cksum 0xf826 (correct), 1:1(0) ack 1 win 365
-IP (tos 0x0, ttl 52, id 16650, offset 0, flags [DF], proto TCP (6), length 40) 213.180.193.3.80 > 172.16.1.3.58316: F, cksum 0xf976 (correct), 1:1(0) ack 2 win 28
-IP (tos 0x0, ttl 51, id 16650, offset 0, flags [DF], proto TCP (6), length 40) 213.180.193.3.80 > 10.0.1.1.58316: F, cksum 0x9b89 (correct), 1:1(0) ack 2 win 28
-IP (tos 0x10, ttl 64, id 49531, offset 0, flags [DF], proto TCP (6), length 40) 10.0.1.1.58316 > 213.180.193.3.80: ., cksum 0x9a38 (correct), ack 2 win 365
-IP (tos 0x10, ttl 63, id 49531, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.3.58316 > 213.180.193.3.80: ., cksum 0xf825 (correct), ack 2 win 365
+09:11:25.989192 IP 10.0.1.1.52554 > www.yandex.ru.www: S 3468065123:3468065123(0) win 5840 <mss 1460,sackOK,timestamp 544553 0,nop,wscale 4>
+09:11:25.989239 IP 172.16.1.3.52554 > www.yandex.ru.www: S 3468065123:3468065123(0) win 5840 <mss 1460,sackOK,timestamp 544553 0,nop,wscale 4>
+09:11:25.994747 IP www.yandex.ru.www > 172.16.1.3.52554: S 3290289542:3290289542(0) ack 3468065124 win 14100 <mss 1410,nop,nop,sackOK,nop,wscale 9>
+09:11:25.994759 IP www.yandex.ru.www > 10.0.1.1.52554: S 3290289542:3290289542(0) ack 3468065124 win 14100 <mss 1410,nop,nop,sackOK,nop,wscale 9>
+09:11:25.994900 IP 10.0.1.1.52554 > www.yandex.ru.www: . ack 1 win 365
+09:11:25.994909 IP 172.16.1.3.52554 > www.yandex.ru.www: . ack 1 win 365
+09:11:28.241949 IP 10.0.1.1.52554 > www.yandex.ru.www: F 1:1(0) ack 1 win 365
+09:11:28.242035 IP 172.16.1.3.52554 > www.yandex.ru.www: F 1:1(0) ack 1 win 365
+09:11:28.246888 IP www.yandex.ru.www > 172.16.1.3.52554: F 1:1(0) ack 2 win 28
+09:11:28.246946 IP www.yandex.ru.www > 10.0.1.1.52554: F 1:1(0) ack 2 win 28
+09:11:28.247900 IP 10.0.1.1.52554 > www.yandex.ru.www: . ack 2 win 365
+09:11:28.247940 IP 172.16.1.3.52554 > www.yandex.ru.www: . ack 2 win 365
 \end{Verbatim}
 
 Выполним с хоста \textbf{ws11} \textbf{telnet 217.69.139.90 143},  чтобы проверить,
@@ -758,7 +758,7 @@ Trying 217.69.139.90...
 
 Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
 \begin{Verbatim}
-IP (tos 0x10, ttl 64, id 31584, offset 0, flags [DF], proto TCP (6), length 60) 10.0.1.1.40282 > 217.69.139.90.143: S, cksum 0x65f5 (correct), 1092135162:1092135162(0) win 5840 <mss 1460,sackOK,timestamp 447386 0,nop,wscale 4>
+09:12:00.269976 IP 10.0.1.1.46751 > imap.mail.ru.imap2: S 4002257164:4002257164(0) win 5840 <mss 1460,sackOK,timestamp 547983 0,nop,wscale 4>
 \end{Verbatim}
 
 Выполним с хоста \textbf{ws11} \textbf{traceroute -n 10.102.0.2},  чтобы проверить,
@@ -786,18 +786,20 @@ Escape character is '^]'.
 
 Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
 \begin{Verbatim}
-IP (tos 0x10, ttl 64, id 37238, offset 0, flags [DF], proto TCP (6), length 60) 10.0.2.1.57399 > 217.69.139.199.80: S, cksum 0x566e (correct), 1538412372:1538412372(0) win 5840 <mss 1460,sackOK,timestamp 450082 0,nop,wscale 4>
-IP (tos 0x10, ttl 63, id 37238, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.3.57399 > 217.69.139.199.80: S, cksum 0xb55b (correct), 1538412372:1538412372(0) win 5840 <mss 1460,sackOK,timestamp 450082 0,nop,wscale 4>
-IP (tos 0x0, ttl 56, id 0, offset 0, flags [DF], proto TCP (6), length 56) 217.69.139.199.80 > 172.16.1.3.57399: S, cksum 0xa488 (correct), 958865643:958865643(0) ack 1538412373 win 5592 <mss 1410,sackOK,timestamp 509717891 450082>
-IP (tos 0x0, ttl 55, id 0, offset 0, flags [DF], proto TCP (6), length 56) 217.69.139.199.80 > 10.0.2.1.57399: S, cksum 0x459b (correct), 958865643:958865643(0) ack 1538412373 win 5592 <mss 1410,sackOK,timestamp 509717891 450082>
-IP (tos 0x10, ttl 64, id 37239, offset 0, flags [DF], proto TCP (6), length 52) 10.0.2.1.57399 > 217.69.139.199.80: ., cksum 0x5f2e (correct), ack 1 win 5840 <nop,nop,timestamp 450083 509717891>
-IP (tos 0x10, ttl 63, id 37239, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.57399 > 217.69.139.199.80: ., cksum 0xbe1b (correct), ack 1 win 5840 <nop,nop,timestamp 450083 509717891>
-IP (tos 0x10, ttl 64, id 37240, offset 0, flags [DF], proto TCP (6), length 52) 10.0.2.1.57399 > 217.69.139.199.80: F, cksum 0x5c8b (correct), 1:1(0) ack 1 win 5840 <nop,nop,timestamp 450757 509717891>
-IP (tos 0x10, ttl 63, id 37240, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.57399 > 217.69.139.199.80: F, cksum 0xbb78 (correct), 1:1(0) ack 1 win 5840 <nop,nop,timestamp 450757 509717891>
-IP (tos 0x0, ttl 56, id 36198, offset 0, flags [DF], proto TCP (6), length 52) 217.69.139.199.80 > 172.16.1.3.57399: F, cksum 0xa217 (correct), 1:1(0) ack 2 win 5592 <nop,nop,timestamp 509724635 450757>
-IP (tos 0x0, ttl 55, id 36198, offset 0, flags [DF], proto TCP (6), length 52) 217.69.139.199.80 > 10.0.2.1.57399: F, cksum 0x432a (correct), 1:1(0) ack 2 win 5592 <nop,nop,timestamp 509724635 450757>
-IP (tos 0x10, ttl 64, id 37241, offset 0, flags [DF], proto TCP (6), length 52) 10.0.2.1.57399 > 217.69.139.199.80: ., cksum 0x4229 (correct), ack 2 win 5840 <nop,nop,timestamp 450766 509724635>
-IP (tos 0x10, ttl 63, id 37241, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.57399 > 217.69.139.199.80: ., cksum 0xa116 (correct), ack 2 win 5840 <nop,nop,timestamp 450766 509724635>
+09:12:27.280578 IP 10.0.2.1.60823 > ms.mail.ru.8: S 121273156:121273156(0) win 5840 <mss 1460,sackOK,timestamp 550640 0,nop,wscale 4>
+09:12:30.233939 IP 10.0.2.1.60823 > ms.mail.ru.8: S 121273156:121273156(0) win 5840 <mss 1460,sackOK,timestamp 550940 0,nop,wscale 4>
+09:12:32.223129 IP 10.0.2.1.45731 > ms.mail.ru.www: S 197637687:197637687(0) win 5840 <mss 1460,sackOK,timestamp 551133 0,nop,wscale 4>
+09:12:32.223215 IP 172.16.1.3.45731 > ms.mail.ru.www: S 197637687:197637687(0) win 5840 <mss 1460,sackOK,timestamp 551133 0,nop,wscale 4>
+09:12:32.226715 IP ms.mail.ru.www > 172.16.1.3.45731: S 1920446077:1920446077(0) ack 197637688 win 5592 <mss 1410,sackOK,timestamp 1353492037 551133>
+09:12:32.226762 IP ms.mail.ru.www > 10.0.2.1.45731: S 1920446077:1920446077(0) ack 197637688 win 5592 <mss 1410,sackOK,timestamp 1353492037 551133>
+09:12:32.227450 IP 10.0.2.1.45731 > ms.mail.ru.www: . ack 1 win 5840 <nop,nop,timestamp 551133 1353492037>
+09:12:32.227470 IP 172.16.1.3.45731 > ms.mail.ru.www: . ack 1 win 5840 <nop,nop,timestamp 551133 1353492037>
+09:12:34.022451 IP 10.0.2.1.45731 > ms.mail.ru.www: F 1:1(0) ack 1 win 5840 <nop,nop,timestamp 551318 1353492037>
+09:12:34.022537 IP 172.16.1.3.45731 > ms.mail.ru.www: F 1:1(0) ack 1 win 5840 <nop,nop,timestamp 551318 1353492037>
+09:12:34.037861 IP ms.mail.ru.www > 172.16.1.3.45731: F 1:1(0) ack 2 win 5592 <nop,nop,timestamp 1353493837 551318>
+09:12:34.037939 IP ms.mail.ru.www > 10.0.2.1.45731: F 1:1(0) ack 2 win 5592 <nop,nop,timestamp 1353493837 551318>
+09:12:34.038900 IP 10.0.2.1.45731 > ms.mail.ru.www: . ack 2 win 5840 <nop,nop,timestamp 551318 1353493837>
+09:12:34.038956 IP 172.16.1.3.45731 > ms.mail.ru.www: . ack 2 win 5840 <nop,nop,timestamp 551318 1353493837>
 \end{Verbatim}
 
 Выполним с хоста \textbf{ws12} \textbf{telnet 217.69.139.199 443} для проверки
@@ -811,18 +813,18 @@ Escape character is '^]'.
 
 Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
 \begin{Verbatim}
-IP (tos 0x10, ttl 64, id 46442, offset 0, flags [DF], proto TCP (6), length 60) 10.0.2.1.33658 > 217.69.139.199.443: S, cksum 0x76c3 (correct), 2109299145:2109299145(0) win 5840 <mss 1460,sackOK,timestamp 453795 0,nop,wscale 4>
-IP (tos 0x10, ttl 63, id 46442, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.3.33658 > 217.69.139.199.443: S, cksum 0xd5b0 (correct), 2109299145:2109299145(0) win 5840 <mss 1460,sackOK,timestamp 453795 0,nop,wscale 4>
-IP (tos 0x0, ttl 56, id 0, offset 0, flags [DF], proto TCP (6), length 56) 217.69.139.199.443 > 172.16.1.3.33658: S, cksum 0x46f0 (correct), 1506870879:1506870879(0) ack 2109299146 win 5592 <mss 1410,sackOK,timestamp 1759107802 453795>
-IP (tos 0x0, ttl 55, id 0, offset 0, flags [DF], proto TCP (6), length 56) 217.69.139.199.443 > 10.0.2.1.33658: S, cksum 0xe802 (correct), 1506870879:1506870879(0) ack 2109299146 win 5592 <mss 1410,sackOK,timestamp 1759107802 453795>
-IP (tos 0x10, ttl 64, id 46443, offset 0, flags [DF], proto TCP (6), length 52) 10.0.2.1.33658 > 217.69.139.199.443: ., cksum 0x0197 (correct), ack 1 win 5840 <nop,nop,timestamp 453795 1759107802>
-IP (tos 0x10, ttl 63, id 46443, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.33658 > 217.69.139.199.443: ., cksum 0x6084 (correct), ack 1 win 5840 <nop,nop,timestamp 453795 1759107802>
-IP (tos 0x10, ttl 64, id 46444, offset 0, flags [DF], proto TCP (6), length 52) 10.0.2.1.33658 > 217.69.139.199.443: F, cksum 0x00db (correct), 1:1(0) ack 1 win 5840 <nop,nop,timestamp 453982 1759107802>
-IP (tos 0x10, ttl 63, id 46444, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.33658 > 217.69.139.199.443: F, cksum 0x5fc8 (correct), 1:1(0) ack 1 win 5840 <nop,nop,timestamp 453982 1759107802>
-IP (tos 0x0, ttl 56, id 56510, offset 0, flags [DF], proto TCP (6), length 52) 217.69.139.199.443 > 172.16.1.3.33658: F, cksum 0x599c (correct), 1:1(0) ack 2 win 5592 <nop,nop,timestamp 1759109629 453982>
-IP (tos 0x0, ttl 55, id 56510, offset 0, flags [DF], proto TCP (6), length 52) 217.69.139.199.443 > 10.0.2.1.33658: F, cksum 0xfaae (correct), 1:1(0) ack 2 win 5592 <nop,nop,timestamp 1759109629 453982>
-IP (tos 0x10, ttl 64, id 46445, offset 0, flags [DF], proto TCP (6), length 52) 10.0.2.1.33658 > 217.69.139.199.443: ., cksum 0xf9b6 (correct), ack 2 win 5840 <nop,nop,timestamp 453982 1759109629>
-IP (tos 0x10, ttl 63, id 46445, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.33658 > 217.69.139.199.443: ., cksum 0x58a4 (correct), ack 2 win 5840 <nop,nop,timestamp 453982 1759109629>
+09:13:07.499510 IP 10.0.2.1.48723 > ms.mail.ru.https: S 737448714:737448714(0) win 5840 <mss 1460,sackOK,timestamp 554663 0,nop,wscale 4>
+09:13:07.499554 IP 172.16.1.3.48723 > ms.mail.ru.https: S 737448714:737448714(0) win 5840 <mss 1460,sackOK,timestamp 554663 0,nop,wscale 4>
+09:13:07.695705 IP ms.mail.ru.https > 172.16.1.3.48723: S 726899448:726899448(0) ack 737448715 win 5592 <mss 1410,sackOK,timestamp 646163147 554663>
+09:13:07.695776 IP ms.mail.ru.https > 10.0.2.1.48723: S 726899448:726899448(0) ack 737448715 win 5592 <mss 1410,sackOK,timestamp 646163147 554663>
+09:13:07.698913 IP 10.0.2.1.48723 > ms.mail.ru.https: . ack 1 win 5840 <nop,nop,timestamp 554685 646163147>
+09:13:07.698958 IP 172.16.1.3.48723 > ms.mail.ru.https: . ack 1 win 5840 <nop,nop,timestamp 554685 646163147>
+09:13:09.216364 IP 10.0.2.1.48723 > ms.mail.ru.https: F 1:1(0) ack 1 win 5840 <nop,nop,timestamp 554838 646163147>
+09:13:09.216427 IP 172.16.1.3.48723 > ms.mail.ru.https: F 1:1(0) ack 1 win 5840 <nop,nop,timestamp 554838 646163147>
+09:13:09.264515 IP ms.mail.ru.https > 172.16.1.3.48723: F 1:1(0) ack 2 win 5592 <nop,nop,timestamp 646164866 554838>
+09:13:09.264551 IP ms.mail.ru.https > 10.0.2.1.48723: F 1:1(0) ack 2 win 5592 <nop,nop,timestamp 646164866 554838>
+09:13:09.264910 IP 10.0.2.1.48723 > ms.mail.ru.https: . ack 2 win 5840 <nop,nop,timestamp 554843 646164866>
+09:13:09.264922 IP 172.16.1.3.48723 > ms.mail.ru.https: . ack 2 win 5840 <nop,nop,timestamp 554843 646164866>
 \end{Verbatim}
 
 Выполним с хоста \textbf{ws12} \textbf{telnet 81.19.70.3 80} для проверки
@@ -836,20 +838,20 @@ Escape character is '^]'.
 
 Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
 \begin{Verbatim}
-IP (tos 0x10, ttl 64, id 7740, offset 0, flags [DF], proto TCP (6), length 60) 10.0.2.1.33000 > 81.19.70.3.80: S, cksum 0x88f4 (correct), 2720523774:2720523774(0) win 5840 <mss 1460,sackOK,timestamp 457666 0,nop,wscale 4>
-IP (tos 0x10, ttl 63, id 7740, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.3.33000 > 81.19.70.3.80: S, cksum 0xe7e1 (correct), 2720523774:2720523774(0) win 5840 <mss 1460,sackOK,timestamp 457666 0,nop,wscale 4>
-IP (tos 0x0, ttl 55, id 28336, offset 0, flags [DF], proto TCP (6), length 48) 81.19.70.3.80 > 172.16.1.3.33000: S, cksum 0xe425 (correct), 1940111037:1940111037(0) ack 2720523775 win 8192 <mss 1460,sackOK,eol>
-IP (tos 0x0, ttl 54, id 28336, offset 0, flags [DF], proto TCP (6), length 48) 81.19.70.3.80 > 10.0.2.1.33000: S, cksum 0x8538 (correct), 1940111037:1940111037(0) ack 2720523775 win 8192 <mss 1460,sackOK,eol>
-IP (tos 0x10, ttl 64, id 7741, offset 0, flags [DF], proto TCP (6), length 40) 10.0.2.1.33000 > 81.19.70.3.80: ., cksum 0xba2b (correct), ack 1 win 5840
-IP (tos 0x10, ttl 63, id 7741, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.3.33000 > 81.19.70.3.80: ., cksum 0x1919 (correct), ack 1 win 5840
-IP (tos 0x10, ttl 64, id 7742, offset 0, flags [DF], proto TCP (6), length 40) 10.0.2.1.33000 > 81.19.70.3.80: F, cksum 0xba2a (correct), 1:1(0) ack 1 win 5840
-IP (tos 0x10, ttl 63, id 7742, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.3.33000 > 81.19.70.3.80: F, cksum 0x1918 (correct), 1:1(0) ack 1 win 5840
-IP (tos 0x0, ttl 55, id 31838, offset 0, flags [DF], proto TCP (6), length 40) 81.19.70.3.80 > 172.16.1.3.33000: ., cksum 0x0db0 (correct), ack 2 win 8760
-IP (tos 0x0, ttl 54, id 31838, offset 0, flags [DF], proto TCP (6), length 40) 81.19.70.3.80 > 10.0.2.1.33000: ., cksum 0xaec2 (correct), ack 2 win 8760
-IP (tos 0x0, ttl 55, id 31839, offset 0, flags [DF], proto TCP (6), length 40) 81.19.70.3.80 > 172.16.1.3.33000: F, cksum 0x0daf (correct), 1:1(0) ack 2 win 8760
-IP (tos 0x0, ttl 54, id 31839, offset 0, flags [DF], proto TCP (6), length 40) 81.19.70.3.80 > 10.0.2.1.33000: F, cksum 0xaec1 (correct), 1:1(0) ack 2 win 8760
-IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto TCP (6), length 40) 10.0.2.1.33000 > 81.19.70.3.80: ., cksum 0xba29 (correct), ack 2 win 5840
-IP (tos 0x0, ttl 63, id 0, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.3.33000 > 81.19.70.3.80: ., cksum 0x1917 (correct), ack 2 win 5840
+09:13:38.367196 IP 10.0.2.1.44626 > rambler.ru.www: S 1224014536:1224014536(0) win 5840 <mss 1460,sackOK,timestamp 557752 0,nop,wscale 4>
+09:13:38.367283 IP 172.16.1.3.44626 > rambler.ru.www: S 1224014536:1224014536(0) win 5840 <mss 1460,sackOK,timestamp 557752 0,nop,wscale 4>
+09:13:38.382347 IP rambler.ru.www > 172.16.1.3.44626: S 2113783475:2113783475(0) ack 1224014537 win 8192 <mss 1460,sackOK,eol>
+09:13:38.382415 IP rambler.ru.www > 10.0.2.1.44626: S 2113783475:2113783475(0) ack 1224014537 win 8192 <mss 1460,sackOK,eol>
+09:13:38.383579 IP 10.0.2.1.44626 > rambler.ru.www: . ack 1 win 5840
+09:13:38.383592 IP 172.16.1.3.44626 > rambler.ru.www: . ack 1 win 5840
+09:13:40.220247 IP 10.0.2.1.44626 > rambler.ru.www: F 1:1(0) ack 1 win 5840
+09:13:40.220332 IP 172.16.1.3.44626 > rambler.ru.www: F 1:1(0) ack 1 win 5840
+09:13:40.223675 IP rambler.ru.www > 172.16.1.3.44626: . ack 2 win 8760
+09:13:40.223718 IP rambler.ru.www > 10.0.2.1.44626: . ack 2 win 8760
+09:13:40.223869 IP rambler.ru.www > 172.16.1.3.44626: F 1:1(0) ack 2 win 8760
+09:13:40.223897 IP rambler.ru.www > 10.0.2.1.44626: F 1:1(0) ack 2 win 8760
+09:13:40.225093 IP 10.0.2.1.44626 > rambler.ru.www: . ack 2 win 5840
+09:13:40.225152 IP 172.16.1.3.44626 > rambler.ru.www: . ack 2 win 5840
 \end{Verbatim}
 
 Выполним с хоста \textbf{ws12} \textbf{telnet 81.19.70.3 443} для проверки разрешения
@@ -857,16 +859,14 @@ IP (tos 0x0, ttl 63, id 0, offset 0, flags [DF], proto TCP (6), length 40) 172.1
 \begin{Verbatim}
 ws12:~# telnet 81.19.70.3 443
 Trying 81.19.70.3...
-Connected to 81.19.70.3.
-Escape character is '^]'.
 \end{Verbatim}
 
 Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
 \begin{Verbatim}
-IP (tos 0x10, ttl 64, id 4916, offset 0, flags [DF], proto TCP (6), length 60) 10.0.2.1.55741 > 81.19.70.3.443: S, cksum 0xa7c2 (correct), 3869576064:3869576064(0) win 5840 <mss 1460,sackOK,timestamp 465076 0,nop,wscale 4>
-IP (tos 0x10, ttl 63, id 4916, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.3.55741 > 81.19.70.3.443: S, cksum 0x06b0 (correct), 3869576064:3869576064(0) win 5840 <mss 1460,sackOK,timestamp 465076 0,nop,wscale 4>
-IP (tos 0x10, ttl 64, id 4917, offset 0, flags [DF], proto TCP (6), length 60) 10.0.2.1.55741 > 81.19.70.3.443: S, cksum 0xa696 (correct), 3869576064:3869576064(0) win 5840 <mss 1460,sackOK,timestamp 465376 0,nop,wscale 4>
-IP (tos 0x10, ttl 63, id 4917, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.3.55741 > 81.19.70.3.443: S, cksum 0x0584 (correct), 3869576064:3869576064(0) win 5840 <mss 1460,sackOK,timestamp 465376 0,nop,wscale 4>
+09:13:58.882319 IP 10.0.2.1.41454 > rambler.ru.https: S 1545752968:1545752968(0) win 5840 <mss 1460,sackOK,timestamp 559799 0,nop,wscale 4>
+09:13:58.882401 IP 172.16.1.3.41454 > rambler.ru.https: S 1545752968:1545752968(0) win 5840 <mss 1460,sackOK,timestamp 559799 0,nop,wscale 4>
+09:14:01.833875 IP 10.0.2.1.41454 > rambler.ru.https: S 1545752968:1545752968(0) win 5840 <mss 1460,sackOK,timestamp 560100 0,nop,wscale 4>
+09:14:01.833997 IP 172.16.1.3.41454 > rambler.ru.https: S 1545752968:1545752968(0) win 5840 <mss 1460,sackOK,timestamp 560100 0,nop,wscale 4>
 \end{Verbatim}
 
 Выполним с хоста \textbf{ws12} \textbf{telnet 213.180.193.3 80},  чтобы проверить, что
@@ -878,8 +878,7 @@ Trying 213.180.193.3...
 
 Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
 \begin{Verbatim}
-IP (tos 0x10, ttl 64, id 18013, offset 0, flags [DF], proto TCP (6), length 60) 10.0.2.1.55017 > 213.180.193.3.80: S, cksum 0x13b9 (correct), 215969339:215969339(0) win 5840 <mss 1460,sackOK,timestamp 469094 0,nop,wscale 4>
-IP (tos 0x10, ttl 64, id 18014, offset 0, flags [DF], proto TCP (6), length 60) 10.0.2.1.55017 > 213.180.193.3.80: S, cksum 0x128d (correct), 215969339:215969339(0) win 5840 <mss 1460,sackOK,timestamp 469394 0,nop,wscale 4>
+09:15:24.153256 IP 10.0.2.1.57873 > www.yandex.ru.www: S 2883061737:2883061737(0) win 5840 <mss 1460,sackOK,timestamp 568326 0,nop,wscale 4>
 \end{Verbatim}
 
 Выполним с хоста \textbf{ws12} \textbf{telnet 217.69.139.90 143},  чтобы проверить,
@@ -891,7 +890,7 @@ Trying 217.69.139.90...
 
 Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
 \begin{Verbatim}
-IP (tos 0x10, ttl 64, id 7352, offset 0, flags [DF], proto TCP (6), length 60) 10.0.2.1.55391 > 217.69.139.90.143: S, cksum 0xfb6f (correct), 1324243155:1324243155(0) win 5840 <mss 1460,sackOK,timestamp 476267 0,nop,wscale 4>
+09:15:51.317248 IP 10.0.2.1.52452 > imap.mail.ru.imap2: S 3321071297:3321071297(0) win 5840 <mss 1460,sackOK,timestamp 571045 0,nop,wscale 4>
 \end{Verbatim}
 
 Выполним с хоста \textbf{ws12} \textbf{traceroute -n 10.102.0.2},  чтобы проверить,
@@ -919,18 +918,18 @@ Escape character is '^]'.
 
 Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
 \begin{Verbatim}
-IP (tos 0x10, ttl 64, id 45525, offset 0, flags [DF], proto TCP (6), length 60) 10.0.3.1.59365 > 213.180.193.3.80: S, cksum 0x06b6 (correct), 1818353961:1818353961(0) win 5840 <mss 1460,sackOK,timestamp 479484 0,nop,wscale 4>
-IP (tos 0x10, ttl 63, id 45525, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.3.59365 > 213.180.193.3.80: S, cksum 0x66a3 (correct), 1818353961:1818353961(0) win 5840 <mss 1460,sackOK,timestamp 479484 0,nop,wscale 4>
-IP (tos 0x0, ttl 53, id 0, offset 0, flags [DF], proto TCP (6), length 52) 213.180.193.3.80 > 172.16.1.3.59365: S, cksum 0x739f (correct), 3298920014:3298920014(0) ack 1818353962 win 14100 <mss 1410,nop,nop,sackOK,nop,wscale 9>
-IP (tos 0x0, ttl 52, id 0, offset 0, flags [DF], proto TCP (6), length 52) 213.180.193.3.80 > 10.0.3.1.59365: S, cksum 0x13b2 (correct), 3298920014:3298920014(0) ack 1818353962 win 14100 <mss 1410,nop,nop,sackOK,nop,wscale 9>
-IP (tos 0x10, ttl 64, id 45526, offset 0, flags [DF], proto TCP (6), length 40) 10.0.3.1.59365 > 213.180.193.3.80: ., cksum 0x89fb (correct), ack 1 win 365
-IP (tos 0x10, ttl 63, id 45526, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.3.59365 > 213.180.193.3.80: ., cksum 0xe9e8 (correct), ack 1 win 365
-IP (tos 0x10, ttl 64, id 45527, offset 0, flags [DF], proto TCP (6), length 40) 10.0.3.1.59365 > 213.180.193.3.80: F, cksum 0x89fa (correct), 1:1(0) ack 1 win 365
-IP (tos 0x10, ttl 63, id 45527, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.3.59365 > 213.180.193.3.80: F, cksum 0xe9e7 (correct), 1:1(0) ack 1 win 365
-IP (tos 0x0, ttl 53, id 62406, offset 0, flags [DF], proto TCP (6), length 40) 213.180.193.3.80 > 172.16.1.3.59365: F, cksum 0xeb37 (correct), 1:1(0) ack 2 win 28
-IP (tos 0x0, ttl 52, id 62406, offset 0, flags [DF], proto TCP (6), length 40) 213.180.193.3.80 > 10.0.3.1.59365: F, cksum 0x8b4a (correct), 1:1(0) ack 2 win 28
-IP (tos 0x10, ttl 64, id 45528, offset 0, flags [DF], proto TCP (6), length 40) 10.0.3.1.59365 > 213.180.193.3.80: ., cksum 0x89f9 (correct), ack 2 win 365
-IP (tos 0x10, ttl 63, id 45528, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.3.59365 > 213.180.193.3.80: ., cksum 0xe9e6 (correct), ack 2 win 365
+09:16:15.898755 IP 10.0.3.1.41706 > www.yandex.ru.www: S 3708543312:3708543312(0) win 5840 <mss 1460,sackOK,timestamp 573625 0,nop,wscale 4>
+09:16:15.898868 IP 172.16.1.3.41706 > www.yandex.ru.www: S 3708543312:3708543312(0) win 5840 <mss 1460,sackOK,timestamp 573625 0,nop,wscale 4>
+09:16:15.999150 IP www.yandex.ru.www > 172.16.1.3.41706: S 1592361218:1592361218(0) ack 3708543313 win 14100 <mss 1410,nop,nop,sackOK,nop,wscale 9>
+09:16:15.999286 IP www.yandex.ru.www > 10.0.3.1.41706: S 1592361218:1592361218(0) ack 3708543313 win 14100 <mss 1410,nop,nop,sackOK,nop,wscale 9>
+09:16:15.999921 IP 10.0.3.1.41706 > www.yandex.ru.www: . ack 1 win 365
+09:16:15.999957 IP 172.16.1.3.41706 > www.yandex.ru.www: . ack 1 win 365
+09:16:17.763756 IP 10.0.3.1.41706 > www.yandex.ru.www: F 1:1(0) ack 1 win 365
+09:16:17.763795 IP 172.16.1.3.41706 > www.yandex.ru.www: F 1:1(0) ack 1 win 365
+09:16:17.774958 IP www.yandex.ru.www > 172.16.1.3.41706: F 1:1(0) ack 2 win 28
+09:16:17.774997 IP www.yandex.ru.www > 10.0.3.1.41706: F 1:1(0) ack 2 win 28
+09:16:17.775421 IP 10.0.3.1.41706 > www.yandex.ru.www: . ack 2 win 365
+09:16:17.775440 IP 172.16.1.3.41706 > www.yandex.ru.www: . ack 2 win 365
 \end{Verbatim}
 
 Выполним с него \textbf{telnet 213.180.204.11 443},  чтобы проверить, что
@@ -944,18 +943,18 @@ Escape character is '^]'.
 
 Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
 \begin{Verbatim}
-IP (tos 0x10, ttl 64, id 44435, offset 0, flags [DF], proto TCP (6), length 60) 10.0.3.1.36318 > 213.180.204.11.443: S, cksum 0x2594 (correct), 2674509875:2674509875(0) win 5840 <mss 1460,sackOK,timestamp 484768 0,nop,wscale 4>
-IP (tos 0x10, ttl 63, id 44435, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.3.36318 > 213.180.204.11.443: S, cksum 0x8581 (correct), 2674509875:2674509875(0) win 5840 <mss 1460,sackOK,timestamp 484768 0,nop,wscale 4>
-IP (tos 0x0, ttl 55, id 0, offset 0, flags [DF], proto TCP (6), length 60) 213.180.204.11.443 > 172.16.1.3.36318: S, cksum 0xfce0 (correct), 3783798451:3783798451(0) ack 2674509876 win 17796 <mss 8910,sackOK,timestamp 539888723 484768,nop,wscale 8>
-IP (tos 0x0, ttl 54, id 0, offset 0, flags [DF], proto TCP (6), length 60) 213.180.204.11.443 > 10.0.3.1.36318: S, cksum 0x9cf3 (correct), 3783798451:3783798451(0) ack 2674509876 win 17796 <mss 8910,sackOK,timestamp 539888723 484768,nop,wscale 8>
-IP (tos 0x10, ttl 64, id 44436, offset 0, flags [DF], proto TCP (6), length 52) 10.0.3.1.36318 > 213.180.204.11.443: ., cksum 0x2cf2 (correct), ack 1 win 365 <nop,nop,timestamp 484768 539888723>
-IP (tos 0x10, ttl 63, id 44436, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.36318 > 213.180.204.11.443: ., cksum 0x8cdf (correct), ack 1 win 365 <nop,nop,timestamp 484768 539888723>
-IP (tos 0x10, ttl 64, id 44437, offset 0, flags [DF], proto TCP (6), length 52) 10.0.3.1.36318 > 213.180.204.11.443: F, cksum 0x2ba6 (correct), 1:1(0) ack 1 win 365 <nop,nop,timestamp 485099 539888723>
-IP (tos 0x10, ttl 63, id 44437, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.36318 > 213.180.204.11.443: F, cksum 0x8b93 (correct), 1:1(0) ack 1 win 365 <nop,nop,timestamp 485099 539888723>
-IP (tos 0x0, ttl 55, id 8500, offset 0, flags [DF], proto TCP (6), length 52) 213.180.204.11.443 > 172.16.1.3.36318: F, cksum 0x898c (correct), 1:1(0) ack 2 win 70 <nop,nop,timestamp 539889536 485099>
-IP (tos 0x0, ttl 54, id 8500, offset 0, flags [DF], proto TCP (6), length 52) 213.180.204.11.443 > 10.0.3.1.36318: F, cksum 0x299f (correct), 1:1(0) ack 2 win 70 <nop,nop,timestamp 539889536 485099>
-IP (tos 0x10, ttl 64, id 44438, offset 0, flags [DF], proto TCP (6), length 52) 10.0.3.1.36318 > 213.180.204.11.443: ., cksum 0x2878 (correct), ack 2 win 365 <nop,nop,timestamp 485099 539889536>
-IP (tos 0x10, ttl 63, id 44438, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.36318 > 213.180.204.11.443: ., cksum 0x8865 (correct), ack 2 win 365 <nop,nop,timestamp 485099 539889536>
+09:16:42.804688 IP 10.0.3.1.55448 > yandex.ru.https: S 4134572202:4134572202(0) win 5840 <mss 1460,sackOK,timestamp 576322 0,nop,wscale 4>
+09:16:42.804727 IP 172.16.1.3.55448 > yandex.ru.https: S 4134572202:4134572202(0) win 5840 <mss 1460,sackOK,timestamp 576322 0,nop,wscale 4>
+09:16:42.809123 IP yandex.ru.https > 172.16.1.3.55448: S 2931238023:2931238023(0) ack 4134572203 win 17796 <mss 8910,sackOK,timestamp 540752115 576322,nop,wscale 8>
+09:16:42.809168 IP yandex.ru.https > 10.0.3.1.55448: S 2931238023:2931238023(0) ack 4134572203 win 17796 <mss 8910,sackOK,timestamp 540752115 576322,nop,wscale 8>
+09:16:42.810359 IP 10.0.3.1.55448 > yandex.ru.https: . ack 1 win 365 <nop,nop,timestamp 576322 540752115>
+09:16:42.810372 IP 172.16.1.3.55448 > yandex.ru.https: . ack 1 win 365 <nop,nop,timestamp 576322 540752115>
+09:16:44.432097 IP 10.0.3.1.55448 > yandex.ru.https: F 1:1(0) ack 1 win 365 <nop,nop,timestamp 576489 540752115>
+09:16:44.432180 IP 172.16.1.3.55448 > yandex.ru.https: F 1:1(0) ack 1 win 365 <nop,nop,timestamp 576489 540752115>
+09:16:44.438621 IP yandex.ru.https > 172.16.1.3.55448: F 1:1(0) ack 2 win 70 <nop,nop,timestamp 540752522 576489>
+09:16:44.438666 IP yandex.ru.https > 10.0.3.1.55448: F 1:1(0) ack 2 win 70 <nop,nop,timestamp 540752522 576489>
+09:16:44.439846 IP 10.0.3.1.55448 > yandex.ru.https: . ack 2 win 365 <nop,nop,timestamp 576489 540752522>
+09:16:44.439929 IP 172.16.1.3.55448 > yandex.ru.https: . ack 2 win 365 <nop,nop,timestamp 576489 540752522>
 \end{Verbatim}
 
 Выполним с него \textbf{telnet 217.69.139.74 110},  чтобы проверить, что
@@ -970,24 +969,22 @@ Escape character is '^]'.
 
 Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
 \begin{Verbatim}
-IP (tos 0x10, ttl 64, id 35729, offset 0, flags [DF], proto TCP (6), length 60) 10.0.3.1.40904 > 217.69.139.74.110: S, cksum 0xe28c (correct), 3504992559:3504992559(0) win 5840 <mss 1460,sackOK,timestamp 490174 0,nop,wscale 4>
-IP (tos 0x10, ttl 63, id 35729, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.3.40904 > 217.69.139.74.110: S, cksum 0x427a (correct), 3504992559:3504992559(0) win 5840 <mss 1460,sackOK,timestamp 490174 0,nop,wscale 4>
-IP (tos 0x0, ttl 55, id 0, offset 0, flags [DF], proto TCP (6), length 56) 217.69.139.74.110 > 172.16.1.3.40904: S, cksum 0xeec5 (correct), 3565825369:3565825369(0) ack 3504992560 win 5592 <mss 1410,sackOK,timestamp 891498961 490174>
-IP (tos 0x0, ttl 54, id 0, offset 0, flags [DF], proto TCP (6), length 56) 217.69.139.74.110 > 10.0.3.1.40904: S, cksum 0x8ed8 (correct), 3565825369:3565825369(0) ack 3504992560 win 5592 <mss 1410,sackOK,timestamp 891498961 490174>
-IP (tos 0x10, ttl 64, id 35730, offset 0, flags [DF], proto TCP (6), length 52) 10.0.3.1.40904 > 217.69.139.74.110: ., cksum 0xa866 (correct), ack 1 win 5840 <nop,nop,timestamp 490180 891498961>
-IP (tos 0x10, ttl 63, id 35730, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.40904 > 217.69.139.74.110: ., cksum 0x0854 (correct), ack 1 win 5840 <nop,nop,timestamp 490180 891498961>
-IP (tos 0x0, ttl 55, id 7311, offset 0, flags [DF], proto TCP (6), length 57) 217.69.139.74.110 > 172.16.1.3.40904: P, cksum 0x88de (correct), 1:6(5) ack 1 win 5592 <nop,nop,timestamp 891498965 490180>
-IP (tos 0x0, ttl 54, id 7311, offset 0, flags [DF], proto TCP (6), length 57) 217.69.139.74.110 > 10.0.3.1.40904: P, cksum 0x28f1 (correct), 1:6(5) ack 1 win 5592 <nop,nop,timestamp 891498965 490180>
-IP (tos 0x10, ttl 64, id 35731, offset 0, flags [DF], proto TCP (6), length 52) 10.0.3.1.40904 > 217.69.139.74.110: ., cksum 0xa85d (correct), ack 6 win 5840 <nop,nop,timestamp 490180 891498965>
-IP (tos 0x10, ttl 63, id 35731, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.40904 > 217.69.139.74.110: ., cksum 0x084b (correct), ack 6 win 5840 <nop,nop,timestamp 490180 891498965>
-IP (tos 0x10, ttl 64, id 35732, offset 0, flags [DF], proto TCP (6), length 52) 10.0.3.1.40904 > 217.69.139.74.110: F, cksum 0xa752 (correct), 1:1(0) ack 6 win 5840 <nop,nop,timestamp 490446 891498965>
-IP (tos 0x10, ttl 63, id 35732, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.40904 > 217.69.139.74.110: F, cksum 0x0740 (correct), 1:1(0) ack 6 win 5840 <nop,nop,timestamp 490446 891498965>
-IP (tos 0x0, ttl 55, id 7312, offset 0, flags [DF], proto TCP (6), length 52) 217.69.139.74.110 > 172.16.1.3.40904: ., cksum 0xfdd5 (correct), ack 2 win 5592 <nop,nop,timestamp 891501623 490446>
-IP (tos 0x0, ttl 54, id 7312, offset 0, flags [DF], proto TCP (6), length 52) 217.69.139.74.110 > 10.0.3.1.40904: ., cksum 0x9de8 (correct), ack 2 win 5592 <nop,nop,timestamp 891501623 490446>
-IP (tos 0x0, ttl 55, id 7313, offset 0, flags [DF], proto TCP (6), length 52) 217.69.139.74.110 > 172.16.1.3.40904: F, cksum 0xfdd4 (correct), 6:6(0) ack 2 win 5592 <nop,nop,timestamp 891501623 490446>
-IP (tos 0x0, ttl 54, id 7313, offset 0, flags [DF], proto TCP (6), length 52) 217.69.139.74.110 > 10.0.3.1.40904: F, cksum 0x9de7 (correct), 6:6(0) ack 2 win 5592 <nop,nop,timestamp 891501623 490446>
-IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto TCP (6), length 52) 10.0.3.1.40904 > 217.69.139.74.110: ., cksum 0x9cef (correct), ack 7 win 5840 <nop,nop,timestamp 490446 891501623>
-IP (tos 0x0, ttl 63, id 0, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.40904 > 217.69.139.74.110: ., cksum 0xfcdc (correct), ack 7 win 5840 <nop,nop,timestamp 490446 891501623>
+09:17:14.878888 IP 10.0.3.1.38528 > pop.mail.ru.pop3: S 335692903:335692903(0) win 5840 <mss 1460,sackOK,timestamp 579527 0,nop,wscale 4>
+09:17:14.879026 IP 172.16.1.3.38528 > pop.mail.ru.pop3: S 335692903:335692903(0) win 5840 <mss 1460,sackOK,timestamp 579527 0,nop,wscale 4>
+09:17:14.894750 IP pop.mail.ru.pop3 > 172.16.1.3.38528: S 1380932602:1380932602(0) ack 335692904 win 5592 <mss 1410,sackOK,timestamp 2571460250 579527>
+09:17:14.894846 IP pop.mail.ru.pop3 > 10.0.3.1.38528: S 1380932602:1380932602(0) ack 335692904 win 5592 <mss 1410,sackOK,timestamp 2571460250 579527>
+09:17:14.896738 IP 10.0.3.1.38528 > pop.mail.ru.pop3: . ack 1 win 5840 <nop,nop,timestamp 579534 2571460250>
+09:17:14.896778 IP 172.16.1.3.38528 > pop.mail.ru.pop3: . ack 1 win 5840 <nop,nop,timestamp 579534 2571460250>
+09:17:14.908283 IP pop.mail.ru.pop3 > 172.16.1.3.38528: P 1:6(5) ack 1 win 5592 <nop,nop,timestamp 2571460267 579534>
+09:17:14.908324 IP pop.mail.ru.pop3 > 10.0.3.1.38528: P 1:6(5) ack 1 win 5592 <nop,nop,timestamp 2571460267 579534>
+09:17:14.909156 IP 10.0.3.1.38528 > pop.mail.ru.pop3: . ack 6 win 5840 <nop,nop,timestamp 579536 2571460267>
+09:17:14.909191 IP 172.16.1.3.38528 > pop.mail.ru.pop3: . ack 6 win 5840 <nop,nop,timestamp 579536 2571460267>
+09:17:16.772425 IP 10.0.3.1.38528 > pop.mail.ru.pop3: F 1:1(0) ack 6 win 5840 <nop,nop,timestamp 579723 2571460267>
+09:17:16.772508 IP 172.16.1.3.38528 > pop.mail.ru.pop3: F 1:1(0) ack 6 win 5840 <nop,nop,timestamp 579723 2571460267>
+09:17:16.776206 IP pop.mail.ru.pop3 > 172.16.1.3.38528: F 6:6(0) ack 2 win 5592 <nop,nop,timestamp 2571462137 579723>
+09:17:16.776251 IP pop.mail.ru.pop3 > 10.0.3.1.38528: F 6:6(0) ack 2 win 5592 <nop,nop,timestamp 2571462137 579723>
+09:17:16.777478 IP 10.0.3.1.38528 > pop.mail.ru.pop3: . ack 7 win 5840 <nop,nop,timestamp 579723 2571462137>
+09:17:16.777520 IP 172.16.1.3.38528 > pop.mail.ru.pop3: . ack 7 win 5840 <nop,nop,timestamp 579723 2571462137>
 \end{Verbatim}
 
 Выполним с него \textbf{telnet 217.69.139.90 143},  чтобы проверить, что не
@@ -999,7 +996,7 @@ Trying 217.69.139.90...
 
 Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
 \begin{Verbatim}
-IP (tos 0x10, ttl 64, id 19083, offset 0, flags [DF], proto TCP (6), length 60) 10.0.3.1.36591 > 217.69.139.90.143: S, cksum 0xeeab (correct), 4103389992:4103389992(0) win 5840 <mss 1460,sackOK,timestamp 493987 0,nop,wscale 4>
+09:17:47.224581 IP 10.0.3.1.45924 > imap.mail.ru.imap2: S 843422473:843422473(0) win 5840 <mss 1460,sackOK,timestamp 582765 0,nop,wscale 4>
 \end{Verbatim}
 
 Выполним с хоста \textbf{ws13} \textbf{traceroute -n 10.102.0.2},  чтобы проверить,
@@ -1026,18 +1023,24 @@ Escape character is '^]'.
 
 Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
 \begin{Verbatim}
-IP (tos 0x10, ttl 64, id 43455, offset 0, flags [DF], proto TCP (6), length 60) 10.102.0.2.48579 > 213.180.193.3.80: S, cksum 0xed9e (correct), 437924172:437924172(0) win 5840 <mss 1460,sackOK,timestamp 497907 0,nop,wscale 4>
-IP (tos 0x10, ttl 63, id 43455, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.4.48579 > 213.180.193.3.80: S, cksum 0x4af2 (correct), 437924172:437924172(0) win 5840 <mss 1460,sackOK,timestamp 497907 0,nop,wscale 4>
-IP (tos 0x0, ttl 55, id 0, offset 0, flags [DF], proto TCP (6), length 52) 213.180.193.3.80 > 172.16.1.4.48579: S, cksum 0x5a03 (correct), 1358381019:1358381019(0) ack 437924173 win 14100 <mss 1410,nop,nop,sackOK,nop,wscale 9>
-IP (tos 0x0, ttl 54, id 0, offset 0, flags [DF], proto TCP (6), length 52) 213.180.193.3.80 > 10.102.0.2.48579: S, cksum 0xfcaf (correct), 1358381019:1358381019(0) ack 437924173 win 14100 <mss 1410,nop,nop,sackOK,nop,wscale 9>
-IP (tos 0x10, ttl 64, id 43456, offset 0, flags [DF], proto TCP (6), length 40) 10.102.0.2.48579 > 213.180.193.3.80: ., cksum 0x72f9 (correct), ack 1 win 365
-IP (tos 0x10, ttl 63, id 43456, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.4.48579 > 213.180.193.3.80: ., cksum 0xd04c (correct), ack 1 win 365
-IP (tos 0x10, ttl 64, id 43457, offset 0, flags [DF], proto TCP (6), length 40) 10.102.0.2.48579 > 213.180.193.3.80: F, cksum 0x72f8 (correct), 1:1(0) ack 1 win 365
-IP (tos 0x10, ttl 63, id 43457, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.4.48579 > 213.180.193.3.80: F, cksum 0xd04b (correct), 1:1(0) ack 1 win 365
-IP (tos 0x0, ttl 55, id 19526, offset 0, flags [DF], proto TCP (6), length 40) 213.180.193.3.80 > 172.16.1.4.48579: F, cksum 0xd19b (correct), 1:1(0) ack 2 win 28
-IP (tos 0x0, ttl 54, id 19526, offset 0, flags [DF], proto TCP (6), length 40) 213.180.193.3.80 > 10.102.0.2.48579: F, cksum 0x7448 (correct), 1:1(0) ack 2 win 28
-IP (tos 0x10, ttl 64, id 43458, offset 0, flags [DF], proto TCP (6), length 40) 10.102.0.2.48579 > 213.180.193.3.80: ., cksum 0x72f7 (correct), ack 2 win 365
-IP (tos 0x10, ttl 63, id 43458, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.4.48579 > 213.180.193.3.80: ., cksum 0xd04a (correct), ack 2 win 365
+09:18:20.562196 IP 10.102.0.2.59520 > www.yandex.ru.www: S 1375443222:1375443222(0) win 5840 <mss 1460,sackOK,timestamp 586071 0,nop,wscale 4>
+09:18:20.586221 IP 172.16.1.4.59520 > www.yandex.ru.www: S 1375443222:1375443222(0) win 5840 <mss 1460,sackOK,timestamp 586071 0,nop,wscale 4>
+09:18:20.594108 IP www.yandex.ru.www > 172.16.1.4.59520: S 92206861:92206861(0) ack 1375443223 win 14100 <mss 1410,nop,nop,sackOK,nop,wscale 9>
+09:18:20.594199 IP www.yandex.ru.www > 10.102.0.2.59520: S 92206861:92206861(0) ack 1375443223 win 14100 <mss 1410,nop,nop,sackOK,nop,wscale 9>
+09:18:20.594515 IP 10.102.0.2.59520 > www.yandex.ru.www: . ack 1 win 365
+09:18:20.594535 IP 172.16.1.4.59520 > www.yandex.ru.www: . ack 1 win 365
+09:18:22.598208 IP 10.102.0.2.59520 > www.yandex.ru.www: F 1:1(0) ack 1 win 365
+09:18:22.598292 IP 172.16.1.4.59520 > www.yandex.ru.www: F 1:1(0) ack 1 win 365
+09:18:22.966909 IP www.yandex.ru.www > 172.16.1.4.59520: F 1:1(0) ack 2 win 28
+09:18:22.966986 IP www.yandex.ru.www > 10.102.0.2.59520: F 1:1(0) ack 2 win 28
+09:18:22.967432 IP 10.102.0.2.59520 > www.yandex.ru.www: . ack 2 win 365
+09:18:22.967467 IP 172.16.1.4.59520 > www.yandex.ru.www: . ack 2 win 365
+09:18:23.065615 IP www.yandex.ru.www > 172.16.1.4.59520: F 1:1(0) ack 2 win 28
+09:18:23.065688 IP www.yandex.ru.www > 10.102.0.2.59520: F 1:1(0) ack 2 win 28
+09:18:23.066204 IP 10.102.0.2.59520 > www.yandex.ru.www: . ack 2 win 365
+09:18:23.066263 IP 172.16.1.4.59520 > www.yandex.ru.www: . ack 2 win 365
+09:18:23.123164 IP www.yandex.ru.www > 172.16.1.4.59520: R 92206863:92206863(0) win 0
+09:18:23.123228 IP www.yandex.ru.www > 10.102.0.2.59520: R 92206863:92206863(0) win 0
 \end{Verbatim}
 
 Выполним с него \textbf{telnet 217.69.139.90 143},  чтобы проверить, что не
@@ -1049,7 +1052,7 @@ Trying 217.69.139.90...
 
 Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
 \begin{Verbatim}
-IP (tos 0x10, ttl 64, id 12600, offset 0, flags [DF], proto TCP (6), length 60) 10.102.0.2.41859 > 217.69.139.90.143: S, cksum 0x9ecb (correct), 1041078544:1041078544(0) win 5840 <mss 1460,sackOK,timestamp 501800 0,nop,wscale 4>
+09:18:51.606887 IP 10.102.0.2.35001 > imap.mail.ru.imap2: S 1864700003:1864700003(0) win 5840 <mss 1460,sackOK,timestamp 589175 0,nop,wscale 4>
 \end{Verbatim}
 
 Выполним с хоста \textbf{pc21} \textbf{traceroute -n 10.0.1.1},  чтобы проверить,
