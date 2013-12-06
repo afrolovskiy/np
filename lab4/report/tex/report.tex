@@ -475,9 +475,13 @@ iptables --policy FORWARD DROP
 
 # Для s11 разрешаем входящие соединения по smtp (порт 25)
 iptables -t nat -A PREROUTING -p tcp --dport 25 -i $INET -j DNAT --to 10.0.4.10:25
+iptables -A FORWARD -i $LAN -s 10.0.4.10 -p tcp -j ACCEPT
+iptables -A FORWARD -i $INET -d 10.0.4.10 -p tcp --dport 25 -j ACCEPT
 
 # Для s12 разрешаем входящие соелинения по http (порт 80)
 iptables -t nat -A PREROUTING -p tcp --dport 80 -i $INET -j DNAT --to 10.0.4.20:80
+iptables -A FORWARD -i $LAN -s 10.0.4.20 -p tcp -j ACCEPT
+iptables -A FORWARD -i $INET -d 10.0.4.20 -p tcp --dport 80 -j ACCEPT
 
 # Разрешаем любую маршрутизацию для интерфейса VPN
 iptables -A FORWARD -i $VPN -j ACCEPT
@@ -527,6 +531,10 @@ Chain INPUT (policy ACCEPT 2892 packets, 236K bytes)
 
 Chain FORWARD (policy DROP 0 packets, 0 bytes)
  pkts bytes target     prot opt in     out     source               destination         
+    0     0 ACCEPT     tcp  --  eth0   *       10.0.4.10            0.0.0.0/0           
+    0     0 ACCEPT     tcp  --  eth1   *       0.0.0.0/0            10.0.4.10           tcp dpt:25 
+    0     0 ACCEPT     tcp  --  eth0   *       10.0.4.20            0.0.0.0/0           
+    0     0 ACCEPT     tcp  --  eth1   *       0.0.0.0/0            10.0.4.20           tcp dpt:80 
     0     0 ACCEPT     all  --  tun0   *       0.0.0.0/0            0.0.0.0/0           
     0     0 ACCEPT     all  --  *      tun0    0.0.0.0/0            0.0.0.0/0           
     0     0 ACCEPT     tcp  --  eth0   *       10.0.1.1             172.168.0.0/16      tcp dpt:80 
@@ -545,8 +553,8 @@ Chain FORWARD (policy DROP 0 packets, 0 bytes)
     0     0 ACCEPT     tcp  --  eth0   *       10.0.3.1             0.0.0.0/0           tcp dpt:443 
     0     0 ACCEPT     all  --  eth1   *       0.0.0.0/0            0.0.0.0/0           state ESTABLISHED 
 
-Chain OUTPUT (policy ACCEPT 2006 packets, 162K bytes)
- pkts bytes target     prot opt in     out     source               destination  
+Chain OUTPUT (policy ACCEPT 96 packets, 7380 bytes)
+ pkts bytes target     prot opt in     out     source               destination
 \end{Verbatim}
 
 Выполним \textbf{iptables -L -nv -t nat} на \textbf{r1}:
@@ -629,24 +637,71 @@ Chain OUTPUT (policy ACCEPT 27 packets, 1648 bytes)
 
 \section{Проверка трансляции}
 
-SNAT
+Для демонстрации SNAT преобразований выполним \textbf{telnet 213.180.193.3 80} на хосте \textbf{ws11}.
 
+Вывод \textbf{tcpdump -i eth0 -p tcp -tnv} на хосте на \textbf{ws11}:
 \begin{Verbatim}
-дамп SNAT в LAN
+tcpdump: listening on eth0, link-type EN10MB (Ethernet), capture size 96 bytes
+IP (tos 0x10, ttl 64, id 46644, offset 0, flags [DF], proto TCP (6), length 60)
+ 10.0.1.1.55843 > 213.180.193.3.80: S, cksum 0xf413 (correct), 2326482989:23264
+82989(0) win 5840 <mss 1460,sackOK,timestamp 4294960665 0,nop,wscale 4>
+IP (tos 0x0, ttl 54, id 0, offset 0, flags [DF], proto TCP (6), length 52) 213.180.193.3.80 > 10.0.1.1.55843: S, cksum 0x5250 (correct), 3348940585:3348940585(0) ack 2326482990 win 14100 <mss 1410,nop,nop,sackOK,nop,wscale 9>
+IP (tos 0x10, ttl 64, id 46645, offset 0, flags [DF], proto TCP (6), length 40) 10.0.1.1.55843 > 213.180.193.3.80: ., cksum 0xc899 (correct), ack 1 win 365
+IP (tos 0x10, ttl 64, id 46646, offset 0, flags [DF], proto TCP (6), length 46) 10.0.1.1.55843 > 213.180.193.3.80: P, cksum 0xd3a7 (correct), 1:7(6) ack 1 win 365
+IP (tos 0x0, ttl 54, id 44409, offset 0, flags [DF], proto TCP (6), length 40) 213.180.193.3.80 > 10.0.1.1.55843: ., cksum 0xc9e4 (correct), ack 7 win 28
+IP (tos 0x0, ttl 54, id 44410, offset 0, flags [DF], proto TCP (6), length 206) 213.180.193.3.80 > 10.0.1.1.55843: P 1:167(166) ack 7 win 28
+IP (tos 0x10, ttl 64, id 46647, offset 0, flags [DF], proto TCP (6), length 40) 10.0.1.1.55843 > 213.180.193.3.80: ., cksum 0xc7aa (correct), ack 167 win 432
+IP (tos 0x0, ttl 54, id 44411, offset 0, flags [DF], proto TCP (6), length 40) 213.180.193.3.80 > 10.0.1.1.55843: F, cksum 0xc93d (correct), 167:167(0) ack 7 win 28
+IP (tos 0x10, ttl 64, id 46648, offset 0, flags [DF], proto TCP (6), length 40) 10.0.1.1.55843 > 213.180.193.3.80: F, cksum 0xc7a8 (correct), 7:7(0) ack 168 win 432
+IP (tos 0x0, ttl 54, id 44412, offset 0, flags [DF], proto TCP (6), length 40) 213.180.193.3.80 > 10.0.1.1.55843: ., cksum 0xc93c (correct), ack 8 win 28
 \end{Verbatim}
 
+Вывод \textbf{tcpdump -i eth1 -p tcp -tnv}  на маршрутизаторе \textbf{r1}:
 \begin{Verbatim}
-дамп SNAT (снаружи)
+IP (tos 0x10, ttl 63, id 46644, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.3.55843 > 213.180.193.3.80: S, cksum 0x5201 (correct), 2326482989:2326482989(0) win 5840 <mss 1460,sackOK,timestamp 4294960665 0,nop,wscale 4>
+IP (tos 0x0, ttl 55, id 0, offset 0, flags [DF], proto TCP (6), length 52) 213.180.193.3.80 > 172.16.1.3.55843: S, cksum 0xb03d (correct), 3348940585:3348940585(0) ack 2326482990 win 14100 <mss 1410,nop,nop,sackOK,nop,wscale 9>
+IP (tos 0x10, ttl 63, id 46645, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.3.55843 > 213.180.193.3.80: ., cksum 0x2687 (correct), ack 1 win 365
+IP (tos 0x10, ttl 63, id 46646, offset 0, flags [DF], proto TCP (6), length 46) 172.16.1.3.55843 > 213.180.193.3.80: P, cksum 0x3195 (correct), 1:7(6) ack 1 win 365
+IP (tos 0x0, ttl 55, id 44409, offset 0, flags [DF], proto TCP (6), length 40) 213.180.193.3.80 > 172.16.1.3.55843: ., cksum 0x27d2 (correct), ack 7 win 28
+IP (tos 0x0, ttl 55, id 44410, offset 0, flags [DF], proto TCP (6), length 206) 213.180.193.3.80 > 172.16.1.3.55843: P 1:167(166) ack 7 win 28
+IP (tos 0x0, ttl 55, id 44411, offset 0, flags [DF], proto TCP (6), length 40) 213.180.193.3.80 > 172.16.1.3.55843: F, cksum 0x272b (correct), 167:167(0) ack 7 win 28
+IP (tos 0x10, ttl 63, id 46647, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.3.55843 > 213.180.193.3.80: ., cksum 0x2598 (correct), ack 167 win 432
+IP (tos 0x10, ttl 63, id 46648, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.3.55843 > 213.180.193.3.80: F, cksum 0x2596 (correct), 7:7(0) ack 168 win 432
+IP (tos 0x0, ttl 55, id 44412, offset 0, flags [DF], proto TCP (6), length 40) 213.180.193.3.80 > 172.16.1.3.55843: ., cksum 0x272a (correct), ack 8 win 28
 \end{Verbatim}
 
-DNAT
+Для демонстрации DNAT преобразований выполним \textbf{telnet 172.16.1.3 80}.
 
+Вывод \textbf{tcpdump -i eth1 -p tcp -tnv}  на маршрутизаторе \textbf{r1}:
 \begin{Verbatim}
-дамп DNAT (снаружи)
+IP (tos 0x10, ttl 64, id 3896, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.2.58126 > 172.16.1.3.80: S, cksum 0x5323 (correct), 3448690626:3448690626(0) win 14600 <mss 1460,sackOK,timestamp 514298 0,nop,wscale 4>
+IP (tos 0x0, ttl 63, id 0, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.3.80 > 172.16.1.2.58126: S, cksum 0x6a0a (correct), 3793067127:3793067127(0) ack 3448690627 win 5792 <mss 1460,sackOK,timestamp 167136 514298,nop,wscale 4>
+IP (tos 0x10, ttl 64, id 3897, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.2.58126 > 172.16.1.3.80: ., cksum 0xabdc (correct), ack 1 win 913 <nop,nop,timestamp 514304 167136>
+IP (tos 0x0, ttl 63, id 0, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.3.80 > 172.16.1.2.58126: S, cksum 0x6888 (correct), 3793067127:3793067127(0) ack 3448690627 win 5792 <mss 1460,sackOK,timestamp 167516 514304,nop,wscale 4>
+IP (tos 0x10, ttl 64, id 3898, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.2.58126 > 172.16.1.3.80: ., cksum 0xa829 (correct), ack 1 win 913 <nop,nop,timestamp 515251 167136>
+IP (tos 0x10, ttl 64, id 3899, offset 0, flags [DF], proto TCP (6), length 58) 172.16.1.2.58126 > 172.16.1.3.80: P, cksum 0xb01b (correct), 1:7(6) ack 1 win 913 <nop,nop,timestamp 516047 167136>
+IP (tos 0x0, ttl 63, id 5090, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.80 > 172.16.1.2.58126: ., cksum 0xa474 (correct), ack 7 win 362 <nop,nop,timestamp 167834 516047>
+IP (tos 0x0, ttl 63, id 5091, offset 0, flags [DF], proto TCP (6), length 342) 172.16.1.3.80 > 172.16.1.2.58126: P 1:291(290) ack 7 win 362 <nop,nop,timestamp 167834 516047>
+IP (tos 0x10, ttl 64, id 3900, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.2.58126 > 172.16.1.3.80: ., cksum 0xa0e4 (correct), ack 291 win 980 <nop,nop,timestamp 516051 167834>
+IP (tos 0x0, ttl 63, id 5092, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.80 > 172.16.1.2.58126: F, cksum 0xa34d (correct), 291:291(0) ack 7 win 362 <nop,nop,timestamp 167834 516051>
+IP (tos 0x10, ttl 64, id 3901, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.2.58126 > 172.16.1.3.80: F, cksum 0xa0e2 (correct), 7:7(0) ack 292 win 980 <nop,nop,timestamp 516051 167834>
+IP (tos 0x0, ttl 63, id 5093, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.80 > 172.16.1.2.58126: ., cksum 0xa34c (correct), ack 8 win 362 <nop,nop,timestamp 167834 516051>
 \end{Verbatim}
 
+Вывод \textbf{tcpdump -i eth0 -p tcp -tnv} на хосте \textbf{s11}:
 \begin{Verbatim}
-дамп DNAT в LAN
+IP (tos 0x10, ttl 63, id 3896, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.2.58126 > 10.0.4.20.80: S, cksum 0xf222 (correct), 3448690626:3448690626(0) win 14600 <mss 1460,sackOK,timestamp 514298 0,nop,wscale 4>
+IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto TCP (6), length 60) 10.0.4.20.80 > 172.16.1.2.58126: S, cksum 0x090a (correct), 3793067127:3793067127(0) ack 3448690627 win 5792 <mss 1460,sackOK,timestamp 167136 514298,nop,wscale 4>
+IP (tos 0x10, ttl 63, id 3897, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.2.58126 > 10.0.4.20.80: ., cksum 0x4adc (correct), ack 1 win 913 <nop,nop,timestamp 514304 167136>
+IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto TCP (6), length 60) 10.0.4.20.80 > 172.16.1.2.58126: S, cksum 0x0788 (correct), 3793067127:3793067127(0) ack 3448690627 win 5792 <mss 1460,sackOK,timestamp 167516 514304,nop,wscale 4>
+IP (tos 0x10, ttl 63, id 3898, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.2.58126 > 10.0.4.20.80: ., cksum 0x4729 (correct), ack 1 win 913 <nop,nop,timestamp 515251 167136>
+IP (tos 0x10, ttl 63, id 3899, offset 0, flags [DF], proto TCP (6), length 58) 172.16.1.2.58126 > 10.0.4.20.80: P, cksum 0x4f1b (correct), 1:7(6) ack 1 win 913 <nop,nop,timestamp 516047 167136>
+IP (tos 0x0, ttl 64, id 5090, offset 0, flags [DF], proto TCP (6), length 52) 10.0.4.20.80 > 172.16.1.2.58126: ., cksum 0x4374 (correct), ack 7 win 362 <nop,nop,timestamp 167834 516047>
+IP (tos 0x0, ttl 64, id 5091, offset 0, flags [DF], proto TCP (6), length 342) 10.0.4.20.80 > 172.16.1.2.58126: P 1:291(290) ack 7 win 362 <nop,nop,timestamp 167834 516047>
+IP (tos 0x10, ttl 63, id 3900, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.2.58126 > 10.0.4.20.80: ., cksum 0x3fe4 (correct), ack 291 win 980 <nop,nop,timestamp 516051 167834>
+IP (tos 0x0, ttl 64, id 5092, offset 0, flags [DF], proto TCP (6), length 52) 10.0.4.20.80 > 172.16.1.2.58126: F, cksum 0x424d (correct), 291:291(0) ack 7 win 362 <nop,nop,timestamp 167834 516051>
+IP (tos 0x10, ttl 63, id 3901, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.2.58126 > 10.0.4.20.80: F, cksum 0x3fe2 (correct), 7:7(0) ack 292 win 980 <nop,nop,timestamp 516051 167834>
+IP (tos 0x0, ttl 64, id 5093, offset 0, flags [DF], proto TCP (6), length 52) 10.0.4.20.80 > 172.16.1.2.58126: ., cksum 0x424c (correct), ack 8 win 362 <nop,nop,timestamp 167834 516051>
 \end{Verbatim}
 
 
