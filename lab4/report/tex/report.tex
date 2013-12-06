@@ -1082,22 +1082,18 @@ Escape character is '^]'.
 
 Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
 \begin{Verbatim}
-IP (tos 0x10, ttl 64, id 55991, offset 0, flags [DF], proto TCP (6), length 57) 172.16.1.2.49300 > 172.16.1.3.80: P, cksum 0x88cf (correct), 292697404:292697409(5) ack 2915129968 win 913 <nop,nop,timestamp 1332068 75513>
-IP (tos 0x10, ttl 63, id 55991, offset 0, flags [DF], proto TCP (6), length 57) 172.16.1.2.49300 > 10.0.4.20.80: P, cksum 0x27cf (correct), 292697404:292697409(5) ack 2915129968 win 913 <nop,nop,timestamp 1332068 75513>
-IP (tos 0x10, ttl 64, id 0, offset 0, flags [DF], proto TCP (6), length 40) 10.0.4.20.80 > 172.16.1.2.49300: R, cksum 0x2ba4 (correct), 2915129968:2915129968(0) win 0
-IP (tos 0x10, ttl 63, id 0, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.3.80 > 172.16.1.2.49300: R, cksum 0x8ca4 (correct), 2915129968:2915129968(0) win 0
-IP (tos 0x10, ttl 64, id 21009, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.2.50934 > 172.16.1.3.80: S, cksum 0x73a5 (correct), 494929698:494929698(0) win 14600 <mss 1460,sackOK,timestamp 1332531 0,nop,wscale 4>
-IP (tos 0x10, ttl 63, id 21009, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.2.50934 > 10.0.4.20.80: S, cksum 0x12a5 (correct), 494929698:494929698(0) win 14600 <mss 1460,sackOK,timestamp 1332531 0,nop,wscale 4>
-IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto TCP (6), length 60) 10.0.4.20.80 > 172.16.1.2.50934: S, cksum 0xf679 (correct), 1591093637:1591093637(0) ack 494929699 win 5792 <mss 1460,sackOK,timestamp 505375 1332531,nop,wscale 4>
-IP (tos 0x0, ttl 63, id 0, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.3.80 > 172.16.1.2.50934: S, cksum 0x577a (correct), 1591093637:1591093637(0) ack 494929699 win 5792 <mss 1460,sackOK,timestamp 505375 1332531,nop,wscale 4>
-IP (tos 0x10, ttl 64, id 21010, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.2.50934 > 172.16.1.3.80: ., cksum 0x9952 (correct), ack 1 win 913 <nop,nop,timestamp 1332531 505375>
-IP (tos 0x10, ttl 63, id 21010, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.2.50934 > 10.0.4.20.80: ., cksum 0x3852 (correct), ack 1 win 913 <nop,nop,timestamp 1332531 505375>
-IP (tos 0x10, ttl 64, id 21011, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.2.50934 > 172.16.1.3.80: F, cksum 0x9739 (correct), 1:1(0) ack 1 win 913 <nop,nop,timestamp 1333067 505375>
-IP (tos 0x10, ttl 63, id 21011, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.2.50934 > 10.0.4.20.80: F, cksum 0x3639 (correct), 1:1(0) ack 1 win 913 <nop,nop,timestamp 1333067 505375>
-IP (tos 0x0, ttl 64, id 40817, offset 0, flags [DF], proto TCP (6), length 52) 10.0.4.20.80 > 172.16.1.2.50934: F, cksum 0x3787 (correct), 1:1(0) ack 2 win 362 <nop,nop,timestamp 505591 1333067>
-IP (tos 0x0, ttl 63, id 40817, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.80 > 172.16.1.2.50934: F, cksum 0x9887 (correct), 1:1(0) ack 2 win 362 <nop,nop,timestamp 505591 1333067>
-IP (tos 0x10, ttl 64, id 21012, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.2.50934 > 172.16.1.3.80: ., cksum 0x965d (correct), ack 2 win 913 <nop,nop,timestamp 1333070 505591>
-IP (tos 0x10, ttl 63, id 21012, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.2.50934 > 10.0.4.20.80: ., cksum 0x355d (correct), ack 2 win 913 <nop,nop,timestamp 1333070 505591>
+09:19:51.150758 IP 172.16.1.2.51137 > 172.16.1.3.www: S 1367411947:1367411947(0) win 14600 <mss 1460,sackOK,timestamp 1556835 0,nop,wscale 4>
+09:19:51.177621 IP 172.16.1.2.51137 > 10.0.4.20.www: S 1367411947:1367411947(0) win 14600 <mss 1460,sackOK,timestamp 1556835 0,nop,wscale 4>
+09:19:51.177952 IP 10.0.4.20.www > 172.16.1.2.51137: S 2782892952:2782892952(0) ack 1367411948 win 5792 <mss 1460,sackOK,timestamp 595099 1556835,nop,wscale 4>
+09:19:51.177997 IP 172.16.1.3.www > 172.16.1.2.51137: S 2782892952:2782892952(0) ack 1367411948 win 5792 <mss 1460,sackOK,timestamp 595099 1556835,nop,wscale 4>
+09:19:51.178497 IP 172.16.1.2.51137 > 172.16.1.3.www: . ack 1 win 913 <nop,nop,timestamp 1556842 595099>
+09:19:51.178515 IP 172.16.1.2.51137 > 10.0.4.20.www: . ack 1 win 913 <nop,nop,timestamp 1556842 595099>
+09:19:52.778474 IP 172.16.1.2.51137 > 172.16.1.3.www: F 1:1(0) ack 1 win 913 <nop,nop,timestamp 1557242 595099>
+09:19:52.778547 IP 172.16.1.2.51137 > 10.0.4.20.www: F 1:1(0) ack 1 win 913 <nop,nop,timestamp 1557242 595099>
+09:19:52.782967 IP 10.0.4.20.www > 172.16.1.2.51137: F 1:1(0) ack 2 win 362 <nop,nop,timestamp 595259 1557242>
+09:19:52.783030 IP 172.16.1.3.www > 172.16.1.2.51137: F 1:1(0) ack 2 win 362 <nop,nop,timestamp 595259 1557242>
+09:19:52.783335 IP 172.16.1.2.51137 > 172.16.1.3.www: . ack 2 win 913 <nop,nop,timestamp 1557243 595259>
+09:19:52.783365 IP 172.16.1.2.51137 > 10.0.4.20.www: . ack 2 win 913 <nop,nop,timestamp 1557243 595259>
 \end{Verbatim}
 
 Для проверки доступа к \textbf{s11} выполним со своей машины
@@ -1111,20 +1107,20 @@ Escape character is '^]'.
 
 Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
 \begin{Verbatim}
-IP (tos 0x10, ttl 64, id 11757, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.2.48103 > 172.16.1.3.25: S, cksum 0xc0b0 (correct), 169781703:169781703(0) win 14600 <mss 1460,sackOK,timestamp 1344554 0,nop,wscale 4>
-IP (tos 0x10, ttl 63, id 11757, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.2.48103 > 10.0.4.10.25: S, cksum 0x5fba (correct), 169781703:169781703(0) win 14600 <mss 1460,sackOK,timestamp 1344554 0,nop,wscale 4>
-IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto TCP (6), length 60) 10.0.4.10.25 > 172.16.1.2.48103: S, cksum 0x1b0a (correct), 2362904855:2362904855(0) ack 169781704 win 5792 <mss 1460,sackOK,timestamp 510225 1344554,nop,wscale 4>
-IP (tos 0x0, ttl 63, id 0, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.3.25 > 172.16.1.2.48103: S, cksum 0x7c00 (correct), 2362904855:2362904855(0) ack 169781704 win 5792 <mss 1460,sackOK,timestamp 510225 1344554,nop,wscale 4>
-IP (tos 0x10, ttl 64, id 11758, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.2.48103 > 172.16.1.3.25: ., cksum 0xbdd7 (correct), ack 1 win 913 <nop,nop,timestamp 1344555 510225>
-IP (tos 0x10, ttl 63, id 11758, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.2.48103 > 10.0.4.10.25: ., cksum 0x5ce1 (correct), ack 1 win 913 <nop,nop,timestamp 1344555 510225>
-IP (tos 0x0, ttl 64, id 12177, offset 0, flags [DF], proto TCP (6), length 60) 10.0.4.10.39104 > 172.16.1.2.113: S, cksum 0xa052 (correct), 2365187712:2365187712(0) win 5840 <mss 1460,sackOK,timestamp 510225 0,nop,wscale 4>
-IP (tos 0x0, ttl 63, id 12177, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.3.39104 > 172.16.1.2.113: S, cksum 0x0149 (correct), 2365187712:2365187712(0) win 5840 <mss 1460,sackOK,timestamp 510225 0,nop,wscale 4>
-IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.2.113 > 172.16.1.3.39104: R, cksum 0x48fe (correct), 0:0(0) ack 2365187713 win 0
-IP (tos 0x0, ttl 63, id 0, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.2.113 > 10.0.4.10.39104: R, cksum 0xe807 (correct), 0:0(0) ack 2365187713 win 0
-IP (tos 0x10, ttl 64, id 11759, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.2.48103 > 172.16.1.3.25: F, cksum 0xbc08 (correct), 1:1(0) ack 1 win 913 <nop,nop,timestamp 1345017 510225>
-IP (tos 0x10, ttl 63, id 11759, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.2.48103 > 10.0.4.10.25: F, cksum 0x5b12 (correct), 1:1(0) ack 1 win 913 <nop,nop,timestamp 1345017 510225>
-IP (tos 0x0, ttl 64, id 55305, offset 0, flags [DF], proto TCP (6), length 52) 10.0.4.10.25 > 172.16.1.2.48103: ., cksum 0x5c7f (correct), ack 2 win 362 <nop,nop,timestamp 510411 1345017>
-IP (tos 0x0, ttl 63, id 55305, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.25 > 172.16.1.2.48103: ., cksum 0xbd75 (correct), ack 2 win 362 <nop,nop,timestamp 510411 1345017>
+09:20:17.450540 IP 172.16.1.2.48300 > 172.16.1.3.smtp: S 3219292845:3219292845(0) win 14600 <mss 1460,sackOK,timestamp 1563410 0,nop,wscale 4>
+09:20:17.474141 IP 172.16.1.2.48300 > 10.0.4.10.smtp: S 3219292845:3219292845(0) win 14600 <mss 1460,sackOK,timestamp 1563410 0,nop,wscale 4>
+09:20:17.474403 IP 10.0.4.10.smtp > 172.16.1.2.48300: S 3195829099:3195829099(0) ack 3219292846 win 5792 <mss 1460,sackOK,timestamp 597770 1563410,nop,wscale 4>
+09:20:17.474434 IP 172.16.1.3.smtp > 172.16.1.2.48300: S 3195829099:3195829099(0) ack 3219292846 win 5792 <mss 1460,sackOK,timestamp 597770 1563410,nop,wscale 4>
+09:20:17.474743 IP 172.16.1.2.48300 > 172.16.1.3.smtp: . ack 1 win 913 <nop,nop,timestamp 1563416 597770>
+09:20:17.474760 IP 172.16.1.2.48300 > 10.0.4.10.smtp: . ack 1 win 913 <nop,nop,timestamp 1563416 597770>
+09:20:17.492836 IP 10.0.4.10.54848 > 172.16.1.2.auth: S 3195555686:3195555686(0) win 5840 <mss 1460,sackOK,timestamp 597770 0,nop,wscale 4>
+09:20:17.492877 IP 172.16.1.3.54848 > 172.16.1.2.auth: S 3195555686:3195555686(0) win 5840 <mss 1460,sackOK,timestamp 597770 0,nop,wscale 4>
+09:20:17.493064 IP 172.16.1.2.auth > 172.16.1.3.54848: R 0:0(0) ack 3195555687 win 0
+09:20:17.493098 IP 172.16.1.2.auth > 10.0.4.10.54848: R 0:0(0) ack 3195555687 win 0
+09:20:19.376234 IP 172.16.1.2.48300 > 172.16.1.3.smtp: F 1:1(0) ack 1 win 913 <nop,nop,timestamp 1563891 597770>
+09:20:19.376308 IP 172.16.1.2.48300 > 10.0.4.10.smtp: F 1:1(0) ack 1 win 913 <nop,nop,timestamp 1563891 597770>
+09:20:19.396476 IP 10.0.4.10.smtp > 172.16.1.2.48300: . ack 2 win 362 <nop,nop,timestamp 597962 1563891>
+09:20:19.396536 IP 172.16.1.3.smtp > 172.16.1.2.48300: . ack 2 win 362 <nop,nop,timestamp 597962 1563891>
 \end{Verbatim}
 
 \end{document}
