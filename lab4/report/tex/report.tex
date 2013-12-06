@@ -494,18 +494,26 @@ iptables -A FORWARD -i $LAN -s 10.0.1.1 -d 172.168.0.0/16 -p tcp --dport 80 -j A
 iptables -A FORWARD -i $LAN -s 10.0.1.1 -d 87.240.156.160/27 -p tcp --dport 80 -j DROP
 # запрещаем vk.com
 iptables -A FORWARD -i $LAN -s 10.0.1.1 -d 87.240.131.96/27 -p tcp --dport 80 -j DROP
+iptables -A FORWARD -i $LAN -s 10.0.1.1 -d 87.240.143.244 -p tcp --dport 80 -j DROP
 # разрешаем все остальные http запросы
 iptables -A FORWARD -i $LAN -s 10.0.1.1 -p tcp --dport 80 -j ACCEPT
 
 # Для ws12
 # разрешаем rambler.ru
 iptables -A FORWARD -i $LAN -s 10.0.2.1 -d 81.19.70.3 -p tcp --dport 80 -j ACCEPT
+iptables -A FORWARD -i $LAN -s 10.0.2.1 -d 81.19.70.2 -p tcp --dport 80 -j ACCEPT
+iptables -A FORWARD -i $LAN -s 10.0.2.1 -d 81.19.70.1 -p tcp --dport 80 -j ACCEPT
+iptables -A FORWARD -i $LAN -s 10.0.2.1 -d 81.19.78.80/28 -p tcp --dport 80 -j ACCEPT
 iptables -A FORWARD -i $LAN -s 10.0.2.1 -d 81.19.70.3 -p tcp --dport 443 -j ACCEPT
+iptables -A FORWARD -i $LAN -s 10.0.2.1 -d 81.19.70.2 -p tcp --dport 443 -j ACCEPT
+iptables -A FORWARD -i $LAN -s 10.0.2.1 -d 81.19.70.1 -p tcp --dport 443 -j ACCEPT
+iptables -A FORWARD -i $LAN -s 10.0.2.1 -d 81.19.78.80/28 -p tcp --dport 443 -j ACCEPT
 # разрешаем mail.ru
 iptables -A FORWARD -i $LAN -s 10.0.2.1 -d 217.69.139.192/28 -p tcp --dport 80 -j ACCEPT
 iptables -A FORWARD -i $LAN -s 10.0.2.1 -d 94.100.180.192/28 -p tcp --dport 80 -j ACCEPT
 iptables -A FORWARD -i $LAN -s 10.0.2.1 -d 217.69.139.192/28 -p tcp --dport 443 -j ACCEPT
 iptables -A FORWARD -i $LAN -s 10.0.2.1 -d 94.100.180.192/28 -p tcp --dport 443 -j ACCEPT
+
 
 # Для ws13
 # разрешаем сеть МГТУ
@@ -531,27 +539,29 @@ Chain INPUT (policy ACCEPT 2892 packets, 236K bytes)
 
 Chain FORWARD (policy DROP 0 packets, 0 bytes)
  pkts bytes target     prot opt in     out     source               destination         
-    0     0 ACCEPT     tcp  --  eth0   *       10.0.4.10            0.0.0.0/0           
-    0     0 ACCEPT     tcp  --  eth1   *       0.0.0.0/0            10.0.4.10           tcp dpt:25 
-    0     0 ACCEPT     tcp  --  eth0   *       10.0.4.20            0.0.0.0/0           
-    0     0 ACCEPT     tcp  --  eth1   *       0.0.0.0/0            10.0.4.20           tcp dpt:80 
-    0     0 ACCEPT     all  --  tun0   *       0.0.0.0/0            0.0.0.0/0           
-    0     0 ACCEPT     all  --  *      tun0    0.0.0.0/0            0.0.0.0/0           
+   25  1657 ACCEPT     tcp  --  eth0   *       10.0.4.10            0.0.0.0/0           
+   21  1060 ACCEPT     tcp  --  eth1   *       0.0.0.0/0            10.0.4.10           tcp dpt:25 
+   17   936 ACCEPT     tcp  --  eth0   *       10.0.4.20            0.0.0.0/0           
+   24  1301 ACCEPT     tcp  --  eth1   *       0.0.0.0/0            10.0.4.20           tcp dpt:80 
+   23  1512 ACCEPT     all  --  tun0   *       0.0.0.0/0            0.0.0.0/0           
+   23  1092 ACCEPT     all  --  *      tun0    0.0.0.0/0            0.0.0.0/0           
     0     0 ACCEPT     tcp  --  eth0   *       10.0.1.1             172.168.0.0/16      tcp dpt:80 
-    0     0 DROP       tcp  --  eth0   *       10.0.1.1             87.240.156.160/27   tcp dpt:80 
+    9   540 DROP       tcp  --  eth0   *       10.0.1.1             87.240.156.160/27   tcp dpt:80 
     0     0 DROP       tcp  --  eth0   *       10.0.1.1             87.240.131.96/27    tcp dpt:80 
-    0     0 ACCEPT     tcp  --  eth0   *       10.0.1.1             0.0.0.0/0           tcp dpt:80 
-    0     0 ACCEPT     tcp  --  eth0   *       10.0.2.1             81.19.70.3          tcp dpt:80 
-    0     0 ACCEPT     tcp  --  eth0   *       10.0.2.1             81.19.70.3          tcp dpt:443 
-    0     0 ACCEPT     tcp  --  eth0   *       10.0.2.1             217.69.139.192/28   tcp dpt:80 
+   16   720 ACCEPT     tcp  --  eth0   *       10.0.1.1             0.0.0.0/0           tcp dpt:80 
+   12   540 ACCEPT     tcp  --  eth0   *       10.0.2.1             81.19.70.3          tcp dpt:80 
+   13   780 ACCEPT     tcp  --  eth0   *       10.0.2.1             81.19.70.3          tcp dpt:443 
+   13   705 ACCEPT     tcp  --  eth0   *       10.0.2.1             217.69.139.192/28   tcp dpt:80 
     0     0 ACCEPT     tcp  --  eth0   *       10.0.2.1             94.100.180.192/28   tcp dpt:80 
-    0     0 ACCEPT     tcp  --  eth0   *       10.0.2.1             217.69.139.192/28   tcp dpt:443 
+   12   648 ACCEPT     tcp  --  eth0   *       10.0.2.1             217.69.139.192/28   tcp dpt:443 
     0     0 ACCEPT     tcp  --  eth0   *       10.0.2.1             94.100.180.192/28   tcp dpt:443 
     0     0 ACCEPT     tcp  --  eth0   *       10.0.3.1             172.168.0.0/16      
-    0     0 ACCEPT     tcp  --  eth0   *       10.0.3.1             0.0.0.0/0           tcp dpt:80 
-    0     0 ACCEPT     tcp  --  eth0   *       10.0.3.1             0.0.0.0/0           tcp dpt:110 
-    0     0 ACCEPT     tcp  --  eth0   *       10.0.3.1             0.0.0.0/0           tcp dpt:443 
-    0     0 ACCEPT     all  --  eth1   *       0.0.0.0/0            0.0.0.0/0           state ESTABLISHED 
+   16   720 ACCEPT     tcp  --  eth0   *       10.0.3.1             0.0.0.0/0           tcp dpt:80 
+   18   973 ACCEPT     tcp  --  eth0   *       10.0.3.1             0.0.0.0/0           tcp dpt:110 
+   18   984 ACCEPT     tcp  --  eth0   *       10.0.3.1             0.0.0.0/0           tcp dpt:443 
+   67  3376 ACCEPT     all  --  eth1   *       0.0.0.0/0            0.0.0.0/0           state ESTABLISHED 
+
+
 
 Chain OUTPUT (policy ACCEPT 96 packets, 7380 bytes)
  pkts bytes target     prot opt in     out     source               destination
