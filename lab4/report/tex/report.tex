@@ -719,6 +719,11 @@ ws11:~# telnet 87.240.156.161 80
 Trying 87.240.156.161...
 \end{Verbatim}
 
+Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
+\begin{Verbatim}
+IP (tos 0x10, ttl 64, id 7648, offset 0, flags [DF], proto TCP (6), length 60) 10.0.1.1.52593 > 87.240.156.161.80: S, cksum 0x049e (correct), 19178907:19178907(0) win 5840 <mss 1460,sackOK,timestamp 440443 0,nop,wscale 4>
+\end{Verbatim}
+
 Выполним с хоста \textbf{ws11} \textbf{telnet 213.180.193.3 80},  чтобы проверить, что
 происходит подключение к другим сервисам, например, ya.ru:
 \begin{Verbatim}
@@ -728,11 +733,32 @@ Connected to 213.180.193.3.
 Escape character is '^]'.
 \end{Verbatim}
 
+Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
+\begin{Verbatim}
+IP (tos 0x10, ttl 64, id 49528, offset 0, flags [DF], proto TCP (6), length 60) 10.0.1.1.58316 > 213.180.193.3.80: S, cksum 0xc5aa (correct), 472909138:472909138(0) win 5840 <mss 1460,sackOK,timestamp 443434 0,nop,wscale 4>
+IP (tos 0x10, ttl 63, id 49528, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.3.58316 > 213.180.193.3.80: S, cksum 0x2398 (correct), 472909138:472909138(0) win 5840 <mss 1460,sackOK,timestamp 443434 0,nop,wscale 4>
+IP (tos 0x0, ttl 52, id 0, offset 0, flags [DF], proto TCP (6), length 52) 213.180.193.3.80 > 172.16.1.3.58316: S, cksum 0x81de (correct), 669402349:669402349(0) ack 472909139 win 14100 <mss 1410,nop,nop,sackOK,nop,wscale 9>
+IP (tos 0x0, ttl 51, id 0, offset 0, flags [DF], proto TCP (6), length 52) 213.180.193.3.80 > 10.0.1.1.58316: S, cksum 0x23f1 (correct), 669402349:669402349(0) ack 472909139 win 14100 <mss 1410,nop,nop,sackOK,nop,wscale 9>
+IP (tos 0x10, ttl 64, id 49529, offset 0, flags [DF], proto TCP (6), length 40) 10.0.1.1.58316 > 213.180.193.3.80: ., cksum 0x9a3a (correct), ack 1 win 365
+IP (tos 0x10, ttl 63, id 49529, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.3.58316 > 213.180.193.3.80: ., cksum 0xf827 (correct), ack 1 win 365
+IP (tos 0x10, ttl 64, id 49530, offset 0, flags [DF], proto TCP (6), length 40) 10.0.1.1.58316 > 213.180.193.3.80: F, cksum 0x9a39 (correct), 1:1(0) ack 1 win 365
+IP (tos 0x10, ttl 63, id 49530, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.3.58316 > 213.180.193.3.80: F, cksum 0xf826 (correct), 1:1(0) ack 1 win 365
+IP (tos 0x0, ttl 52, id 16650, offset 0, flags [DF], proto TCP (6), length 40) 213.180.193.3.80 > 172.16.1.3.58316: F, cksum 0xf976 (correct), 1:1(0) ack 2 win 28
+IP (tos 0x0, ttl 51, id 16650, offset 0, flags [DF], proto TCP (6), length 40) 213.180.193.3.80 > 10.0.1.1.58316: F, cksum 0x9b89 (correct), 1:1(0) ack 2 win 28
+IP (tos 0x10, ttl 64, id 49531, offset 0, flags [DF], proto TCP (6), length 40) 10.0.1.1.58316 > 213.180.193.3.80: ., cksum 0x9a38 (correct), ack 2 win 365
+IP (tos 0x10, ttl 63, id 49531, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.3.58316 > 213.180.193.3.80: ., cksum 0xf825 (correct), ack 2 win 365
+\end{Verbatim}
+
 Выполним с хоста \textbf{ws11} \textbf{telnet 217.69.139.90 143},  чтобы проверить,
 что не происходит подключение к сервисам, например, imap.mail.ru на порту 143:
 \begin{Verbatim}
 ws11:~# telnet 217.69.139.90 143
 Trying 217.69.139.90...
+\end{Verbatim}
+
+Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
+\begin{Verbatim}
+IP (tos 0x10, ttl 64, id 31584, offset 0, flags [DF], proto TCP (6), length 60) 10.0.1.1.40282 > 217.69.139.90.143: S, cksum 0x65f5 (correct), 1092135162:1092135162(0) win 5840 <mss 1460,sackOK,timestamp 447386 0,nop,wscale 4>
 \end{Verbatim}
 
 Выполним с хоста \textbf{ws11} \textbf{traceroute -n 10.102.0.2},  чтобы проверить,
@@ -758,6 +784,22 @@ Connected to 217.69.139.199.
 Escape character is '^]'.
 \end{Verbatim}
 
+Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
+\begin{Verbatim}
+IP (tos 0x10, ttl 64, id 37238, offset 0, flags [DF], proto TCP (6), length 60) 10.0.2.1.57399 > 217.69.139.199.80: S, cksum 0x566e (correct), 1538412372:1538412372(0) win 5840 <mss 1460,sackOK,timestamp 450082 0,nop,wscale 4>
+IP (tos 0x10, ttl 63, id 37238, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.3.57399 > 217.69.139.199.80: S, cksum 0xb55b (correct), 1538412372:1538412372(0) win 5840 <mss 1460,sackOK,timestamp 450082 0,nop,wscale 4>
+IP (tos 0x0, ttl 56, id 0, offset 0, flags [DF], proto TCP (6), length 56) 217.69.139.199.80 > 172.16.1.3.57399: S, cksum 0xa488 (correct), 958865643:958865643(0) ack 1538412373 win 5592 <mss 1410,sackOK,timestamp 509717891 450082>
+IP (tos 0x0, ttl 55, id 0, offset 0, flags [DF], proto TCP (6), length 56) 217.69.139.199.80 > 10.0.2.1.57399: S, cksum 0x459b (correct), 958865643:958865643(0) ack 1538412373 win 5592 <mss 1410,sackOK,timestamp 509717891 450082>
+IP (tos 0x10, ttl 64, id 37239, offset 0, flags [DF], proto TCP (6), length 52) 10.0.2.1.57399 > 217.69.139.199.80: ., cksum 0x5f2e (correct), ack 1 win 5840 <nop,nop,timestamp 450083 509717891>
+IP (tos 0x10, ttl 63, id 37239, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.57399 > 217.69.139.199.80: ., cksum 0xbe1b (correct), ack 1 win 5840 <nop,nop,timestamp 450083 509717891>
+IP (tos 0x10, ttl 64, id 37240, offset 0, flags [DF], proto TCP (6), length 52) 10.0.2.1.57399 > 217.69.139.199.80: F, cksum 0x5c8b (correct), 1:1(0) ack 1 win 5840 <nop,nop,timestamp 450757 509717891>
+IP (tos 0x10, ttl 63, id 37240, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.57399 > 217.69.139.199.80: F, cksum 0xbb78 (correct), 1:1(0) ack 1 win 5840 <nop,nop,timestamp 450757 509717891>
+IP (tos 0x0, ttl 56, id 36198, offset 0, flags [DF], proto TCP (6), length 52) 217.69.139.199.80 > 172.16.1.3.57399: F, cksum 0xa217 (correct), 1:1(0) ack 2 win 5592 <nop,nop,timestamp 509724635 450757>
+IP (tos 0x0, ttl 55, id 36198, offset 0, flags [DF], proto TCP (6), length 52) 217.69.139.199.80 > 10.0.2.1.57399: F, cksum 0x432a (correct), 1:1(0) ack 2 win 5592 <nop,nop,timestamp 509724635 450757>
+IP (tos 0x10, ttl 64, id 37241, offset 0, flags [DF], proto TCP (6), length 52) 10.0.2.1.57399 > 217.69.139.199.80: ., cksum 0x4229 (correct), ack 2 win 5840 <nop,nop,timestamp 450766 509724635>
+IP (tos 0x10, ttl 63, id 37241, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.57399 > 217.69.139.199.80: ., cksum 0xa116 (correct), ack 2 win 5840 <nop,nop,timestamp 450766 509724635>
+\end{Verbatim}
+
 Выполним с хоста \textbf{ws12} \textbf{telnet 217.69.139.199 443} для проверки
 разрешения подключения к mail.ru на порту 443:
 \begin{Verbatim}
@@ -765,6 +807,22 @@ ws12:~# telnet 217.69.139.199 443
 Trying 217.69.139.199...
 Connected to 217.69.139.199.
 Escape character is '^]'.
+\end{Verbatim}
+
+Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
+\begin{Verbatim}
+IP (tos 0x10, ttl 64, id 46442, offset 0, flags [DF], proto TCP (6), length 60) 10.0.2.1.33658 > 217.69.139.199.443: S, cksum 0x76c3 (correct), 2109299145:2109299145(0) win 5840 <mss 1460,sackOK,timestamp 453795 0,nop,wscale 4>
+IP (tos 0x10, ttl 63, id 46442, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.3.33658 > 217.69.139.199.443: S, cksum 0xd5b0 (correct), 2109299145:2109299145(0) win 5840 <mss 1460,sackOK,timestamp 453795 0,nop,wscale 4>
+IP (tos 0x0, ttl 56, id 0, offset 0, flags [DF], proto TCP (6), length 56) 217.69.139.199.443 > 172.16.1.3.33658: S, cksum 0x46f0 (correct), 1506870879:1506870879(0) ack 2109299146 win 5592 <mss 1410,sackOK,timestamp 1759107802 453795>
+IP (tos 0x0, ttl 55, id 0, offset 0, flags [DF], proto TCP (6), length 56) 217.69.139.199.443 > 10.0.2.1.33658: S, cksum 0xe802 (correct), 1506870879:1506870879(0) ack 2109299146 win 5592 <mss 1410,sackOK,timestamp 1759107802 453795>
+IP (tos 0x10, ttl 64, id 46443, offset 0, flags [DF], proto TCP (6), length 52) 10.0.2.1.33658 > 217.69.139.199.443: ., cksum 0x0197 (correct), ack 1 win 5840 <nop,nop,timestamp 453795 1759107802>
+IP (tos 0x10, ttl 63, id 46443, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.33658 > 217.69.139.199.443: ., cksum 0x6084 (correct), ack 1 win 5840 <nop,nop,timestamp 453795 1759107802>
+IP (tos 0x10, ttl 64, id 46444, offset 0, flags [DF], proto TCP (6), length 52) 10.0.2.1.33658 > 217.69.139.199.443: F, cksum 0x00db (correct), 1:1(0) ack 1 win 5840 <nop,nop,timestamp 453982 1759107802>
+IP (tos 0x10, ttl 63, id 46444, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.33658 > 217.69.139.199.443: F, cksum 0x5fc8 (correct), 1:1(0) ack 1 win 5840 <nop,nop,timestamp 453982 1759107802>
+IP (tos 0x0, ttl 56, id 56510, offset 0, flags [DF], proto TCP (6), length 52) 217.69.139.199.443 > 172.16.1.3.33658: F, cksum 0x599c (correct), 1:1(0) ack 2 win 5592 <nop,nop,timestamp 1759109629 453982>
+IP (tos 0x0, ttl 55, id 56510, offset 0, flags [DF], proto TCP (6), length 52) 217.69.139.199.443 > 10.0.2.1.33658: F, cksum 0xfaae (correct), 1:1(0) ack 2 win 5592 <nop,nop,timestamp 1759109629 453982>
+IP (tos 0x10, ttl 64, id 46445, offset 0, flags [DF], proto TCP (6), length 52) 10.0.2.1.33658 > 217.69.139.199.443: ., cksum 0xf9b6 (correct), ack 2 win 5840 <nop,nop,timestamp 453982 1759109629>
+IP (tos 0x10, ttl 63, id 46445, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.33658 > 217.69.139.199.443: ., cksum 0x58a4 (correct), ack 2 win 5840 <nop,nop,timestamp 453982 1759109629>
 \end{Verbatim}
 
 Выполним с хоста \textbf{ws12} \textbf{telnet 81.19.70.3 80} для проверки
@@ -776,13 +834,39 @@ Connected to 81.19.70.3.
 Escape character is '^]'.
 \end{Verbatim}
 
-Выполним с хоста \textbf{ws12} \textbf{telnet 81.19.70.3 80} для проверки разрешения
+Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
+\begin{Verbatim}
+IP (tos 0x10, ttl 64, id 7740, offset 0, flags [DF], proto TCP (6), length 60) 10.0.2.1.33000 > 81.19.70.3.80: S, cksum 0x88f4 (correct), 2720523774:2720523774(0) win 5840 <mss 1460,sackOK,timestamp 457666 0,nop,wscale 4>
+IP (tos 0x10, ttl 63, id 7740, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.3.33000 > 81.19.70.3.80: S, cksum 0xe7e1 (correct), 2720523774:2720523774(0) win 5840 <mss 1460,sackOK,timestamp 457666 0,nop,wscale 4>
+IP (tos 0x0, ttl 55, id 28336, offset 0, flags [DF], proto TCP (6), length 48) 81.19.70.3.80 > 172.16.1.3.33000: S, cksum 0xe425 (correct), 1940111037:1940111037(0) ack 2720523775 win 8192 <mss 1460,sackOK,eol>
+IP (tos 0x0, ttl 54, id 28336, offset 0, flags [DF], proto TCP (6), length 48) 81.19.70.3.80 > 10.0.2.1.33000: S, cksum 0x8538 (correct), 1940111037:1940111037(0) ack 2720523775 win 8192 <mss 1460,sackOK,eol>
+IP (tos 0x10, ttl 64, id 7741, offset 0, flags [DF], proto TCP (6), length 40) 10.0.2.1.33000 > 81.19.70.3.80: ., cksum 0xba2b (correct), ack 1 win 5840
+IP (tos 0x10, ttl 63, id 7741, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.3.33000 > 81.19.70.3.80: ., cksum 0x1919 (correct), ack 1 win 5840
+IP (tos 0x10, ttl 64, id 7742, offset 0, flags [DF], proto TCP (6), length 40) 10.0.2.1.33000 > 81.19.70.3.80: F, cksum 0xba2a (correct), 1:1(0) ack 1 win 5840
+IP (tos 0x10, ttl 63, id 7742, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.3.33000 > 81.19.70.3.80: F, cksum 0x1918 (correct), 1:1(0) ack 1 win 5840
+IP (tos 0x0, ttl 55, id 31838, offset 0, flags [DF], proto TCP (6), length 40) 81.19.70.3.80 > 172.16.1.3.33000: ., cksum 0x0db0 (correct), ack 2 win 8760
+IP (tos 0x0, ttl 54, id 31838, offset 0, flags [DF], proto TCP (6), length 40) 81.19.70.3.80 > 10.0.2.1.33000: ., cksum 0xaec2 (correct), ack 2 win 8760
+IP (tos 0x0, ttl 55, id 31839, offset 0, flags [DF], proto TCP (6), length 40) 81.19.70.3.80 > 172.16.1.3.33000: F, cksum 0x0daf (correct), 1:1(0) ack 2 win 8760
+IP (tos 0x0, ttl 54, id 31839, offset 0, flags [DF], proto TCP (6), length 40) 81.19.70.3.80 > 10.0.2.1.33000: F, cksum 0xaec1 (correct), 1:1(0) ack 2 win 8760
+IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto TCP (6), length 40) 10.0.2.1.33000 > 81.19.70.3.80: ., cksum 0xba29 (correct), ack 2 win 5840
+IP (tos 0x0, ttl 63, id 0, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.3.33000 > 81.19.70.3.80: ., cksum 0x1917 (correct), ack 2 win 5840
+\end{Verbatim}
+
+Выполним с хоста \textbf{ws12} \textbf{telnet 81.19.70.3 443} для проверки разрешения
 подключения к rambler.ru на порту 443:
 \begin{Verbatim}
 ws12:~# telnet 81.19.70.3 443
 Trying 81.19.70.3...
 Connected to 81.19.70.3.
 Escape character is '^]'.
+\end{Verbatim}
+
+Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
+\begin{Verbatim}
+IP (tos 0x10, ttl 64, id 4916, offset 0, flags [DF], proto TCP (6), length 60) 10.0.2.1.55741 > 81.19.70.3.443: S, cksum 0xa7c2 (correct), 3869576064:3869576064(0) win 5840 <mss 1460,sackOK,timestamp 465076 0,nop,wscale 4>
+IP (tos 0x10, ttl 63, id 4916, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.3.55741 > 81.19.70.3.443: S, cksum 0x06b0 (correct), 3869576064:3869576064(0) win 5840 <mss 1460,sackOK,timestamp 465076 0,nop,wscale 4>
+IP (tos 0x10, ttl 64, id 4917, offset 0, flags [DF], proto TCP (6), length 60) 10.0.2.1.55741 > 81.19.70.3.443: S, cksum 0xa696 (correct), 3869576064:3869576064(0) win 5840 <mss 1460,sackOK,timestamp 465376 0,nop,wscale 4>
+IP (tos 0x10, ttl 63, id 4917, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.3.55741 > 81.19.70.3.443: S, cksum 0x0584 (correct), 3869576064:3869576064(0) win 5840 <mss 1460,sackOK,timestamp 465376 0,nop,wscale 4>
 \end{Verbatim}
 
 Выполним с хоста \textbf{ws12} \textbf{telnet 213.180.193.3 80},  чтобы проверить, что
@@ -792,11 +876,22 @@ ws12:~# telnet 213.180.193.3 80
 Trying 213.180.193.3...
 \end{Verbatim}
 
+Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
+\begin{Verbatim}
+IP (tos 0x10, ttl 64, id 18013, offset 0, flags [DF], proto TCP (6), length 60) 10.0.2.1.55017 > 213.180.193.3.80: S, cksum 0x13b9 (correct), 215969339:215969339(0) win 5840 <mss 1460,sackOK,timestamp 469094 0,nop,wscale 4>
+IP (tos 0x10, ttl 64, id 18014, offset 0, flags [DF], proto TCP (6), length 60) 10.0.2.1.55017 > 213.180.193.3.80: S, cksum 0x128d (correct), 215969339:215969339(0) win 5840 <mss 1460,sackOK,timestamp 469394 0,nop,wscale 4>
+\end{Verbatim}
+
 Выполним с хоста \textbf{ws12} \textbf{telnet 217.69.139.90 143},  чтобы проверить,
 что не происходит подключение к сервисам, например, imap.mail.ru на порту 143:
 \begin{Verbatim}
 ws12:~# telnet 217.69.139.90 143
 Trying 217.69.139.90...
+\end{Verbatim}
+
+Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
+\begin{Verbatim}
+IP (tos 0x10, ttl 64, id 7352, offset 0, flags [DF], proto TCP (6), length 60) 10.0.2.1.55391 > 217.69.139.90.143: S, cksum 0xfb6f (correct), 1324243155:1324243155(0) win 5840 <mss 1460,sackOK,timestamp 476267 0,nop,wscale 4>
 \end{Verbatim}
 
 Выполним с хоста \textbf{ws12} \textbf{traceroute -n 10.102.0.2},  чтобы проверить,
@@ -822,6 +917,22 @@ Connected to 213.180.193.3.
 Escape character is '^]'.
 \end{Verbatim}
 
+Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
+\begin{Verbatim}
+IP (tos 0x10, ttl 64, id 45525, offset 0, flags [DF], proto TCP (6), length 60) 10.0.3.1.59365 > 213.180.193.3.80: S, cksum 0x06b6 (correct), 1818353961:1818353961(0) win 5840 <mss 1460,sackOK,timestamp 479484 0,nop,wscale 4>
+IP (tos 0x10, ttl 63, id 45525, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.3.59365 > 213.180.193.3.80: S, cksum 0x66a3 (correct), 1818353961:1818353961(0) win 5840 <mss 1460,sackOK,timestamp 479484 0,nop,wscale 4>
+IP (tos 0x0, ttl 53, id 0, offset 0, flags [DF], proto TCP (6), length 52) 213.180.193.3.80 > 172.16.1.3.59365: S, cksum 0x739f (correct), 3298920014:3298920014(0) ack 1818353962 win 14100 <mss 1410,nop,nop,sackOK,nop,wscale 9>
+IP (tos 0x0, ttl 52, id 0, offset 0, flags [DF], proto TCP (6), length 52) 213.180.193.3.80 > 10.0.3.1.59365: S, cksum 0x13b2 (correct), 3298920014:3298920014(0) ack 1818353962 win 14100 <mss 1410,nop,nop,sackOK,nop,wscale 9>
+IP (tos 0x10, ttl 64, id 45526, offset 0, flags [DF], proto TCP (6), length 40) 10.0.3.1.59365 > 213.180.193.3.80: ., cksum 0x89fb (correct), ack 1 win 365
+IP (tos 0x10, ttl 63, id 45526, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.3.59365 > 213.180.193.3.80: ., cksum 0xe9e8 (correct), ack 1 win 365
+IP (tos 0x10, ttl 64, id 45527, offset 0, flags [DF], proto TCP (6), length 40) 10.0.3.1.59365 > 213.180.193.3.80: F, cksum 0x89fa (correct), 1:1(0) ack 1 win 365
+IP (tos 0x10, ttl 63, id 45527, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.3.59365 > 213.180.193.3.80: F, cksum 0xe9e7 (correct), 1:1(0) ack 1 win 365
+IP (tos 0x0, ttl 53, id 62406, offset 0, flags [DF], proto TCP (6), length 40) 213.180.193.3.80 > 172.16.1.3.59365: F, cksum 0xeb37 (correct), 1:1(0) ack 2 win 28
+IP (tos 0x0, ttl 52, id 62406, offset 0, flags [DF], proto TCP (6), length 40) 213.180.193.3.80 > 10.0.3.1.59365: F, cksum 0x8b4a (correct), 1:1(0) ack 2 win 28
+IP (tos 0x10, ttl 64, id 45528, offset 0, flags [DF], proto TCP (6), length 40) 10.0.3.1.59365 > 213.180.193.3.80: ., cksum 0x89f9 (correct), ack 2 win 365
+IP (tos 0x10, ttl 63, id 45528, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.3.59365 > 213.180.193.3.80: ., cksum 0xe9e6 (correct), ack 2 win 365
+\end{Verbatim}
+
 Выполним с него \textbf{telnet 213.180.204.11 443},  чтобы проверить, что
 происходит подключение к сервисам, например, yandex.ru на порту 443:
 \begin{Verbatim}
@@ -829,6 +940,22 @@ ws13:~# telnet 213.180.204.11 443
 Trying 213.180.204.11...
 Connected to 213.180.204.11.
 Escape character is '^]'.
+\end{Verbatim}
+
+Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
+\begin{Verbatim}
+IP (tos 0x10, ttl 64, id 44435, offset 0, flags [DF], proto TCP (6), length 60) 10.0.3.1.36318 > 213.180.204.11.443: S, cksum 0x2594 (correct), 2674509875:2674509875(0) win 5840 <mss 1460,sackOK,timestamp 484768 0,nop,wscale 4>
+IP (tos 0x10, ttl 63, id 44435, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.3.36318 > 213.180.204.11.443: S, cksum 0x8581 (correct), 2674509875:2674509875(0) win 5840 <mss 1460,sackOK,timestamp 484768 0,nop,wscale 4>
+IP (tos 0x0, ttl 55, id 0, offset 0, flags [DF], proto TCP (6), length 60) 213.180.204.11.443 > 172.16.1.3.36318: S, cksum 0xfce0 (correct), 3783798451:3783798451(0) ack 2674509876 win 17796 <mss 8910,sackOK,timestamp 539888723 484768,nop,wscale 8>
+IP (tos 0x0, ttl 54, id 0, offset 0, flags [DF], proto TCP (6), length 60) 213.180.204.11.443 > 10.0.3.1.36318: S, cksum 0x9cf3 (correct), 3783798451:3783798451(0) ack 2674509876 win 17796 <mss 8910,sackOK,timestamp 539888723 484768,nop,wscale 8>
+IP (tos 0x10, ttl 64, id 44436, offset 0, flags [DF], proto TCP (6), length 52) 10.0.3.1.36318 > 213.180.204.11.443: ., cksum 0x2cf2 (correct), ack 1 win 365 <nop,nop,timestamp 484768 539888723>
+IP (tos 0x10, ttl 63, id 44436, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.36318 > 213.180.204.11.443: ., cksum 0x8cdf (correct), ack 1 win 365 <nop,nop,timestamp 484768 539888723>
+IP (tos 0x10, ttl 64, id 44437, offset 0, flags [DF], proto TCP (6), length 52) 10.0.3.1.36318 > 213.180.204.11.443: F, cksum 0x2ba6 (correct), 1:1(0) ack 1 win 365 <nop,nop,timestamp 485099 539888723>
+IP (tos 0x10, ttl 63, id 44437, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.36318 > 213.180.204.11.443: F, cksum 0x8b93 (correct), 1:1(0) ack 1 win 365 <nop,nop,timestamp 485099 539888723>
+IP (tos 0x0, ttl 55, id 8500, offset 0, flags [DF], proto TCP (6), length 52) 213.180.204.11.443 > 172.16.1.3.36318: F, cksum 0x898c (correct), 1:1(0) ack 2 win 70 <nop,nop,timestamp 539889536 485099>
+IP (tos 0x0, ttl 54, id 8500, offset 0, flags [DF], proto TCP (6), length 52) 213.180.204.11.443 > 10.0.3.1.36318: F, cksum 0x299f (correct), 1:1(0) ack 2 win 70 <nop,nop,timestamp 539889536 485099>
+IP (tos 0x10, ttl 64, id 44438, offset 0, flags [DF], proto TCP (6), length 52) 10.0.3.1.36318 > 213.180.204.11.443: ., cksum 0x2878 (correct), ack 2 win 365 <nop,nop,timestamp 485099 539889536>
+IP (tos 0x10, ttl 63, id 44438, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.36318 > 213.180.204.11.443: ., cksum 0x8865 (correct), ack 2 win 365 <nop,nop,timestamp 485099 539889536>
 \end{Verbatim}
 
 Выполним с него \textbf{telnet 217.69.139.74 110},  чтобы проверить, что
@@ -841,11 +968,38 @@ Escape character is '^]'.
 +OK
 \end{Verbatim}
 
+Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
+\begin{Verbatim}
+IP (tos 0x10, ttl 64, id 35729, offset 0, flags [DF], proto TCP (6), length 60) 10.0.3.1.40904 > 217.69.139.74.110: S, cksum 0xe28c (correct), 3504992559:3504992559(0) win 5840 <mss 1460,sackOK,timestamp 490174 0,nop,wscale 4>
+IP (tos 0x10, ttl 63, id 35729, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.3.40904 > 217.69.139.74.110: S, cksum 0x427a (correct), 3504992559:3504992559(0) win 5840 <mss 1460,sackOK,timestamp 490174 0,nop,wscale 4>
+IP (tos 0x0, ttl 55, id 0, offset 0, flags [DF], proto TCP (6), length 56) 217.69.139.74.110 > 172.16.1.3.40904: S, cksum 0xeec5 (correct), 3565825369:3565825369(0) ack 3504992560 win 5592 <mss 1410,sackOK,timestamp 891498961 490174>
+IP (tos 0x0, ttl 54, id 0, offset 0, flags [DF], proto TCP (6), length 56) 217.69.139.74.110 > 10.0.3.1.40904: S, cksum 0x8ed8 (correct), 3565825369:3565825369(0) ack 3504992560 win 5592 <mss 1410,sackOK,timestamp 891498961 490174>
+IP (tos 0x10, ttl 64, id 35730, offset 0, flags [DF], proto TCP (6), length 52) 10.0.3.1.40904 > 217.69.139.74.110: ., cksum 0xa866 (correct), ack 1 win 5840 <nop,nop,timestamp 490180 891498961>
+IP (tos 0x10, ttl 63, id 35730, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.40904 > 217.69.139.74.110: ., cksum 0x0854 (correct), ack 1 win 5840 <nop,nop,timestamp 490180 891498961>
+IP (tos 0x0, ttl 55, id 7311, offset 0, flags [DF], proto TCP (6), length 57) 217.69.139.74.110 > 172.16.1.3.40904: P, cksum 0x88de (correct), 1:6(5) ack 1 win 5592 <nop,nop,timestamp 891498965 490180>
+IP (tos 0x0, ttl 54, id 7311, offset 0, flags [DF], proto TCP (6), length 57) 217.69.139.74.110 > 10.0.3.1.40904: P, cksum 0x28f1 (correct), 1:6(5) ack 1 win 5592 <nop,nop,timestamp 891498965 490180>
+IP (tos 0x10, ttl 64, id 35731, offset 0, flags [DF], proto TCP (6), length 52) 10.0.3.1.40904 > 217.69.139.74.110: ., cksum 0xa85d (correct), ack 6 win 5840 <nop,nop,timestamp 490180 891498965>
+IP (tos 0x10, ttl 63, id 35731, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.40904 > 217.69.139.74.110: ., cksum 0x084b (correct), ack 6 win 5840 <nop,nop,timestamp 490180 891498965>
+IP (tos 0x10, ttl 64, id 35732, offset 0, flags [DF], proto TCP (6), length 52) 10.0.3.1.40904 > 217.69.139.74.110: F, cksum 0xa752 (correct), 1:1(0) ack 6 win 5840 <nop,nop,timestamp 490446 891498965>
+IP (tos 0x10, ttl 63, id 35732, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.40904 > 217.69.139.74.110: F, cksum 0x0740 (correct), 1:1(0) ack 6 win 5840 <nop,nop,timestamp 490446 891498965>
+IP (tos 0x0, ttl 55, id 7312, offset 0, flags [DF], proto TCP (6), length 52) 217.69.139.74.110 > 172.16.1.3.40904: ., cksum 0xfdd5 (correct), ack 2 win 5592 <nop,nop,timestamp 891501623 490446>
+IP (tos 0x0, ttl 54, id 7312, offset 0, flags [DF], proto TCP (6), length 52) 217.69.139.74.110 > 10.0.3.1.40904: ., cksum 0x9de8 (correct), ack 2 win 5592 <nop,nop,timestamp 891501623 490446>
+IP (tos 0x0, ttl 55, id 7313, offset 0, flags [DF], proto TCP (6), length 52) 217.69.139.74.110 > 172.16.1.3.40904: F, cksum 0xfdd4 (correct), 6:6(0) ack 2 win 5592 <nop,nop,timestamp 891501623 490446>
+IP (tos 0x0, ttl 54, id 7313, offset 0, flags [DF], proto TCP (6), length 52) 217.69.139.74.110 > 10.0.3.1.40904: F, cksum 0x9de7 (correct), 6:6(0) ack 2 win 5592 <nop,nop,timestamp 891501623 490446>
+IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto TCP (6), length 52) 10.0.3.1.40904 > 217.69.139.74.110: ., cksum 0x9cef (correct), ack 7 win 5840 <nop,nop,timestamp 490446 891501623>
+IP (tos 0x0, ttl 63, id 0, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.40904 > 217.69.139.74.110: ., cksum 0xfcdc (correct), ack 7 win 5840 <nop,nop,timestamp 490446 891501623>
+\end{Verbatim}
+
 Выполним с него \textbf{telnet 217.69.139.90 143},  чтобы проверить, что не
 происходит подключение к сервисам, например, imap.mail.ru на порту 143:
 \begin{Verbatim}
 ws13:~# telnet 217.69.139.90 143
 Trying 217.69.139.90...
+\end{Verbatim}
+
+Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
+\begin{Verbatim}
+IP (tos 0x10, ttl 64, id 19083, offset 0, flags [DF], proto TCP (6), length 60) 10.0.3.1.36591 > 217.69.139.90.143: S, cksum 0xeeab (correct), 4103389992:4103389992(0) win 5840 <mss 1460,sackOK,timestamp 493987 0,nop,wscale 4>
 \end{Verbatim}
 
 Выполним с хоста \textbf{ws13} \textbf{traceroute -n 10.102.0.2},  чтобы проверить,
@@ -870,11 +1024,32 @@ Connected to 213.180.193.3.
 Escape character is '^]'.
 \end{Verbatim}
 
+Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
+\begin{Verbatim}
+IP (tos 0x10, ttl 64, id 43455, offset 0, flags [DF], proto TCP (6), length 60) 10.102.0.2.48579 > 213.180.193.3.80: S, cksum 0xed9e (correct), 437924172:437924172(0) win 5840 <mss 1460,sackOK,timestamp 497907 0,nop,wscale 4>
+IP (tos 0x10, ttl 63, id 43455, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.4.48579 > 213.180.193.3.80: S, cksum 0x4af2 (correct), 437924172:437924172(0) win 5840 <mss 1460,sackOK,timestamp 497907 0,nop,wscale 4>
+IP (tos 0x0, ttl 55, id 0, offset 0, flags [DF], proto TCP (6), length 52) 213.180.193.3.80 > 172.16.1.4.48579: S, cksum 0x5a03 (correct), 1358381019:1358381019(0) ack 437924173 win 14100 <mss 1410,nop,nop,sackOK,nop,wscale 9>
+IP (tos 0x0, ttl 54, id 0, offset 0, flags [DF], proto TCP (6), length 52) 213.180.193.3.80 > 10.102.0.2.48579: S, cksum 0xfcaf (correct), 1358381019:1358381019(0) ack 437924173 win 14100 <mss 1410,nop,nop,sackOK,nop,wscale 9>
+IP (tos 0x10, ttl 64, id 43456, offset 0, flags [DF], proto TCP (6), length 40) 10.102.0.2.48579 > 213.180.193.3.80: ., cksum 0x72f9 (correct), ack 1 win 365
+IP (tos 0x10, ttl 63, id 43456, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.4.48579 > 213.180.193.3.80: ., cksum 0xd04c (correct), ack 1 win 365
+IP (tos 0x10, ttl 64, id 43457, offset 0, flags [DF], proto TCP (6), length 40) 10.102.0.2.48579 > 213.180.193.3.80: F, cksum 0x72f8 (correct), 1:1(0) ack 1 win 365
+IP (tos 0x10, ttl 63, id 43457, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.4.48579 > 213.180.193.3.80: F, cksum 0xd04b (correct), 1:1(0) ack 1 win 365
+IP (tos 0x0, ttl 55, id 19526, offset 0, flags [DF], proto TCP (6), length 40) 213.180.193.3.80 > 172.16.1.4.48579: F, cksum 0xd19b (correct), 1:1(0) ack 2 win 28
+IP (tos 0x0, ttl 54, id 19526, offset 0, flags [DF], proto TCP (6), length 40) 213.180.193.3.80 > 10.102.0.2.48579: F, cksum 0x7448 (correct), 1:1(0) ack 2 win 28
+IP (tos 0x10, ttl 64, id 43458, offset 0, flags [DF], proto TCP (6), length 40) 10.102.0.2.48579 > 213.180.193.3.80: ., cksum 0x72f7 (correct), ack 2 win 365
+IP (tos 0x10, ttl 63, id 43458, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.4.48579 > 213.180.193.3.80: ., cksum 0xd04a (correct), ack 2 win 365
+\end{Verbatim}
+
 Выполним с него \textbf{telnet 217.69.139.90 143},  чтобы проверить, что не
 происходит подключение к сервисам, например, imap.mail.ru на порту 143:
 \begin{Verbatim}
 pc21:~# telnet 217.69.139.90 143
 Trying 217.69.139.90...
+\end{Verbatim}
+
+Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
+\begin{Verbatim}
+IP (tos 0x10, ttl 64, id 12600, offset 0, flags [DF], proto TCP (6), length 60) 10.102.0.2.41859 > 217.69.139.90.143: S, cksum 0x9ecb (correct), 1041078544:1041078544(0) win 5840 <mss 1460,sackOK,timestamp 501800 0,nop,wscale 4>
 \end{Verbatim}
 
 Выполним с хоста \textbf{pc21} \textbf{traceroute -n 10.0.1.1},  чтобы проверить,
@@ -902,6 +1077,26 @@ Connected to 172.16.1.3.
 Escape character is '^]'.
 \end{Verbatim}
 
+Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
+\begin{Verbatim}
+IP (tos 0x10, ttl 64, id 55991, offset 0, flags [DF], proto TCP (6), length 57) 172.16.1.2.49300 > 172.16.1.3.80: P, cksum 0x88cf (correct), 292697404:292697409(5) ack 2915129968 win 913 <nop,nop,timestamp 1332068 75513>
+IP (tos 0x10, ttl 63, id 55991, offset 0, flags [DF], proto TCP (6), length 57) 172.16.1.2.49300 > 10.0.4.20.80: P, cksum 0x27cf (correct), 292697404:292697409(5) ack 2915129968 win 913 <nop,nop,timestamp 1332068 75513>
+IP (tos 0x10, ttl 64, id 0, offset 0, flags [DF], proto TCP (6), length 40) 10.0.4.20.80 > 172.16.1.2.49300: R, cksum 0x2ba4 (correct), 2915129968:2915129968(0) win 0
+IP (tos 0x10, ttl 63, id 0, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.3.80 > 172.16.1.2.49300: R, cksum 0x8ca4 (correct), 2915129968:2915129968(0) win 0
+IP (tos 0x10, ttl 64, id 21009, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.2.50934 > 172.16.1.3.80: S, cksum 0x73a5 (correct), 494929698:494929698(0) win 14600 <mss 1460,sackOK,timestamp 1332531 0,nop,wscale 4>
+IP (tos 0x10, ttl 63, id 21009, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.2.50934 > 10.0.4.20.80: S, cksum 0x12a5 (correct), 494929698:494929698(0) win 14600 <mss 1460,sackOK,timestamp 1332531 0,nop,wscale 4>
+IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto TCP (6), length 60) 10.0.4.20.80 > 172.16.1.2.50934: S, cksum 0xf679 (correct), 1591093637:1591093637(0) ack 494929699 win 5792 <mss 1460,sackOK,timestamp 505375 1332531,nop,wscale 4>
+IP (tos 0x0, ttl 63, id 0, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.3.80 > 172.16.1.2.50934: S, cksum 0x577a (correct), 1591093637:1591093637(0) ack 494929699 win 5792 <mss 1460,sackOK,timestamp 505375 1332531,nop,wscale 4>
+IP (tos 0x10, ttl 64, id 21010, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.2.50934 > 172.16.1.3.80: ., cksum 0x9952 (correct), ack 1 win 913 <nop,nop,timestamp 1332531 505375>
+IP (tos 0x10, ttl 63, id 21010, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.2.50934 > 10.0.4.20.80: ., cksum 0x3852 (correct), ack 1 win 913 <nop,nop,timestamp 1332531 505375>
+IP (tos 0x10, ttl 64, id 21011, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.2.50934 > 172.16.1.3.80: F, cksum 0x9739 (correct), 1:1(0) ack 1 win 913 <nop,nop,timestamp 1333067 505375>
+IP (tos 0x10, ttl 63, id 21011, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.2.50934 > 10.0.4.20.80: F, cksum 0x3639 (correct), 1:1(0) ack 1 win 913 <nop,nop,timestamp 1333067 505375>
+IP (tos 0x0, ttl 64, id 40817, offset 0, flags [DF], proto TCP (6), length 52) 10.0.4.20.80 > 172.16.1.2.50934: F, cksum 0x3787 (correct), 1:1(0) ack 2 win 362 <nop,nop,timestamp 505591 1333067>
+IP (tos 0x0, ttl 63, id 40817, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.80 > 172.16.1.2.50934: F, cksum 0x9887 (correct), 1:1(0) ack 2 win 362 <nop,nop,timestamp 505591 1333067>
+IP (tos 0x10, ttl 64, id 21012, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.2.50934 > 172.16.1.3.80: ., cksum 0x965d (correct), ack 2 win 913 <nop,nop,timestamp 1333070 505591>
+IP (tos 0x10, ttl 63, id 21012, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.2.50934 > 10.0.4.20.80: ., cksum 0x355d (correct), ack 2 win 913 <nop,nop,timestamp 1333070 505591>
+\end{Verbatim}
+
 Для проверки доступа к \textbf{s11} выполним со своей машины
 \textbf{telnet 172.16.1.3 25}:
 \begin{Verbatim}
@@ -909,6 +1104,24 @@ alex@alex-HP-Pavilion-dv5-Notebook-PC:~/np/lab4$ telnet 172.16.1.3 25
 Trying 172.16.1.3...
 Connected to 172.16.1.3.
 Escape character is '^]'.
+\end{Verbatim}
+
+Вывод \textbf{tcpdump -i any -tnv -p tcp} на \textbf{r1}:
+\begin{Verbatim}
+IP (tos 0x10, ttl 64, id 11757, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.2.48103 > 172.16.1.3.25: S, cksum 0xc0b0 (correct), 169781703:169781703(0) win 14600 <mss 1460,sackOK,timestamp 1344554 0,nop,wscale 4>
+IP (tos 0x10, ttl 63, id 11757, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.2.48103 > 10.0.4.10.25: S, cksum 0x5fba (correct), 169781703:169781703(0) win 14600 <mss 1460,sackOK,timestamp 1344554 0,nop,wscale 4>
+IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto TCP (6), length 60) 10.0.4.10.25 > 172.16.1.2.48103: S, cksum 0x1b0a (correct), 2362904855:2362904855(0) ack 169781704 win 5792 <mss 1460,sackOK,timestamp 510225 1344554,nop,wscale 4>
+IP (tos 0x0, ttl 63, id 0, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.3.25 > 172.16.1.2.48103: S, cksum 0x7c00 (correct), 2362904855:2362904855(0) ack 169781704 win 5792 <mss 1460,sackOK,timestamp 510225 1344554,nop,wscale 4>
+IP (tos 0x10, ttl 64, id 11758, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.2.48103 > 172.16.1.3.25: ., cksum 0xbdd7 (correct), ack 1 win 913 <nop,nop,timestamp 1344555 510225>
+IP (tos 0x10, ttl 63, id 11758, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.2.48103 > 10.0.4.10.25: ., cksum 0x5ce1 (correct), ack 1 win 913 <nop,nop,timestamp 1344555 510225>
+IP (tos 0x0, ttl 64, id 12177, offset 0, flags [DF], proto TCP (6), length 60) 10.0.4.10.39104 > 172.16.1.2.113: S, cksum 0xa052 (correct), 2365187712:2365187712(0) win 5840 <mss 1460,sackOK,timestamp 510225 0,nop,wscale 4>
+IP (tos 0x0, ttl 63, id 12177, offset 0, flags [DF], proto TCP (6), length 60) 172.16.1.3.39104 > 172.16.1.2.113: S, cksum 0x0149 (correct), 2365187712:2365187712(0) win 5840 <mss 1460,sackOK,timestamp 510225 0,nop,wscale 4>
+IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.2.113 > 172.16.1.3.39104: R, cksum 0x48fe (correct), 0:0(0) ack 2365187713 win 0
+IP (tos 0x0, ttl 63, id 0, offset 0, flags [DF], proto TCP (6), length 40) 172.16.1.2.113 > 10.0.4.10.39104: R, cksum 0xe807 (correct), 0:0(0) ack 2365187713 win 0
+IP (tos 0x10, ttl 64, id 11759, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.2.48103 > 172.16.1.3.25: F, cksum 0xbc08 (correct), 1:1(0) ack 1 win 913 <nop,nop,timestamp 1345017 510225>
+IP (tos 0x10, ttl 63, id 11759, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.2.48103 > 10.0.4.10.25: F, cksum 0x5b12 (correct), 1:1(0) ack 1 win 913 <nop,nop,timestamp 1345017 510225>
+IP (tos 0x0, ttl 64, id 55305, offset 0, flags [DF], proto TCP (6), length 52) 10.0.4.10.25 > 172.16.1.2.48103: ., cksum 0x5c7f (correct), ack 2 win 362 <nop,nop,timestamp 510411 1345017>
+IP (tos 0x0, ttl 63, id 55305, offset 0, flags [DF], proto TCP (6), length 52) 172.16.1.3.25 > 172.16.1.2.48103: ., cksum 0xbd75 (correct), ack 2 win 362 <nop,nop,timestamp 510411 1345017>
 \end{Verbatim}
 
 \end{document}
