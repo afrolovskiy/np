@@ -491,7 +491,7 @@ iptables -A FORWARD -o $VPN -j ACCEPT
 # разрешаем сеть МГТУ
 iptables -A FORWARD -i $LAN -s 10.0.1.1 -d 172.168.0.0/16 -p tcp --dport 80 -j ACCEPT
 # запрещаем vkontakte.ru
-iptables -A FORWARD -i $LAN -s 10.0.1.1 -d 87.240.156.160/27 -p tcp --dport 80 -j DROP
+iptables -A FORWARD -i $LAN -s 10.0.1.1 -d 87.240.156.160/28 -p tcp --dport 80 -j DROP
 # запрещаем vk.com
 iptables -A FORWARD -i $LAN -s 10.0.1.1 -d 87.240.131.96/27 -p tcp --dport 80 -j DROP
 iptables -A FORWARD -i $LAN -s 10.0.1.1 -d 87.240.143.244 -p tcp --dport 80 -j DROP
@@ -546,7 +546,7 @@ Chain FORWARD (policy DROP 0 packets, 0 bytes)
    23  1512 ACCEPT     all  --  tun0   *       0.0.0.0/0            0.0.0.0/0           
    23  1092 ACCEPT     all  --  *      tun0    0.0.0.0/0            0.0.0.0/0           
     0     0 ACCEPT     tcp  --  eth0   *       10.0.1.1             172.168.0.0/16      tcp dpt:80 
-    9   540 DROP       tcp  --  eth0   *       10.0.1.1             87.240.156.160/27   tcp dpt:80 
+    9   540 DROP       tcp  --  eth0   *       10.0.1.1             87.240.156.160/28   tcp dpt:80 
     0     0 DROP       tcp  --  eth0   *       10.0.1.1             87.240.131.96/27    tcp dpt:80 
    16   720 ACCEPT     tcp  --  eth0   *       10.0.1.1             0.0.0.0/0           tcp dpt:80 
    12   540 ACCEPT     tcp  --  eth0   *       10.0.2.1             81.19.70.3          tcp dpt:80 
