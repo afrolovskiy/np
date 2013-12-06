@@ -708,10 +708,10 @@ IP (tos 0x0, ttl 64, id 5093, offset 0, flags [DF], proto TCP (6), length 52) 10
 \section{Проверка правил фильтрации}
 
 Проверим правильность найтройки правил фильтрации на маршрутизаторах
-с использованием  telnet.
+с использованием  telnet и traceroute.
 
-С хоста \textbf{ws11} должны быть доступны любые соединения на порте 80, кроме
-сервисов vkontakte.ru и vk.com.
+С хоста \textbf{ws11} должны быть доступны любые соединения по vpn и соединения на
+порте 80, кроме сервисов vkontakte.ru и vk.com.
 Выполним с хоста \textbf{ws11} \textbf{telnet 87.240.156.161 80} для проверки запрещения подключения
 к сервису vkontakte.ru на порту 80:
 \begin{Verbatim}
@@ -735,8 +735,19 @@ ws11:~# telnet 217.69.139.90 143
 Trying 217.69.139.90...
 \end{Verbatim}
 
-С хоста \textbf{ws12} должны быть доступны любые соединения на порте 80, 443
-только для mail.ru и rambler.ru. 
+Выполним с хоста \textbf{ws11} \textbf{traceroute -n 10.102.0.2},  чтобы проверить,
+что разрешен vpn:
+\begin{Verbatim}
+ws11:~# traceroute -n 10.102.0.2
+traceroute to 10.102.0.2 (10.102.0.2), 64 hops max, 40 byte packets
+ 1 ^[[6~ 10.0.0.1  1 ms  0 ms  0 ms
+ 2  10.200.1.2  1 ms  1 ms  1 ms
+ 3  10.102.0.2  1 ms  1 ms  1 ms
+\end{Verbatim}
+
+
+С хоста \textbf{ws12} должны быть доступны любые соединения по vpn и
+соедиения на порте 80, 443 только для mail.ru и rambler.ru. 
 
 Выполним с хоста \textbf{ws12} \textbf{telnet 217.69.139.199 80} для проверки
 разрешения подключения к mail.ru на порту 80:
@@ -788,7 +799,19 @@ ws12:~# telnet 217.69.139.90 143
 Trying 217.69.139.90...
 \end{Verbatim}
 
-С хоста \textbf{ws13} должны быть доступны любые соединения на порте 80, 110, 443.
+Выполним с хоста \textbf{ws12} \textbf{traceroute -n 10.102.0.2},  чтобы проверить,
+что разрешен vpn:
+\begin{Verbatim}
+ws12:~# traceroute -n 10.102.0.2
+traceroute to 10.102.0.2 (10.102.0.2), 64 hops max, 40 byte packets
+ 1  10.0.0.1  8 ms  0 ms  0 ms
+ 2  10.200.1.2  1 ms  2 ms  4 ms
+ 3  10.102.0.2  2 ms  1 ms  1 ms
+\end{Verbatim}
+
+
+С хоста \textbf{ws13} должны быть доступны любые соединения по vpn и соедиения
+на порте 80, 110, 443.
 
 Выполним с хоста \textbf{ws13} \textbf{telnet 213.180.193.3 80},  чтобы проверить, что
 происходит подключение к сервисам, например, ya.ru на порту 80:
@@ -825,7 +848,19 @@ ws13:~# telnet 217.69.139.90 143
 Trying 217.69.139.90...
 \end{Verbatim}
 
-С хоста \textbf{pc21} должны быть доступны любые соединения на порте 80.
+Выполним с хоста \textbf{ws13} \textbf{traceroute -n 10.102.0.2},  чтобы проверить,
+что разрешен vpn:
+\begin{Verbatim}
+ws13:~# traceroute -n 10.102.0.2
+traceroute to 10.102.0.2 (10.102.0.2), 64 hops max, 40 byte packets
+ 1  10.0.0.1  1 ms  0 ms  0 ms
+ 2  10.200.1.2  2 ms  1 ms  1 ms
+ 3  10.102.0.2  1 ms  1 ms  1 ms
+\end{Verbatim}
+
+С хоста \textbf{pc21} должны быть доступны любые соединения по vpn и
+соединения на порте 80.
+
 Выполним с него \textbf{telnet 213.180.193.3 80},  чтобы проверить, что
 происходит подключение к сервисам, например, ya.ru на порту 80:
 \begin{Verbatim}
@@ -840,6 +875,16 @@ Escape character is '^]'.
 \begin{Verbatim}
 pc21:~# telnet 217.69.139.90 143
 Trying 217.69.139.90...
+\end{Verbatim}
+
+Выполним с хоста \textbf{pc21} \textbf{traceroute -n 10.0.1.1},  чтобы проверить,
+что разрешен vpn:
+\begin{Verbatim}
+pc21:~# traceroute -n 10.0.1.1
+traceroute to 10.0.1.1 (10.0.1.1), 64 hops max, 40 byte packets
+ 1  10.102.0.1  0 ms  0 ms  0 ms
+ 2  10.200.1.1  1 ms  1 ms  1 ms
+ 3  10.0.1.1  1 ms  1 ms  1 ms
 \end{Verbatim}
 
 
