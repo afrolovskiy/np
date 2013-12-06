@@ -491,7 +491,7 @@ iptables -A FORWARD -o $VPN -j ACCEPT
 # разрешаем сеть МГТУ
 iptables -A FORWARD -i $LAN -s 10.0.1.1 -d 172.168.0.0/16 -p tcp --dport 80 -j ACCEPT
 # запрещаем vkontakte.ru
-iptables -A FORWARD -i $LAN -s 10.0.1.1 -d 87.240.156.164/30 -p tcp --dport 80 -j DROP
+iptables -A FORWARD -i $LAN -s 10.0.1.1 -d 87.240.156.160/27 -p tcp --dport 80 -j DROP
 # запрещаем vk.com
 iptables -A FORWARD -i $LAN -s 10.0.1.1 -d 87.240.131.96/27 -p tcp --dport 80 -j DROP
 # разрешаем все остальные http запросы
@@ -538,7 +538,7 @@ Chain FORWARD (policy DROP 0 packets, 0 bytes)
     0     0 ACCEPT     all  --  tun0   *       0.0.0.0/0            0.0.0.0/0           
     0     0 ACCEPT     all  --  *      tun0    0.0.0.0/0            0.0.0.0/0           
     0     0 ACCEPT     tcp  --  eth0   *       10.0.1.1             172.168.0.0/16      tcp dpt:80 
-    0     0 DROP       tcp  --  eth0   *       10.0.1.1             87.240.156.164/30   tcp dpt:80 
+    0     0 DROP       tcp  --  eth0   *       10.0.1.1             87.240.156.160/27   tcp dpt:80 
     0     0 DROP       tcp  --  eth0   *       10.0.1.1             87.240.131.96/27    tcp dpt:80 
     0     0 ACCEPT     tcp  --  eth0   *       10.0.1.1             0.0.0.0/0           tcp dpt:80 
     0     0 ACCEPT     tcp  --  eth0   *       10.0.2.1             81.19.70.3          tcp dpt:80 
@@ -707,7 +707,141 @@ IP (tos 0x0, ttl 64, id 5093, offset 0, flags [DF], proto TCP (6), length 52) 10
 
 \section{Проверка правил фильтрации}
 
-Используем telnet.
+Проверим правильность найтройки правил фильтрации на маршрутизаторах
+с использованием  telnet.
+
+С хоста \textbf{ws11} должны быть доступны любые соединения на порте 80, кроме
+сервисов vkontakte.ru и vk.com.
+Выполним с хоста \textbf{ws11} \textbf{telnet 87.240.156.161 80} для проверки запрещения подключения
+к сервису vkontakte.ru на порту 80:
+\begin{Verbatim}
+ws11:~# telnet 87.240.156.161 80
+Trying 87.240.156.161...
+\end{Verbatim}
+
+Выполним с хоста \textbf{ws11} \textbf{telnet 213.180.193.3 80},  чтобы проверить, что
+происходит подключение к другим сервисам, например, ya.ru:
+\begin{Verbatim}
+ws11:~# telnet 213.180.193.3 80
+Trying 213.180.193.3...
+Connected to 213.180.193.3.
+Escape character is '^]'.
+\end{Verbatim}
+
+Выполним с хоста \textbf{ws11} \textbf{telnet 217.69.139.90 143},  чтобы проверить,
+что не происходит подключение к сервисам, например, imap.mail.ru на порту 143:
+\begin{Verbatim}
+ws11:~# telnet 217.69.139.90 143
+Trying 217.69.139.90...
+\end{Verbatim}
+
+С хоста \textbf{ws12} должны быть доступны любые соединения на порте 80, 443
+только для mail.ru и rambler.ru. 
+
+Выполним с хоста \textbf{ws12} \textbf{telnet 217.69.139.199 80} для проверки
+разрешения подключения к mail.ru на порту 80:
+\begin{Verbatim}
+ws12:~# telnet 217.69.139.199 80
+Trying 217.69.139.199...
+Connected to 217.69.139.199.
+Escape character is '^]'.
+\end{Verbatim}
+
+Выполним с хоста \textbf{ws12} \textbf{telnet 217.69.139.199 443} для проверки
+разрешения подключения к mail.ru на порту 443:
+\begin{Verbatim}
+ws12:~# telnet 217.69.139.199 443
+Trying 217.69.139.199...
+Connected to 217.69.139.199.
+Escape character is '^]'.
+\end{Verbatim}
+
+Выполним с хоста \textbf{ws12} \textbf{telnet 81.19.70.3 80} для проверки
+разрешения подключения к rambler.ru на порту 80:
+\begin{Verbatim}
+ws12:~# telnet 81.19.70.3 80
+Trying 81.19.70.3...
+Connected to 81.19.70.3.
+Escape character is '^]'.
+\end{Verbatim}
+
+Выполним с хоста \textbf{ws12} \textbf{telnet 81.19.70.3 80} для проверки разрешения
+подключения к rambler.ru на порту 443:
+\begin{Verbatim}
+ws12:~# telnet 81.19.70.3 443
+Trying 81.19.70.3...
+Connected to 81.19.70.3.
+Escape character is '^]'.
+\end{Verbatim}
+
+Выполним с хоста \textbf{ws12} \textbf{telnet 213.180.193.3 80},  чтобы проверить, что
+не происходит подключение к другим сервисам, например, ya.ru:
+\begin{Verbatim}
+ws12:~# telnet 213.180.193.3 80
+Trying 213.180.193.3...
+\end{Verbatim}
+
+Выполним с хоста \textbf{ws12} \textbf{telnet 217.69.139.90 143},  чтобы проверить,
+что не происходит подключение к сервисам, например, imap.mail.ru на порту 143:
+\begin{Verbatim}
+ws12:~# telnet 217.69.139.90 143
+Trying 217.69.139.90...
+\end{Verbatim}
+
+С хоста \textbf{ws13} должны быть доступны любые соединения на порте 80, 110, 443.
+
+Выполним с хоста \textbf{ws13} \textbf{telnet 213.180.193.3 80},  чтобы проверить, что
+происходит подключение к сервисам, например, ya.ru на порту 80:
+\begin{Verbatim}
+ws13:~# telnet 213.180.193.3 80
+Trying 213.180.193.3...
+Connected to 213.180.193.3.
+Escape character is '^]'.
+\end{Verbatim}
+
+Выполним с него \textbf{telnet 213.180.204.11 443},  чтобы проверить, что
+происходит подключение к сервисам, например, yandex.ru на порту 443:
+\begin{Verbatim}
+ws13:~# telnet 213.180.204.11 443
+Trying 213.180.204.11...
+Connected to 213.180.204.11.
+Escape character is '^]'.
+\end{Verbatim}
+
+Выполним с него \textbf{telnet 217.69.139.74 110},  чтобы проверить, что
+происходит подключение к сервисам, например, pop.mail.ru на порту 110:
+\begin{Verbatim}
+ws13:~# telnet 217.69.139.74 110
+Trying 217.69.139.74...
+Connected to 217.69.139.74.
+Escape character is '^]'.
++OK
+\end{Verbatim}
+
+Выполним с него \textbf{telnet 217.69.139.90 143},  чтобы проверить, что не
+происходит подключение к сервисам, например, imap.mail.ru на порту 143:
+\begin{Verbatim}
+ws13:~# telnet 217.69.139.90 143
+Trying 217.69.139.90...
+\end{Verbatim}
+
+С хоста \textbf{pc21} должны быть доступны любые соединения на порте 80.
+Выполним с него \textbf{telnet 213.180.193.3 80},  чтобы проверить, что
+происходит подключение к сервисам, например, ya.ru на порту 80:
+\begin{Verbatim}
+pc21:~# telnet 213.180.193.3 80
+Trying 213.180.193.3...
+Connected to 213.180.193.3.
+Escape character is '^]'.
+\end{Verbatim}
+
+Выполним с него \textbf{telnet 217.69.139.90 143},  чтобы проверить, что не
+происходит подключение к сервисам, например, imap.mail.ru на порту 143:
+\begin{Verbatim}
+pc21:~# telnet 217.69.139.90 143
+Trying 217.69.139.90...
+\end{Verbatim}
+
 
 \section{Проверка доступа к внутреннему серверу}
 
