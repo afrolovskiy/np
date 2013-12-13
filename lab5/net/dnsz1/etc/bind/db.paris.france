@@ -5,8 +5,8 @@ paris.france. IN SOA ns1.france. admin.paris.france. (
 													  1H
 													  1W
 													  1D )
+			  IN NS ns1.paris.france.
 		      IN NS ns1.france.
-  		      IN NS ns1.paris.france.
 
 paris.france. IN MX 10 mail.paris.france.
 mail.paris.france. IN A 2.0.7.1
