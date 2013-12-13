@@ -1,4 +1,4 @@
-. 1D IN NS ns1.root
-. 1D IN NS ns1.italy
+. 1D IN NS ns1.root.
+. 1D IN NS ns1.italy.
 ns1.root. 1D IN A 2.0.0.1
 ns1.italy. 1D IN A 2.0.1.1
