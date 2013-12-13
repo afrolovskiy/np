@@ -1,6 +1,6 @@
 $TTL    1D
 rome.italy. IN SOA ns1.rome.italy. admin.rome.italy. ( 1 1D 1H 1W 1D ) IN NS ns1.rome.italy.
-n1.rome.italy. IN A 2.0.3.1
+ns1.rome.italy. IN A 2.0.3.1
 
 rome.italy. IN A 2.0.6.1
 mail.rome.italy. IN A 2.0.6.1
