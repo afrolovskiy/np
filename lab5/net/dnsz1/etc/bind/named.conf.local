@@ -1,0 +1,14 @@
+zone "." {
+    type hint;
+    file "/etc/bind/db.root";
+};
+
+zone "france" {
+    type master;
+    file "/etc/bind/db.france";
+};
+
+zone "paris.france" {
+    type master;
+    file "/etc/bind/db.paris.france";
+};

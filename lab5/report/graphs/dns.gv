@@ -1,0 +1,96 @@
+digraph G {
+        margin=0;
+        node [margin=0];
+        
+subgraph cluster_0 {
+color=none;
+rank=same;
+_2_0_3_1 [shape="none", label=<
+<TABLE BGCOLOR="#DDDDDD" CELLPADDING="0" CELLSPACING="0" CELLBORDER="0">
+<TR><TD>NS-сервер доменов rome.italy и venice.italy</TD></TR>
+<TR><TD>IP: <B>2.0.3.1</B> (dns1)</TD></TR>
+<TR><TD><B>n1.rome.italy, n1.venice.italy</B></TD></TR>
+</TABLE>>];
+_2_0_3_1_records [shape="none", label=<
+<TABLE BGCOLOR="#FFFFFF" CELLPADDING="0" CELLSPACING="0" CELLBORDER="0">
+<TR><TD>mail.rome.italy: <B>2.0.6.1</B></TD></TR>
+<TR><TD>mail.venice.italy: <B>2.0.5.1</B></TD></TR>
+<TR><TD>rome.italy: <B>2.0.6.1</B></TD></TR>
+<TR><TD>venice.italy: <B>2.0.5.1</B></TD></TR>
+<TR><TD>MX-запись для rome.italy: <B>mail.rome.italy</B></TD></TR>
+<TR><TD>MX-запись для venice.italy: <B>mail.venice.italy</B></TD></TR>
+</TABLE>>];
+_2_0_3_1 -> _2_0_3_1_records [constraint=False, dir=none];
+}
+subgraph cluster_1 {
+color=none;
+rank=same;
+_2_0_1_1 [shape="none", label=<
+<TABLE BGCOLOR="#DDDDDD" CELLPADDING="0" CELLSPACING="0" CELLBORDER="0">
+<TR><TD>Корневой сервер DNS и сервер зоны italy</TD></TR>
+<TR><TD>IP: <B>2.0.1.1</B> (dnsr2)</TD></TR>
+<TR><TD><B>ns1.italy</B></TD></TR>
+</TABLE>>];
+_2_0_1_1_records [shape="none", label=<
+<TABLE BGCOLOR="#FFFFFF" CELLPADDING="0" CELLSPACING="0" CELLBORDER="0">
+<TR><TD>NS-сервер зоны france:</TD></TR><TR><TD><B>ns1.france 2.0.2.1</B></TD></TR>
+<TR><TD>NS-сервер домена rome.italy:</TD></TR><TR><TD><B>ns1.rome.italy 2.0.3.1</B></TD></TR>
+<TR><TD>NS-сервер домена venice.italy:</TD></TR><TR><TD><B>ns1.venice.italy 2.0.3.1</B></TD></TR>
+</TABLE>>];
+_2_0_1_1 -> _2_0_1_1_records [constraint=False, dir=none];
+}
+subgraph cluster_2 {
+color=none;
+rank=same;
+_2_0_0_1 [shape="none", label=<
+<TABLE BGCOLOR="#DDDDDD" CELLPADDING="0" CELLSPACING="0" CELLBORDER="0">
+<TR><TD>Корневой сервер DNS</TD></TR>
+<TR><TD>IP: <B>2.0.0.1</B> (dnsr1)</TD></TR>
+<TR><TD><B>ns1.root</B></TD></TR>
+</TABLE>>];
+_2_0_0_1_records [shape="none", label=<
+<TABLE BGCOLOR="#FFFFFF" CELLPADDING="0" CELLSPACING="0" CELLBORDER="0">
+<TR><TD>NS-сервер зоны france:</TD></TR><TR><TD><B>ns1.france 2.0.2.1</B></TD></TR>
+<TR><TD>NS-сервер зоны italy:</TD></TR><TR><TD><B>ns1.italy 2.0.1.1</B></TD></TR>
+</TABLE>>];
+_2_0_0_1 -> _2_0_0_1_records [constraint=False, dir=none];
+}
+subgraph cluster_3 {
+color=none;
+rank=same;
+_2_0_4_1 [shape="none", label=<
+<TABLE BGCOLOR="#DDDDDD" CELLPADDING="0" CELLSPACING="0" CELLBORDER="0">
+<TR><TD>NS-сервер домена paris.france</TD></TR>
+<TR><TD>IP: <B>2.0.4.1</B> (dns2)</TD></TR>
+<TR><TD><B>-</B></TD></TR>
+</TABLE>>];
+_2_0_4_1_records [shape="none", label=<
+<TABLE BGCOLOR="#FFFFFF" CELLPADDING="0" CELLSPACING="0" CELLBORDER="0">
+<TR><TD>NS-сервер домена ns1.france:</TD></TR><TR><TD><B>2.0.2.1 </B></TD></TR>
+<TR><TD>NS-сервер домена ns1.paris.france:</TD></TR><TR><TD><B>2.0.4.1 </B></TD></TR>
+<TR><TD>mail.paris.france: <B>2.0.7.1</B></TD></TR>
+<TR><TD>MX-запись для paris.france: <B>mail.paris.france</B></TD></TR>
+</TABLE>>];
+_2_0_4_1 -> _2_0_4_1_records [constraint=False, dir=none];
+}
+subgraph cluster_4 {
+color=none;
+rank=same;
+_2_0_2_1 [shape="none", label=<
+<TABLE BGCOLOR="#DDDDDD" CELLPADDING="0" CELLSPACING="0" CELLBORDER="0">
+<TR><TD>NS-сервер зоны france, а так же домена paris.france</TD></TR>
+<TR><TD>IP: <B>2.0.2.1</B> (dnsz1)</TD></TR>
+<TR><TD><B>ns1.france</B></TD></TR>
+</TABLE>>];
+_2_0_2_1_records [shape="none", label=<
+<TABLE BGCOLOR="#FFFFFF" CELLPADDING="0" CELLSPACING="0" CELLBORDER="0">
+<TR><TD>ns1.paris.france: <B>2.0.4.1</B></TD></TR>
+</TABLE>>];
+_2_0_2_1 -> _2_0_2_1_records [constraint=False, dir=none];
+}
+_2_0_0_1 -> _2_0_1_1;
+_2_0_0_1 -> _2_0_2_1;
+_2_0_1_1 -> _2_0_3_1;
+_2_0_1_1 -> _2_0_2_1;
+}
+

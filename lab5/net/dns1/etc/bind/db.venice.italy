@@ -1,0 +1,7 @@
+$TTL    1D
+venice.italy. IN SOA ns1.venice.italy. admin.venice.italy. ( 1 1D 1H 1W 1D ) IN NS ns1.venice.italy.
+n1.venice.italy. IN A 2.0.3.1
+
+venice.italy. IN A 2.0.5.1
+mail.venice.italy. IN A 2.0.5.1
+venice.italy. IN MX 10 mail.venice.italy.

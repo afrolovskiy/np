@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage[x11names, rgb]{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{snakes,arrows,shapes}
+\usepackage{amsmath}
+%
+%
+
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{0pt}%
+
+%
+
+\begin{document}
+\pagestyle{empty}
+%
+%
+%
+
+\enlargethispage{100cm}
+% Start of code
+\begin{tikzpicture}[>=latex',line join=bevel,]
+%%
+\node (mail2) at (560bp,103bp) [draw=green,diamond] {mail2};
+  \node (mail3) at (650bp,103bp) [draw=green,diamond] {mail3};
+  \node (mail1) at (470bp,103bp) [draw=green,diamond] {mail1};
+  \node (wan) at (335bp,12bp) [draw=brown,ellipse] {2.0.0.0/8};
+  \node (dns2) at (110bp,103bp) [draw=green,diamond] {dns2};
+  \node (dns1) at (20bp,103bp) [draw=green,diamond] {dns1};
+  \node (dnsr2) at (290bp,103bp) [draw=green,diamond] {dnsr2};
+  \node (dnsr1) at (200bp,103bp) [draw=green,diamond] {dnsr1};
+  \node (dnsz1) at (380bp,103bp) [draw=green,diamond] {dnsz1};
+  \draw [gray,] (mail2) ..controls (548.87bp,72.297bp) and (538.73bp,52.573bp)  .. (523bp,42bp) .. controls (498.04bp,25.219bp) and (413.55bp,17.135bp)  .. (wan);
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (574.5bp,52bp) node {eth0: 2.0.6.1};
+  \draw [gray,] (dnsz1) ..controls (371.43bp,72.778bp) and (365.56bp,55.831bp)  .. (358bp,42bp) .. controls (354.41bp,35.435bp) and (349.46bp,28.767bp)  .. (wan);
+  \draw (399.5bp,52bp) node {eth0: 2.0.2.1};
+  \draw [gray,] (dns2) ..controls (114.47bp,70.757bp) and (120.14bp,52.375bp)  .. (133bp,42bp) .. controls (158.52bp,21.408bp) and (252.65bp,14.911bp)  .. (wan);
+  \draw (166.5bp,52bp) node {eth0: 2.0.4.1};
+  \draw [gray,] (mail1) ..controls (459.84bp,72.1bp) and (450.94bp,53.288bp)  .. (437bp,42bp) .. controls (416.91bp,25.741bp) and (388.29bp,18.293bp)  .. (wan);
+  \draw (485.5bp,52bp) node {eth0: 2.0.5.1};
+  \draw [gray,] (dnsr2) ..controls (284.32bp,72.073bp) and (283.96bp,55.053bp)  .. (291bp,42bp) .. controls (295.91bp,32.885bp) and (304.95bp,26.003bp)  .. (wan);
+  \draw (324.5bp,52bp) node {eth0: 2.0.1.1};
+  \draw [gray,] (dns1) ..controls (26.53bp,71.637bp) and (33.703bp,52.257bp)  .. (48bp,42bp) .. controls (68.404bp,27.362bp) and (232.89bp,17.251bp)  .. (wan);
+  \draw (81.5bp,52bp) node {eth0: 2.0.3.1};
+  \draw [gray,] (dnsr1) ..controls (200.49bp,68.369bp) and (203.87bp,52.307bp)  .. (214bp,42bp) .. controls (226.48bp,29.303bp) and (272.88bp,20.537bp)  .. (wan);
+  \draw (248.5bp,52bp) node {eth0: 2.0.0.1};
+  \draw [gray,] (mail3) ..controls (638.72bp,72.218bp) and (628.27bp,52.219bp)  .. (612bp,42bp) .. controls (591.6bp,29.185bp) and (435.15bp,18.145bp)  .. (wan);
+  \draw (664.5bp,52bp) node {eth0: 2.0.7.1};
+%
+\end{tikzpicture}
+% End of code
+
+%
+\end{document}
+%
+
+
+

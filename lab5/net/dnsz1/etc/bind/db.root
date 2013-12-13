@@ -1,0 +1,5 @@
+. 1D IN NS ns1.root.
+     IN NS ns2.root.
+
+ns1.root. 1D IN A 2.0.0.1
+ns2.root. 1D IN A 2.0.1.1

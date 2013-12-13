@@ -1,0 +1,8 @@
+$TTL    1D
+. IN SOA ns1.italy admin.italy ( 1 4H 1H 1W 1D ) IN NS ns1.italy.
+
+france. IN NS ns1.france.
+italy. IN NS ns1.italy.
+
+ns1.france. IN A 2.0.2.1
+ns1.italy. IN A 2.0.1.1

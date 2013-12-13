@@ -1,0 +1,28 @@
+graph G {
+node [shape=diamond, color="green"];
+dns1;
+dns2;
+dnsr1;
+dnsr2;
+dnsz1;
+mail1;
+mail2;
+mail3;
+node [shape=ellipse, color="brown"];
+wan [label="2.0.0.0/8"];
+wan [label="2.0.0.0/8"];
+wan [label="2.0.0.0/8"];
+wan [label="2.0.0.0/8"];
+wan [label="2.0.0.0/8"];
+wan [label="2.0.0.0/8"];
+wan [label="2.0.0.0/8"];
+wan [label="2.0.0.0/8"];
+dns1 -- wan [label="eth0: 2.0.3.1", color="gray"];
+dns2 -- wan [label="eth0: 2.0.4.1", color="gray"];
+dnsr1 -- wan [label="eth0: 2.0.0.1", color="gray"];
+dnsr2 -- wan [label="eth0: 2.0.1.1", color="gray"];
+dnsz1 -- wan [label="eth0: 2.0.2.1", color="gray"];
+mail1 -- wan [label="eth0: 2.0.5.1", color="gray"];
+mail2 -- wan [label="eth0: 2.0.6.1", color="gray"];
+mail3 -- wan [label="eth0: 2.0.7.1", color="gray"];
+}
