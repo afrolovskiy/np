@@ -46,7 +46,7 @@ _2_0_0_1 [shape="none", label=<
 <TABLE BGCOLOR="#DDDDDD" CELLPADDING="0" CELLSPACING="0" CELLBORDER="0">
 <TR><TD>Корневой сервер DNS</TD></TR>
 <TR><TD>IP: <B>2.0.0.1</B> (dnsr1)</TD></TR>
-<TR><TD><B>ns1.root</B></TD></TR>
+<TR><TD><B>-</B></TD></TR>
 </TABLE>>];
 _2_0_0_1_records [shape="none", label=<
 <TABLE BGCOLOR="#FFFFFF" CELLPADDING="0" CELLSPACING="0" CELLBORDER="0">
