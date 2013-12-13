@@ -1,5 +1,12 @@
 $TTL    1D
-. IN SOA ns1.root. admin.root. ( 1 4H 1H 1W 1D ) IN NS ns1.root.
+. IN SOA ns1.root. admin.root. (
+                                1
+                                4H
+                                1H
+                                1W
+                                1D ) 
+  IN NS ns1.root.
+
 ns1.root. IN A 2.0.0.1
 
 italy. IN NS ns1.italy.

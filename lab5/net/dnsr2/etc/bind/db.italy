@@ -1,5 +1,11 @@
 $TTL    1D
-italy. IN SOA ns1.italy admin.italy ( 1 2D 1H 1W 1D ) IN NS ns1.italy.
+italy. IN SOA ns1.italy admin.italy (
+									 1
+									 2D
+									 1H
+									 1W
+									 1D )
+       IN NS ns1.italy.
 
 venice.italy. IN NS ns1.venice.italy.
 rome.italy. IN NS ns1.rome.italy.

@@ -9,7 +9,7 @@ _2_0_3_1 [shape="none", label=<
 <TABLE BGCOLOR="#DDDDDD" CELLPADDING="0" CELLSPACING="0" CELLBORDER="0">
 <TR><TD>NS-сервер доменов rome.italy и venice.italy</TD></TR>
 <TR><TD>IP: <B>2.0.3.1</B> (dns1)</TD></TR>
-<TR><TD><B>n1.rome.italy, n1.venice.italy</B></TD></TR>
+<TR><TD><B>ns1.rome.italy, ns1.venice.italy</B></TD></TR>
 </TABLE>>];
 _2_0_3_1_records [shape="none", label=<
 <TABLE BGCOLOR="#FFFFFF" CELLPADDING="0" CELLSPACING="0" CELLBORDER="0">
@@ -83,7 +83,9 @@ _2_0_2_1 [shape="none", label=<
 </TABLE>>];
 _2_0_2_1_records [shape="none", label=<
 <TABLE BGCOLOR="#FFFFFF" CELLPADDING="0" CELLSPACING="0" CELLBORDER="0">
+<TR><TD>mail.paris.france: <B>2.0.7.1</B></TD></TR>
 <TR><TD>ns1.paris.france: <B>2.0.4.1</B></TD></TR>
+<TR><TD>MX-запись для paris.france: <B>mail.paris.france</B></TD></TR>
 </TABLE>>];
 _2_0_2_1 -> _2_0_2_1_records [constraint=False, dir=none];
 }

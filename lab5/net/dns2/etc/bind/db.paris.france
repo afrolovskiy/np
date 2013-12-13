@@ -1,5 +1,12 @@
 $TTL    1D
-paris.france. IN SOA ns1.paris.france. admin.paris.france. ( 1 1D 1H 1W 1D ) IN NS ns1.paris.france.
+paris.france. IN SOA ns1.paris.france. admin.paris.france. (
+															1
+															1D
+															1H
+															1W
+															1D )
+			  IN NS ns1.paris.france.
+
 ns1.paris.france. IN NS 2.0.4.1
 
 paris.france. IN MX 10 mail.paris.france.

@@ -1,5 +1,11 @@
 $TTL    1D
-france. IN SOA ns1.france admin.france ( 1 1D 1H 1W 1D ) IN NS ns1.france.
+france. IN SOA ns1.france. admin.france. (
+										  1
+										  1D
+										  1H
+										  1W
+										  1D )
+	    IN NS ns1.france.
 
 paris.france. IN NS ns1.france.
 paris.france. IN NS ns1.paris.france.
